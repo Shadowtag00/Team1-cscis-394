@@ -1,0 +1,26 @@
+doctype html 
+
+html 
+    head 
+    title Comments
+body 
+    h1 Comments
+
+    form (name = "post-comments", method = "post")
+        div.input
+            span.label Post Comment 
+            input(type="text", name="commentbox")
+        div.actions
+            input(type="submit",value="post")
+            
+    br
+
+    table 
+        thead 
+            tr
+                td Comments 
+        tbody 
+            
+            each comment in comments 
+                tr 
+                    td #{comment.text}
