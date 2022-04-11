@@ -3,6 +3,10 @@ doctype html
 html 
     head 
     title Comment Filter Application
+    style. 
+        table, tr, td {
+            border:1px solid black;
+        }
 body 
 
     form(name="comment-page", method ="post")
@@ -15,7 +19,7 @@ body
     br
 
     h1 Comments 
-    table 
+    table(style='width:100%') 
         tbody 
 
             each comment in comments 
