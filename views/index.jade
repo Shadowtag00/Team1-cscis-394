@@ -4,7 +4,7 @@ html
     head 
     title Comment Filter Application
     style. 
-        table, tr, td {
+        table, th, tr, td {
             border:1px solid black;
         }
 body 
@@ -20,9 +20,13 @@ body
 
     h1 Comments 
     table(style='width:50%') 
+        thead 
+            tr 
+                td Comment Id 
+                td Comment
         tbody 
-
             each comment in comments 
                 tr 
+                    td #{comment.comment_id}
                     td #{comment.text} 
                     
