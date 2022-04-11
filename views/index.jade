@@ -11,7 +11,7 @@ body
 
     form(name="comment-page", method ="post")
         div.input 
-            span.label Post a comment below: 
+            span.label Post a comment below:
             br
             textarea(placeholder='Add a comment...',name="commentbox", cols="40", rows="5",maxlength="250")  
         div.actions 
@@ -22,8 +22,8 @@ body
     table(style='width:50%') 
         thead 
             tr 
-                td Comment Id 
-                td Comment
+                th Comment Id 
+                th Comment
         tbody 
             each comment in comments 
                 tr 
