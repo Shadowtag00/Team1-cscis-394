@@ -5,7 +5,7 @@ const { urlencoded } = require('express');
 const port = process.env.PORT || 3002
 
 //set view engine for express app
-app.set("view engine", "jade")
+//app.set("view engine", "jade")
 
 //for parsing application/json
 app.use(bodyParser.json());
