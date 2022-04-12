@@ -44,6 +44,7 @@ const pool = new Pool(connectionParams)
     port: 5432
 }) */
 
+//Display comments
 app.get('/', (req, res) =>{
 
     console.log('Accept: ' + req.get('Accept'))
@@ -81,8 +82,18 @@ app.get('/', (req, res) =>{
     
 })
 
+//Delete comment
+app.get('/delete', (req, res) =>{
+    pool.query(`DELETE FROM comments WHERE comment_id = '${req.body.delete_id}'`, (err,result) => {
+        console.log(err,result)
+
+        res.redirect('/')
+    })
+})
+
+//Add comment
 app.post('/', (req,res) => {
-    pool.query(`INSERT INTO comments (text,post_date) VALUES ('${req.body.commentbox}')`, (err, result) => {
+    pool.query(`INSERT INTO comments (text) VALUES ('${req.body.commentbox}')`, (err, result) => {
         console.log(err, result)
 
         res.redirect('/')

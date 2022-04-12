@@ -8,13 +8,21 @@ html
             border:1px solid black;
         }
 body 
-    form(name="comment-page", method ="post")
+    form(action="/", name="comment-page", method ="post")
         div.input 
             span.label Post a comment:
             br
             textarea(placeholder='Add a comment...',name="commentbox", cols="40", rows="5",maxlength="250").  
         div.actions 
             input(type="submit", value="Post Comment")
+        br
+    
+    form(action="/delete", name="delete_record")
+        div.input 
+            span.label Enter the comment ID of the comment you'd like to delete:
+            input(type="number",name="delete_id", min="1")
+        div.actions 
+            input(type="submit", value="Delete Comment") 
     br
 
     h1 Comments 
