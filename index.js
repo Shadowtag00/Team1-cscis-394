@@ -84,7 +84,7 @@ app.get('/', (req, res) =>{
 
 /*
 //Delete comment
-app.get('/', (req, res) =>{
+app.get('/', (req, res) => {
     pool.query(`DELETE FROM comments WHERE comment_id = '${req.params.delete_id}'`, (err,result) => {
         console.log(err,result)
 
@@ -92,6 +92,17 @@ app.get('/', (req, res) =>{
     })
 })
 */
+
+//Delete comment
+app.delete('/', (req, res) => {
+     pool.qurey(`DELETE FROM comments WHERE comment_id = '${req.params.delete_id}'`, (err, result) => {
+         if (!err)
+         res.send('Deleted successfully.');
+         else
+         console.log(err)
+     })
+})
+
 
 
 //function will check if the comment includes banned words on not
