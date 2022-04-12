@@ -91,7 +91,7 @@ app.get('/', (req, res) => {
         res.redirect('/')
     })
 })
-*/
+
 
 //Delete comment
 app.delete('/', (req, res) => {
@@ -102,9 +102,10 @@ app.delete('/', (req, res) => {
          console.log(err)
      })
 })
+*/
 
 
-
+/*
 //function will check if the comment includes banned words on not
 function is_banned_words_in_comment(text) {
 
@@ -121,6 +122,7 @@ function is_banned_words_in_comment(text) {
     }
   return false;
 }
+*/
 
 
 //Add comment
