@@ -83,7 +83,7 @@ app.get('/', (req, res) =>{
 })
 
 //Delete comment
-app.get('/:delete_id/delete', (req, res) =>{
+app.get('/', (req, res) =>{
     pool.query(`DELETE FROM comments WHERE comment_id = '${req.params.delete_id}'`, (err,result) => {
         console.log(err,result)
 
