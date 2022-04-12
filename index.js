@@ -82,6 +82,7 @@ app.get('/', (req, res) =>{
     
 })
 
+/*
 //Delete comment
 app.get('/', (req, res) =>{
     pool.query(`DELETE FROM comments WHERE comment_id = '${req.params.delete_id}'`, (err,result) => {
@@ -90,6 +91,7 @@ app.get('/', (req, res) =>{
         res.redirect('/')
     })
 })
+*/
 
 //Add comment
 app.post('/', (req,res) => {
