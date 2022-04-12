@@ -31,9 +31,11 @@ body
             tr 
                 th Comment Id 
                 th Comment
+                th Flagged?
         tbody 
             each comment in comments 
                 tr 
                     td #{comment.comment_id}
                     td #{comment.text} 
+                    td #{comment.is_flagged}
                     
