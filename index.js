@@ -18,11 +18,11 @@ app.use(bodyParser.urlencoded({extended: true}));
 const Pool = require('pg').Pool
 
 
-//const connectionParams = process.env.DATABASE_URL || {
+//const connectionParams = process.env.DATABASE_URL1 || {
 var connectionParams = null;
-if (process.env.DATABASE_URL != null){
+if (process.env.DATABASE_URL1 != null){
     connectionParams = {
-        connectionString: process.env.DATABASE_URL,
+        connectionString: process.env.DATABASE_URL1,
         ssl: {rejectUnauthorized: false}
     }
 } else {
