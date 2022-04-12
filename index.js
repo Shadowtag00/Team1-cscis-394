@@ -82,7 +82,7 @@ app.get('/', (req, res) =>{
 })
 
 app.post('/', (req,res) => {
-    pool.query(`INSERT INTO comments (text) VALUES ('${req.body.commentbox}')`, (err, result) => {
+    pool.query(`INSERT INTO comments (text,post_date) VALUES ('${req.body.commentbox}')`, (err, result) => {
         console.log(err, result)
 
         res.redirect('/')
