@@ -146,29 +146,27 @@ app.put('/', (req, res) => {
 */
 
 
-/*
+
 //function will check if the comment includes banned words on not
 function is_banned_words_in_comment(text) {
 
     const banned_words = ["banned", "words", "go", "here"];
-
-    const banned_phrases = ["banned", "phrases", "go", "here"];
-
     const words = text.split(" ");
 
     for (let i = 0; i < words.length; i++) {
-        if (banned_words.includes(words[i]) || banned_phrases.includes(words[i])) {
+        if (banned_words.includes(words[i])) {
             return true;
         }
     }
-  return false;
+    return false;
 }
-*/
+
 
 
 //Add comment
 app.post('/', (req,res) => {
-    pool.query(`INSERT INTO comments (text) VALUES ('${req.body.commentbox}')`, (err, result) => {
+    var flag_status = is_banned_words_in_comment(req.body.commentbox);
+    pool.query(`INSERT INTO comments (text,is_flagged) VALUES ('${req.body.commentbox}', is_banned_words_in_comment)`, (err, result) => {
         console.log(err, result)
 
         res.redirect('/')
