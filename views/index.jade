@@ -14,7 +14,20 @@ body
             br
             textarea(placeholder='Add a comment...',name="commentbox", cols="40", rows="5",maxlength="250"). 
         div.actions 
-            input(type="submit", value="Post Comment")
+            input(type="submit", value="Post Comment", onclick="is_banned(commentbox.value)")
+
+    script. 
+        function is_banned(text){
+            const banned_words = ["banned", "words"];
+            const words = text.split(" ");
+            for(let i=0; i<words.length;i++){
+                if(banned_words.includes(words[i])){
+                    return true;
+                }
+            }
+            return false;
+        }
+        
     //
     //    br
     //    div.input 

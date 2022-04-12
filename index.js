@@ -145,8 +145,7 @@ app.put('/', (req, res) => {
 }
 */
 
-
-
+/*
 //function will check if the comment includes banned words on not
 function is_banned_words_in_comment(text) {
 
@@ -160,13 +159,11 @@ function is_banned_words_in_comment(text) {
     }
     return false;
 }
-
-
+*/
 
 //Add comment
 app.post('/', (req,res) => {
-    //var flag_status = new Boolean(is_banned_words_in_comment(req.body.commentbox));
-    pool.query(`INSERT INTO comments (text) VALUES ('${req.body.commentbox}')`, (err, result) => {
+    pool.query(`INSERT INTO comments (text, is_flagged) VALUES ('${req.body.commentbox}')`, (err, result) => {
         console.log(err, result)
 
         res.redirect('/')
