@@ -163,7 +163,7 @@ function is_banned_words_in_comment(text) {
 
 //Add comment
 app.post('/', (req,res) => {
-    pool.query(`INSERT INTO comments (text, is_flagged) VALUES ('${req.body.commentbox}')`, (err, result) => {
+    pool.query(`INSERT INTO comments (text) VALUES ('${req.body.commentbox}')`, (err, result) => {
         console.log(err, result)
 
         res.redirect('/')
