@@ -23,7 +23,8 @@
     "express-basic-auth": "^1.2.1",
     "jade": "^1.11.0",
     "pg": "^8.7.3",
-    "save": "^2.4.0"
+    "save": "^2.4.0",
+    "method-override": "^3.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
