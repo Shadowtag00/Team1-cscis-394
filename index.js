@@ -20,10 +20,34 @@ app.use(bodyParser.urlencoded({extended: true}));
 //form-urlencoded
 
 
-var updates = require('./routes/update');
-var deletes = require('./routes/delete');
-app.use('/update', updates);
-app.use('/delete', deletes);
+//added this
+app.use(methodOverride(function (req, res) {
+  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+    // look in urlencoded POST bodies and delete it
+    console.log('contains _method')
+    var method = req.body._method
+    delete req.body._method
+    console.log(method)
+    return method
+  }
+}))
+
+
+//added this
+app.use(function(req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+   res.setHeader("Access-Control-Allow-Credentials", "true");
+   res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE");
+   res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Origin,Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers,Authorization");
+ next();
+});
+
+
+
+//var updates = require('./routes/update');
+//var deletes = require('./routes/delete');
+//app.use('/update', updates);
+//app.use('/delete', deletes);
 
 //Database
 const Pool = require('pg').Pool
@@ -55,14 +79,21 @@ const pool = new Pool(connectionParams)
     port: 5432
 }) */
 
-//Display comments
+
+//READ (Display comments)
 app.get('/', (req, res) =>{
 
     console.log('Accept: ' + req.get('Accept'))
 
     //pool.query('SELECT VERSION()', (err, version_results) => {
         //console.log(err, version_results.rows)
+
     pool.query('SELECT VERSION()', (err, version_results) => {
+        //added this
+        if (err) {
+            return console.error('Error executing query', err.stack)
+        }       
+
         console.log(err, version_results.rows)
 
         //pool.query('SELECT * FROM team_members', (err, team_members_results) => {
@@ -86,13 +117,96 @@ app.get('/', (req, res) =>{
         })
 
         //res.send(`<h1>Db Version: ${result.rows[0].version} </h1>`)
-
-       
-    })
-
-    
+    })   
 })
 
+
+//added this
+app.get('/comment_form', (req, res) => {
+    res.render('create')
+})
+
+
+//CREATE (Add comment)
+app.post('/', (req,res) => {
+    
+    //added this
+    console.log(re.path)    
+
+    pool.query(`INSERT INTO comments (text) VALUES ('${req.body.commentbox}')`, (err, result) => {
+        console.log(err, result)
+
+        res.redirect('/')
+    })
+})
+
+
+// UPDATE
+app.get('/comments/:id/form', (req, res) => {
+    const id = req.params["id"]
+    
+    pool.query(`SELECT * FROM comments WHERE id = ${id}`, (err, result) => {
+        if (result.rows.length == 0) {
+            res.status(404)
+            return
+        }
+
+        res.render('update', {
+            comments: result.rows[0]
+        })
+    })
+})
+
+
+app.put('/comments/:id', (req, res) => {
+    console.log('patch')
+    console.log(req.path)
+    pool.query(`UPDATE comments SET commentbox='${req.body.commentbox}' WHERE id = ${req.params["id"]}`, (err, result) => {
+        console.log(err, result)
+        res.redirect('/')
+    })
+})
+
+
+//DELETE
+app.delete('/comments/:id', (req, res) => {
+    const id = req.params["id"]
+
+    console.log(id)
+
+    pool.query(`DELETE FROM comments WHERE id = ${id}`, (err, result) => {
+        console.log(err)
+        res.redirect('/')
+    })
+})
+
+
+
+
+app.listen(port, () => {
+    console.log(`Comments app listening on port ${port}`)
+})
+
+
+/*
+//function will check if the comment includes banned words on not
+function is_banned_words_in_comment(text) {
+
+    const banned_words = ["banned", "words", "go", "here"];
+    const words = text.split(" ");
+
+    for (let i = 0; i < words.length; i++) {
+        if (banned_words.includes(words[i])) {
+            return true;
+        }
+    }
+    return false;
+}
+*/
+
+
+
+///-------------------EXTRA-------------------
 /*
 //Delete comment
 app.get('/', (req, res) => {
@@ -155,32 +269,3 @@ app.put('/', (req, res) => {
     })
 }
 */
-
-/*
-//function will check if the comment includes banned words on not
-function is_banned_words_in_comment(text) {
-
-    const banned_words = ["banned", "words", "go", "here"];
-    const words = text.split(" ");
-
-    for (let i = 0; i < words.length; i++) {
-        if (banned_words.includes(words[i])) {
-            return true;
-        }
-    }
-    return false;
-}
-*/
-
-//Add comment
-app.post('/', (req,res) => {
-    pool.query(`INSERT INTO comments (text) VALUES ('${req.body.commentbox}')`, (err, result) => {
-        console.log(err, result)
-
-        res.redirect('/')
-    })
-})
-
-app.listen(port, () => {
-    console.log(`Comments app listening on port ${port}`)
-})

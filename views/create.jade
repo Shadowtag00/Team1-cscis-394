@@ -1,0 +1,8 @@
+form(name="comment-page", method="post", action="/comments")
+	div.input 
+		span.label Post a comment:
+		br
+		textarea(placeholder='Add a comment...',name="commentbox", cols="40", rows="5",maxlength="250")
+	div.actions
+		input(type="submit", value="Post Comment")
+br
