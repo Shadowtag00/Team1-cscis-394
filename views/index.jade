@@ -59,18 +59,18 @@ body
 	a(href='/comment_form') Create new comment
 	h1 Comments 
 	table(style='width:50%') 
-	thead 
-		tr 
-			th Comment Id 
-			th Comment
-			th Flagged?
-	tbody 
-		each comment in comments 
+		thead 
 			tr 
-				td #{comment.comment_id}
-				td #{comment.text} 
-				td #{comment.is_flagged}
-				td
-					a(href='/comments/#{comment.comment_id}/form') Update
-					button(onclick=`deleteRecord(${comment.comment_id})`) Delete
-                    
+				th Comment Id 
+				th Comment
+				th Flagged?
+		tbody 
+			each comment in comments 
+				tr 
+					td #{comment.comment_id}
+					td #{comment.text} 
+					td #{comment.is_flagged}
+					td
+						a(href='/comments/#{comment.comment_id}/form') Update
+						button(onclick=`deleteRecord(${comment.comment_id})`) Delete
+
