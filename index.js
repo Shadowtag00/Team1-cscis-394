@@ -144,7 +144,7 @@ app.post('/', (req,res) => {
 
 // UPDATE
 
-app.get('/comments/comment_id/form', (req, res) => {
+app.get('/comments/:comment_id/form', (req, res) => {
     const id = req.params["comment_id"]
     
     pool.query(`SELECT is_flagged FROM comments WHERE comment_id=${id}`, (err, result) => {
@@ -161,7 +161,7 @@ app.get('/comments/comment_id/form', (req, res) => {
 })
 
 
-app.put('/comments/:id', (req, res) => {
+app.put('/comments/:comment_id', (req, res) => {
     console.log('patch')
     console.log(req.path)
     pool.query(`UPDATE comments SET commentbox='${req.body.commentbox}' WHERE id = ${req.params["id"]}`, (err, result) => {
