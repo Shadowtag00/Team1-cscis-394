@@ -143,7 +143,7 @@ app.post('/', (req,res) => {
 
 
 // UPDATE
-/*
+
 app.get('/comments/:id/form', (req, res) => {
     const id = req.params["id"]
     
@@ -158,7 +158,7 @@ app.get('/comments/:id/form', (req, res) => {
         })
     })
 })
-*/
+
 
 app.put('/comments/:id', (req, res) => {
     console.log('patch')
