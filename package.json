@@ -20,6 +20,7 @@
   "homepage": "https://github.com/Shadowtag00/Team1-cscis-394#readme",
   "dependencies": {
     "express": "^4.17.3",
+    "express-basic-auth": "^1.2.1",
     "jade": "^1.11.0",
     "pg": "^8.7.3",
     "save": "^2.4.0"
