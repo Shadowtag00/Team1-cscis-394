@@ -3,13 +3,6 @@ const app = express()
 const bodyParser = require('body-parser');
 const { urlencoded } = require('express');
 const port = process.env.PORT || 3002
-
-
-var updates = require('./routes/update');
-var deletes = require('./routes/delete');
-app.use('/update', updates);
-app.use('/delete', deletes);
-
 //basic authentication
 const basicAuth = require('express-basic-auth')
 app.use(basicAuth({
@@ -25,6 +18,12 @@ app.use(bodyParser.json());
 //for parsing application/xwww-
 app.use(bodyParser.urlencoded({extended: true}));
 //form-urlencoded
+
+
+var updates = require('./routes/update');
+var deletes = require('./routes/delete');
+app.use('/update', updates);
+app.use('/delete', deletes);
 
 //Database
 const Pool = require('pg').Pool

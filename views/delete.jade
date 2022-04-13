@@ -8,7 +8,7 @@ html
             border:1px solid black;
             }
 body 
-    form(name="delete-comment")
+    form(name="delete-comment", method='get')
         div.input        
             span.label Enter the comment ID of the comment you'd like to delete:
             input(type="number",name="delete_id", min="1")
