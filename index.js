@@ -147,7 +147,7 @@ app.post('/', (req,res) => {
 app.get('/comments/:id/form', (req, res) => {
     const id = req.params["id"]
     
-    pool.query(`SELECT * FROM comments WHERE id = ${id}`, (err, result) => {
+    pool.query(`SELECT is_flagged FROM comments WHERE id = ${id}`, (err, result) => {
         if (result.rows.length == 0) {
             res.status(404)
             return
