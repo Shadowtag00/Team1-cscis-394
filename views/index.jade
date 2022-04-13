@@ -66,11 +66,11 @@ body
 			th Flagged?
 	tbody 
 		each comment in comments 
-		tr 
-			td #{comment.comment_id}
-			td #{comment.text} 
-			td #{comment.is_flagged}
-			td
-				a(href='/comments/#{comment.id}/form') Update
-				button(onclick=`deleteRecord(${comment.id})`) Delete
+			tr 
+				td #{comment.comment_id}
+				td #{comment.text} 
+				td #{comment.is_flagged}
+				td
+					a(href='/comments/#{comment.id}/form') Update
+					button(onclick=`deleteRecord(${comment.id})`) Delete
                     
