@@ -5,7 +5,7 @@ var router = express.Router();
 router.get('/', (req, res)=> {
     pool.query('SELECT * FROM comments', (err, comments_results) => {
         console.log(err, comments_results)
-        res.render('delete', {
+        res.render('/delete', {
             comments: comments_results.rows
         })
 
