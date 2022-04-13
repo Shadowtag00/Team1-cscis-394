@@ -71,6 +71,6 @@ body
 				td #{comment.text} 
 				td #{comment.is_flagged}
 				td
-					a(href='/comments/#{comment.id}/form') Update
-					button(onclick=`deleteRecord(${comment.id})`) Delete
+					a(href='/comments/#{comment.comment_id}/form') Update
+					button(onclick=`deleteRecord(${comment.comment_id})`) Delete
                     
