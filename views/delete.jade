@@ -8,24 +8,10 @@ html
             border:1px solid black;
             }
 body 
-    form(name="delete-comment", method='get')
+    form(name="delete-comment")
         div.input        
             span.label Enter the comment ID of the comment you'd like to delete:
             input(type="number",name="delete_id", min="1")
         div.actions 
             input(type="submit", value="Delete Comment") 
-    br
-
-    h1 Comments 
-    table(style='width:50%') 
-        thead 
-            tr 
-                th Comment Id 
-                th Comment
-                th Flagged?
-        tbody 
-            each comment in comments 
-                tr 
-                    td #{comment.comment_id}
-                    td #{comment.text} 
-                    td #{comment.is_flagged}
+    
