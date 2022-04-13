@@ -10,7 +10,7 @@ router.get('/', (req, res)=> {
         })
 
     })
-});
+})
 /*
 router.get('/:comment_id', (req, res)=> {
     pool.query(`DELETE FROM comments WHERE comment_id = '${req.params.delete_id}'`, (err, results) => {
