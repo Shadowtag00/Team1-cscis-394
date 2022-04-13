@@ -143,21 +143,22 @@ app.post('/', (req,res) => {
 
 
 // UPDATE
+/*
 app.get('/comments/:id/form', (req, res) => {
     const id = req.params["id"]
     
     pool.query(`SELECT * FROM comments WHERE id = ${id}`, (err, result) => {
-        //if (result.rows.length == 0) {
-        //    res.status(404)
-        //    return
-        //}
+        if (result.rows.length == 0) {
+            res.status(404)
+            return
+        }
 
         res.render('update', {
             comments: result.rows[0]
         })
     })
 })
-
+*/
 
 app.put('/comments/:id', (req, res) => {
     console.log('patch')
