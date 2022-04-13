@@ -7,7 +7,8 @@ const port = process.env.PORT || 3002
 //basic authentication
 const basicAuth = require('express-basic-auth')
 app.use(basicAuth({
-    users: {'admin' : 'Team1Password'}
+    users: {'admin' : 'Team1Password'},
+    challenge: true
 }))
 //set view engine for express app
 app.set("view engine", "jade")
