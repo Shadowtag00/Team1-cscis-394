@@ -147,9 +147,9 @@ app.get('/', (req, res) =>{
 
 
 // UPDATE
-app.post('/comments/:comment_id/form', (req, res) => {
+app.get('/comments/:comment_id/form', (req, res) => {
     let query = "UPDATE comments SET is_flagged = NOT is_flagged WHERE comment_id = " + req.params.comment_id;
-    console.log(comment_id)
+    console.log(req.params.comment_id)
 
     pool.query(query, (err, result) => {
         console.log(err, result)      
