@@ -147,23 +147,13 @@ app.get('/', (req, res) =>{
 
 
 // UPDATE
-
 app.get('/comments/:comment_id/form', (req, res) => {
-    const id = req.params["comment_id"]
-    const query = `SELECT is_flagged FROM comments WHERE comment_id=${id}`
-    console.log(query)
+    let query = "UPDATE comments (is_flagged) SET is_flagged = CASE WHEN is_flagged = true THEN false ELSE true WHERE comment_id = " + req.params.comment_id;
+    console.log(comment_id)
 
-    pool.query(`SELECT is_flagged FROM comments WHERE comment_id=${id}`, (err, result) => {
-        console.log(err, result)
-        
-        if (result.rows.length == 0) {
-            res.status(404)
-            return
-        }
-
-        res.render('update', {
-            comments: result.rows[0]
-        })
+    pool.query(query, (err, result) => {
+        console.log(err, result)      
+        res.redirect('/')
     })
 })
 
