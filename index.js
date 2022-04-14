@@ -179,7 +179,7 @@ app.put('/:comment_id', (req, res) => {
 
 
 //DELETE
-app.get('/comments/:comment_id', (req, res) => {
+app.get('/comments/:comment_id/delete', (req, res) => {
     const id = req.params["comment_id"]
 
     console.log(id)

@@ -3,14 +3,14 @@ doctype html
 script.
 	const deleteRecord = function(comment_id) {
 		var url = "/comments/" + comment_id
-		/*
+		
 		fetch(url, {
 			method: 'DELETE',
 			body: JSON.stringify({
 				_method: 'DELETE'
 			})
 		})
-		*/
+		
 		.then((response) => {
 			console.log('reload')
 			location.reload()  //Reloads the current page
@@ -74,5 +74,5 @@ body
 					td #{comment.is_flagged}
 					td
 						a(href='/comments/#{comment.comment_id}/form') Update
-						button(onclick=`deleteRecord(${comment.comment_id})`) Delete
+						a(href='/comments/#{comment.comment_id}/delete') Delete
 
