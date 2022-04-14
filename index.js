@@ -181,10 +181,11 @@ app.put('/:comment_id', (req, res) => {
 //DELETE
 app.get('/comments/:comment_id/delete', (req, res) => {
     const id = req.params.comment_id
-
+    let query = "DELETE FROM comments WHERE comment_id = " + req.params.comment_id;
     console.log(id)
 
-    pool.query(`DELETE FROM comments WHERE id = ${id}`, (err, result) => {
+    pool.query(query, (err, result) => {
+        //`DELETE FROM comments WHERE id = ${id}`
         console.log(err)
         res.redirect('/')
     })
