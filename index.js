@@ -157,7 +157,7 @@ app.get('/comments/:comment_id/form', (req, res) => {
     })
 })
 
-
+/*
 app.put('/:comment_id', (req, res) => {
     console.log('patch')
     console.log(req.path)
@@ -166,7 +166,7 @@ app.put('/:comment_id', (req, res) => {
         res.redirect('/')
     })
 })
-
+*/
 
 //DELETE
 app.get('/comments/:comment_id/delete', (req, res) => {
@@ -207,66 +207,4 @@ function is_banned_words_in_comment(text) {
 
 
 
-///-------------------EXTRA-------------------
-/*
-//Delete comment
-app.get('/', (req, res) => {
-    pool.query(`DELETE FROM comments WHERE comment_id = '${req.params.delete_id}'`, (err,result) => {
-        console.log(err,result)
 
-        res.redirect('/')
-    })
-})
-
-
-//Delete comment
-app.delete('/', (req, res) => {
-     pool.qurey(`DELETE FROM comments WHERE comment_id = '${req.params.delete_id}'`, (err, result) => {
-         if (!err)
-         res.send('Deleted successfully.')
-         else
-         console.log(err)
-     })
-})
-
-
-//Delete comment
-app.get('/', (req, res) => {
-     var conString = process.env.DATABASE_URL || 'localhost';
-     var clinet = new.pg.client(conString);
-     client.connect();
-     var query = client.query(`DELETE FROM comments WHERE comment_id =` + req.query.id);
-     query.on("end", function(result) {
-          client.end();
-          res.write('Success');
-          res.end();
-     });
-})
-*/
-
-
-/*
-//Update record
-app.put('/', (req, res) => {
-    const id = parseInt(req.params.id)
-    pool.query("UPDATE comments SET comments = $1 where id = $2, [comments, id], (err, results) => {
-        if (err) {
-            throw err
-        }
-        res.redirect('/')
-    })
-}
-
-
-//Update record
-app.put('/', (req, res) => {
-    const id = parseInt(req.params.id)
-    pool.query("UPDATE comments SET comments = $1 where id = $2, [comments, id], (err, results) => {
-        if (!err) {
-            res.send('Updated successfully')
-        } else {
-            console.log(err)
-        }
-    })
-}
-*/
