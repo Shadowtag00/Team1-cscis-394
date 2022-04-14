@@ -168,7 +168,7 @@ app.get('/comments/:comment_id/form', (req, res) => {
 })
 
 
-app.put('/comments/:comment_id', (req, res) => {
+app.put('/:comment_id', (req, res) => {
     console.log('patch')
     console.log(req.path)
     pool.query(`UPDATE comments SET commentbox='${req.body.commentbox}' WHERE id = ${req.params["id"]}`, (err, result) => {
