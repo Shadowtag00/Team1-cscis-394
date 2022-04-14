@@ -1,7 +1,7 @@
 doctype html 
 
 script.
-	const deletRecord = function(comment_id) {
+	const deleteRecord = function(comment_id) {
 		var url = "/comments/" + comment_id
 		fetch(url, {
 			method: 'DELETE',
