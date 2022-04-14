@@ -72,19 +72,6 @@ if (process.env.DATABASE_URL1 != null){
 }
 console.log(connectionParams)
 const pool = new Pool(connectionParams)
-/* const pool = new Pool({
-    user: 'api_user',
-    host: process.env.DATABASE_URL || 'localhost',
-    database: 'api',
-    password: 'password',
-    port: 5432
-}) */
-
-
-
-
-
-
 
 //CREATE (Add comment)
 app.post('/', (req,res) => {
@@ -109,10 +96,6 @@ app.get('/comment_form', (req, res) => {
 app.get('/', (req, res) =>{
 
     console.log('Accept: ' + req.get('Accept'))
-
-    //pool.query('SELECT VERSION()', (err, version_results) => {
-        //console.log(err, version_results.rows)
-
     pool.query('SELECT VERSION()', (err, version_results) => {
         //added this
         if (err) {
@@ -120,28 +103,15 @@ app.get('/', (req, res) =>{
         }       
 
         console.log(err, version_results.rows)
-
-        //pool.query('SELECT * FROM team_members', (err, team_members_results) => {
-            //console.log(err, team_members_results)
         pool.query('SELECT * FROM comments ORDER BY comment_id DESC', (err, comments_results) => {
             console.log(err, comments_results)
 
-            //res.render('index', {
-                                 //   teamNumber: 1,
-                                 //   databaseVersion: version_results.rows[0].version,
-                                 //   teamMembers: team_members_results.rows
-                                //})
-
             res.render('index', {
-                                    //teamNumber: 1,
-                                    //databaseVersion: version_results.rows[0].version,
                                     comments: comments_results.rows
-                                    })
+                                })
             console.log('Content-Type: ' + res.get('Content-Type'))
                             
         })
-
-        //res.send(`<h1>Db Version: ${result.rows[0].version} </h1>`)
     })   
 })
 
@@ -157,17 +127,6 @@ app.get('/comments/:comment_id/form', (req, res) => {
     })
 })
 
-/*
-app.put('/:comment_id', (req, res) => {
-    console.log('patch')
-    console.log(req.path)
-    pool.query(`UPDATE comments SET commentbox='${req.body.commentbox}' WHERE id = ${req.params["id"]}`, (err, result) => {
-        console.log(err, result)
-        res.redirect('/')
-    })
-})
-*/
-
 //DELETE
 app.get('/comments/:comment_id/delete', (req, res) => {
     const id = req.params.comment_id
@@ -175,18 +134,20 @@ app.get('/comments/:comment_id/delete', (req, res) => {
     console.log(id)
 
     pool.query(query, (err, result) => {
-        //`DELETE FROM comments WHERE id = ${id}`
         console.log(err)
         res.redirect('/')
     })
 })
 
 
-
-
 app.listen(port, () => {
     console.log(`Comments app listening on port ${port}`)
 })
+
+
+
+
+
 
 
 /*
