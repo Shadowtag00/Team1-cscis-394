@@ -123,7 +123,7 @@ app.get('/', (req, res) =>{
 
         //pool.query('SELECT * FROM team_members', (err, team_members_results) => {
             //console.log(err, team_members_results)
-        pool.query('SELECT * FROM comments', (err, comments_results) => {
+        pool.query('SELECT * FROM comments ORDER BY comment_id DESC', (err, comments_results) => {
             console.log(err, comments_results)
 
             //res.render('index', {
