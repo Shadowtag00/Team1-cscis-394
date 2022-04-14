@@ -81,6 +81,30 @@ const pool = new Pool(connectionParams)
 }) */
 
 
+
+
+
+
+
+//CREATE (Add comment)
+app.post('/', (req,res) => {
+    
+    //added this
+    console.log(req.path)    
+
+    pool.query(`INSERT INTO comments (text) VALUES ('${req.body.commentbox}')`, (err, result) => {
+        console.log(err, result)
+
+        res.redirect('/')
+    })
+})
+
+//added this
+app.get('/comment_form', (req, res) => {
+    res.render('create')
+})
+
+
 //READ (Display comments)
 app.get('/', (req, res) =>{
 
@@ -122,33 +146,13 @@ app.get('/', (req, res) =>{
 })
 
 
-//added this
-app.get('/comment_form', (req, res) => {
-    res.render('create')
-})
-
-
-//CREATE (Add comment)
-app.post('/', (req,res) => {
-    
-    //added this
-    console.log(req.path)    
-
-    pool.query(`INSERT INTO comments (text) VALUES ('${req.body.commentbox}')`, (err, result) => {
-        console.log(err, result)
-
-        res.redirect('/')
-    })
-})
-
-
 // UPDATE
 
 app.get('/comments/:comment_id/form', (req, res) => {
     const id = req.params["comment_id"]
     const query = `SELECT is_flagged FROM comments WHERE comment_id=${id}`
     console.log(query)
-    
+
     pool.query(`SELECT is_flagged FROM comments WHERE comment_id=${id}`, (err, result) => {
         console.log(err, result)
         
@@ -175,8 +179,8 @@ app.put('/comments/:comment_id', (req, res) => {
 
 
 //DELETE
-app.delete('/comments/:id', (req, res) => {
-    const id = req.params["id"]
+app.get('/comments/:comment_id', (req, res) => {
+    const id = req.params["comment_id"]
 
     console.log(id)
 
