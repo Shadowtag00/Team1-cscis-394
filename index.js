@@ -132,7 +132,7 @@ app.get('/comment_form', (req, res) => {
 app.post('/', (req,res) => {
     
     //added this
-    console.log(re.path)    
+    console.log(req.path)    
 
     pool.query(`INSERT INTO comments (text) VALUES ('${req.body.commentbox}')`, (err, result) => {
         console.log(err, result)
