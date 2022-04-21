@@ -4,6 +4,9 @@ const bodyParser = require('body-parser');
 const methodOverride = require('method-override')
 const { urlencoded } = require('express');
 const port = process.env.PORT || 3002
+
+
+
 //basic authentication
 const basicAuth = require('express-basic-auth')
 app.use(basicAuth({
@@ -11,14 +14,22 @@ app.use(basicAuth({
     challenge: true
 }))
 //set view engine for express app
+app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", "jade")
 
 //for parsing application/json
 app.use(bodyParser.json());
 
-//for cookies
-app.use(cookieParser())
-app.use(session({secret: "Shh, its a secret!"}));
+//for user sessions
+var cookieParser = require('cookie-parser');
+const session = require('express-session');
+app.use(cookieParser());
+
+app.use(session({secret: 'Team1ProjectSecret'}));
+app.use(function(req,res,next){
+    res.locals.session = req.session;
+    next();
+});
 
 //for parsing application/xwww-
 app.use(bodyParser.urlencoded({extended: true}));
@@ -49,11 +60,13 @@ app.use(function(req, res, next) {
 });
 
 
+//ROUTING
+var indexRouter = require('./routes/index');
+var userRouter = require('./routes/user');
 
-//var updates = require('./routes/update');
-//var deletes = require('./routes/delete');
-//app.use('/update', updates);
-//app.use('/delete', deletes);
+app.use('/home', indexRouter);
+app.use('/', userRouter);
+
 
 //Database
 const Pool = require('pg').Pool
@@ -77,72 +90,6 @@ if (process.env.DATABASE_URL1 != null){
 }
 console.log(connectionParams)
 const pool = new Pool(connectionParams)
-
-//CREATE (Add comment)
-app.post('/', (req,res) => {
-    
-    //added this
-    console.log(req.path)    
-
-    pool.query(`INSERT INTO comments (text) VALUES ('${req.body.commentbox}')`, (err, result) => {
-        console.log(err, result)
-
-        res.redirect('/')
-    })
-})
-
-//added this
-app.get('/comment_form', (req, res) => {
-    res.render('create')
-})
-
-
-//READ (Display comments)
-app.get('/', (req, res) =>{
-
-    console.log('Accept: ' + req.get('Accept'))
-    pool.query('SELECT VERSION()', (err, version_results) => {
-        //added this
-        if (err) {
-            return console.error('Error executing query', err.stack)
-        }       
-
-        console.log(err, version_results.rows)
-        pool.query('SELECT * FROM comments ORDER BY comment_id DESC', (err, comments_results) => {
-            console.log(err, comments_results)
-
-            res.render('index', {
-                                    comments: comments_results.rows
-                                })
-            console.log('Content-Type: ' + res.get('Content-Type'))
-                            
-        })
-    })   
-})
-
-
-// UPDATE
-app.get('/comments/:comment_id/form', (req, res) => {
-    let query = "UPDATE comments SET is_flagged = NOT is_flagged WHERE comment_id = " + req.params.comment_id;
-    console.log(req.params.comment_id)
-
-    pool.query(query, (err, result) => {
-        console.log(err, result)      
-        res.redirect('/')
-    })
-})
-
-//DELETE
-app.get('/comments/:comment_id/delete', (req, res) => {
-    const id = req.params.comment_id
-    let query = "DELETE FROM comments WHERE comment_id = " + req.params.comment_id;
-    console.log(id)
-
-    pool.query(query, (err, result) => {
-        console.log(err)
-        res.redirect('/')
-    })
-})
 
 
 app.listen(port, () => {
@@ -170,7 +117,3 @@ function is_banned_words_in_comment(text) {
     return false;
 }
 */
-
-
-
-
