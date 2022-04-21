@@ -16,6 +16,10 @@ app.set("view engine", "jade")
 //for parsing application/json
 app.use(bodyParser.json());
 
+//for cookies
+app.use(cookieParser())
+app.use(session({secret: "Shh, its a secret!"}));
+
 //for parsing application/xwww-
 app.use(bodyParser.urlencoded({extended: true}));
 //form-urlencoded
