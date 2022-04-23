@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+app.locals.moment = require('moment')				//added - calling moment() will give the current date and time
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override')
 const { urlencoded } = require('express');
