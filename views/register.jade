@@ -1,0 +1,21 @@
+h1 New User 
+form(action='user/register' method ='post')
+    table 
+        tbody 
+            tr 
+                td First Name: 
+                td
+                    input(type='text' name='firstname' required='')
+            tr 
+                td Last Name: 
+                td 
+                    input(type='text' name='lastname' required='')
+            tr 
+                td Username: 
+                td 
+                    input(type='text' name='username' required='')
+            tr 
+                td Password: 
+                td 
+                    input(type='text' name='password' required='')
+    button(type='submit') Register
