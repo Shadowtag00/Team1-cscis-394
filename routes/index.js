@@ -1,17 +1,17 @@
 var express = require("express");
-var router = express.Router();
+//var router = express.Router();
 var bcrypt = require('bcrypt.js');
 
 
 //Display login prompt
-router.get('/', function(req,res,next){
-    res.render('login', {message: "Please Login"});
+app.get('/', function(req,res,next){
+    res.render('index', {message: "Please Login"});
 });
 
 
 
 //Check Login Credentials
-router.post('/', function(req, res, next) {
+app.post('/', function(req, res, next) {
     let query = "select username, password, user_id FROM user WHERE username = '" + req.body.username + "'";
 
     // execute query
@@ -37,31 +37,30 @@ router.post('/', function(req, res, next) {
                         res.redirect('/home');
                     } else {
                         // password do not match
-                        res.render('user/login', {message: "Incorrect Password"});
+                        res.render('index', {message: "Incorrect Password"});
                     }
                 });
             }
-            else {res.render('user/login', {message: "Incorrect Username"});}
+            else {res.render('index', {message: "Incorrect Username"});}
         }
    });
 });
 
 
 //Enable registration
-router.get('/register', function(req,res,next){
+app.get('/register', function(req,res,next){
     res.render('register');
 });
 
 //Save register information to db
-router.post('/register', function(req,res,next){
+app.post('/register', function(req,res,next){
     let insertQuery = "INSERT INTO users (username, first_name, last_name, password) VALUES (?, ?, ?, ?)";
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(req.body.password, salt, (err, hash) => {
-            if(err) { res.render('error')}
+            if(err) { console.log(err)}
             pool.query(insertquery,[req.body.firstname, req.body.lastname,req.body.username, hash],(err, result) => {
                 if (err) {
                     console.log(err);
-                    res.render('error');
                 } else {
                     res.redirect('/');
                 }
@@ -72,11 +71,11 @@ router.post('/register', function(req,res,next){
 
 
 //enable logging out
-router.get('/logout', function(req, res, next) {
+app.get('/logout', function(req, res, next) {
     req.session.user_id = 0;
     req.session.user_full_name = "";
     req.session.isadmin = false;
     res.redirect('/');
 });
 
-module.exports = router;
+//module.exports = router;
