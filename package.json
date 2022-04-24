@@ -19,8 +19,10 @@
   },
   "homepage": "https://github.com/Shadowtag00/Team1-cscis-394#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.3",
     "express-basic-auth": "^1.2.1",
+    "express-session": "^1.17.2",
     "jade": "^1.11.0",
     "method-override": "^3.0.0",
     "pg": "^8.7.3",
