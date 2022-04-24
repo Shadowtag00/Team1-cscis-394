@@ -61,7 +61,7 @@ app.use(function(req, res, next) {
 
 
 //ROUTING
-var indexRouter = require('./routes/home');
+var indexRouter = require('./routes/index');
 var homeRouter = require('./routes/home');
 
 app.use('/', indexRouter);
@@ -96,7 +96,7 @@ app.listen(port, () => {
     console.log(`Comments app listening on port ${port}`)
 })
 
-
+module.exports = app;
 
 
 
