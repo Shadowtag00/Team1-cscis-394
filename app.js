@@ -61,11 +61,11 @@ app.use(function(req, res, next) {
 
 
 //ROUTING
-var indexRouter = require('./routes/index');
-var userRouter = require('./routes/user');
+var indexRouter = require('./routes/home');
+var homeRouter = require('./routes/home');
 
-app.use('/home', indexRouter);
-app.use('/', userRouter);
+app.use('/', indexRouter);
+app.use('/home', homeRouter);
 
 
 //Database

@@ -1,73 +1,82 @@
 var express = require("express");
 var router = express.Router();
-
-//CREATE (Add comment)
-router.post('/', (req,res) => {
-    
-    //added this
-    console.log(req.path)    
-
-    pool.query(`INSERT INTO comments (text) VALUES ('${req.body.commentbox}')`, (err, result) => {
-        console.log(err, result)
-
-        res.redirect('/')
-    })
-})
-
-//added this
-router.get('/comment_form', (req, res) => {
-    res.render('create')
-})
+var bcrypt = require('bcrypt.js');
 
 
-//READ (Display comments)
-router.get('/', (req, res) =>{
-
-    console.log('Accept: ' + req.get('Accept'))
-    pool.query('SELECT VERSION()', (err, version_results) => {
-        //added this
-        if (err) {
-            return console.error('Error executing query', err.stack)
-        }       
-
-        console.log(err, version_results.rows)
-        pool.query('SELECT * FROM comments ORDER BY comment_id DESC', (err, comments_results) => {
-            console.log(err, comments_results)
-
-            res.render('index', {
-                                    comments: comments_results.rows
-                                })
-            console.log('Content-Type: ' + res.get('Content-Type'))
-                            
-        })
-    })   
-})
+//Display login prompt
+router.get('/', function(req,res,next){
+    res.render('login', {message: "Please Login"});
+});
 
 
-// UPDATE
-router.get('/comments/:comment_id/form', (req, res) => {
-    let query = "UPDATE comments SET is_flagged = NOT is_flagged WHERE comment_id = " + req.params.comment_id;
-    console.log(req.params.comment_id)
 
+//Check Login Credentials
+router.post('/', function(req, res, next) {
+    let query = "select username, password, user_id FROM user WHERE username = '" + req.body.username + "'";
+
+    // execute query
     pool.query(query, (err, result) => {
-        console.log(err, result)      
-        res.redirect('/')
-    })
-})
+        if (err) {console.log(err)}
+        else {
+            if(result[0])
+            {
+                // Username was correct. Check if password is correct
+                bcrypt.compare(req.body.password, result[0].password, function(err, result1) {
+                    if(result1) {
+                        // Password is correct. Set session variables for user.
+                        var userid = result[0].user_id;
+                        req.session.user_id = userid;
+                        var user_full_name = result[0].first_name + " "+ result[0].last_name;
+                        req.session.user_full_name = user_full_name;
 
-//DELETE
-router.get('/comments/:comment_id/delete', (req, res) => {
-    const id = req.params.comment_id
-    let query = "DELETE FROM comments WHERE comment_id = " + req.params.comment_id;
-    console.log(id)
+                        if(result[0].isadmin){
+                            var isadmin = true;
+                            req.session.isadmin = isadmin;
+                        }
 
-    pool.query(query, (err, result) => {
-        console.log(err)
-        res.redirect('/')
-    })
-})
+                        res.redirect('/home');
+                    } else {
+                        // password do not match
+                        res.render('user/login', {message: "Incorrect Password"});
+                    }
+                });
+            }
+            else {res.render('user/login', {message: "Incorrect Username"});}
+        }
+   });
+});
+
+
+//Enable registration
+router.get('/register', function(req,res,next){
+    res.render('register');
+});
+
+//Save register information to db
+router.post('/register', function(req,res,next){
+    let insertQuery = "INSERT INTO users (username, first_name, last_name, password) VALUES (?, ?, ?, ?)";
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(req.body.password, salt, (err, hash) => {
+            if(err) { res.render('error')}
+            pool.query(insertquery,[req.body.firstname, req.body.lastname,req.body.username, hash],(err, result) => {
+                if (err) {
+                    console.log(err);
+                    res.render('error');
+                } else {
+                    res.redirect('/');
+                }
+            });
+        });
+    });
+});
+
+
+//enable logging out
+router.get('/logout', function(req, res, next) {
+    req.session.user_id = 0;
+    req.session.user_full_name = "";
+    req.session.isadmin = false;
+    res.redirect('/');
+});
 
 module.exports = router;
-
-
-
