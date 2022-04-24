@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 
 //CREATE (Add comment)
-app.post('/', (req,res) => {
+router.post('/', (req,res) => {
     
     //added this
     console.log(req.path)    
@@ -15,13 +15,13 @@ app.post('/', (req,res) => {
 })
 
 //added this
-app.get('/comment_form', (req, res) => {
+router.get('/comment_form', (req, res) => {
     res.render('create')
 })
 
 
 //READ (Display comments)
-app.get('/', (req, res) =>{
+router.get('/', (req, res) =>{
 
     console.log('Accept: ' + req.get('Accept'))
     pool.query('SELECT VERSION()', (err, version_results) => {
@@ -45,7 +45,7 @@ app.get('/', (req, res) =>{
 
 
 // UPDATE
-app.get('/comments/:comment_id/form', (req, res) => {
+router.get('/comments/:comment_id/form', (req, res) => {
     let query = "UPDATE comments SET is_flagged = NOT is_flagged WHERE comment_id = " + req.params.comment_id;
     console.log(req.params.comment_id)
 
@@ -56,7 +56,7 @@ app.get('/comments/:comment_id/form', (req, res) => {
 })
 
 //DELETE
-app.get('/comments/:comment_id/delete', (req, res) => {
+router.get('/comments/:comment_id/delete', (req, res) => {
     const id = req.params.comment_id
     let query = "DELETE FROM comments WHERE comment_id = " + req.params.comment_id;
     console.log(id)
