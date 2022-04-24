@@ -17,6 +17,8 @@ app.use(basicAuth({
 app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", "jade")
 
+app.use(express.static(app, "index"));
+
 //for parsing application/json
 app.use(bodyParser.json());
 
