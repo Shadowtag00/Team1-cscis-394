@@ -10,7 +10,7 @@ router.post('/', (req,res) => {
     pool.query(`INSERT INTO comments (text) VALUES ('${req.body.commentbox}')`, (err, result) => {
         console.log(err, result)
 
-        res.redirect('/')
+        res.redirect('/home')
     })
 })
 
@@ -51,7 +51,7 @@ router.get('/comments/:comment_id/form', (req, res) => {
 
     pool.query(query, (err, result) => {
         console.log(err, result)      
-        res.redirect('/')
+        res.redirect('/home')
     })
 })
 
@@ -63,7 +63,7 @@ router.get('/comments/:comment_id/delete', (req, res) => {
 
     pool.query(query, (err, result) => {
         console.log(err)
-        res.redirect('/')
+        res.redirect('/home')
     })
 })
 
