@@ -20,6 +20,7 @@
   "homepage": "https://github.com/Shadowtag00/Team1-cscis-394#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
     "express": "^4.17.3",
     "express-basic-auth": "^1.2.1",
     "express-session": "^1.17.2",
