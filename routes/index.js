@@ -1,17 +1,17 @@
 var express = require("express");
-//var router = express.Router();
+var router = express.Router();
 var bcrypt = require('bcrypt.js');
 
 
 //Display login prompt
-app.get('/', function(req,res,next){
+router.get('/', function(req,res,next){
     res.render('index', {message: "Please Login"});
 });
 
 
 
 //Check Login Credentials
-app.post('/', function(req, res, next) {
+router.post('/', function(req, res, next) {
     let query = "select username, password, user_id FROM user WHERE username = '" + req.body.username + "'";
 
     // execute query
@@ -48,12 +48,12 @@ app.post('/', function(req, res, next) {
 
 
 //Enable registration
-app.get('/register', function(req,res,next){
+router.get('/register', function(req,res,next){
     res.render('register');
 });
 
 //Save register information to db
-app.post('/register', function(req,res,next){
+router.post('/register', function(req,res,next){
     let insertQuery = "INSERT INTO users (username, first_name, last_name, password) VALUES (?, ?, ?, ?)";
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(req.body.password, salt, (err, hash) => {
@@ -71,11 +71,11 @@ app.post('/register', function(req,res,next){
 
 
 //enable logging out
-app.get('/logout', function(req, res, next) {
+router.get('/logout', function(req, res, next) {
     req.session.user_id = 0;
     req.session.user_full_name = "";
     req.session.isadmin = false;
     res.redirect('/');
 });
 
-//module.exports = router;
+module.exports = router;
