@@ -1,4 +1,4 @@
-var express = require("express");
+var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcrypt.js');
 
@@ -11,7 +11,7 @@ router.get('/', function(req,res,next){
 
 
 //Check Login Credentials
-router.post('/', function(req, res, next) {
+router.post('/login', function(req, res, next) {
     let query = "select username, password, user_id FROM user WHERE username = '" + req.body.username + "'";
 
     // execute query

@@ -1,8 +1,8 @@
 doctype html
 html
     title Comment Filter Application
-    //p <%= message %>
-    form(action='/', method='post')
+    p #{message}
+    form(action='/login', method='post')
         p 
             | Username: 
             input(type='text' name='username' required='')
