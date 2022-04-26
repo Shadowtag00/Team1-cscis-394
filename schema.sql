@@ -25,7 +25,7 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE public.comments (
-    comment_id SERIAL,
+    comment_id integer,
     text character varying(250) NOT NULL,
     username character varying(30),
     is_flagged boolean DEFAULT false,
