@@ -5,9 +5,14 @@ function adminonly(req,res,next){
     {return res.redirect('/');}
     next();
     }
-
+function checkLogin(req,res,next){ //verifies there's a user signed in
+    if(!req.session.user_id){
+        return res.redirect('/');
+    }
+    next();
+}
 //CREATE (Add comment)
-router.post('/', (req,res) => {
+router.post('/', checkLogin,(req,res) => {
     
     //added this
     console.log(req.path)    
@@ -20,7 +25,7 @@ router.post('/', (req,res) => {
 })
 
 //added this
-router.get('/comment_form', (req, res) => {
+router.get('/comment_form', checkLogin,(req, res) => {
     res.render('create')
 })
 
