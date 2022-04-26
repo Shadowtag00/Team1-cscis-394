@@ -60,7 +60,7 @@ router.post('/register', function(req,res,next){
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(req.body.password, salt, (err, hash) => {
             if(err) { console.log(err)}
-            pool.query(insertQuery,[req.body.firstname, req.body.lastname,req.body.username, hash],(err, result) => {
+            pool.query(insertQuery,[req.body.username, req.body.firstname,req.body.lastname, hash],(err, result) => {
                 if (err) {
                     console.log(err);
                 } else {
