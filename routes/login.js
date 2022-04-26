@@ -18,18 +18,19 @@ router.post('/login', function(req, res, next) {
     pool.query(query, (err, result) => {
         if (err) {console.log(err)}
         else {
-            if(result[0])
+            console.log(result)
+            if(result.rows[0])
             {
                 // Username was correct. Check if password is correct
-                bcrypt.compare(req.body.password, result[0].password, function(err, result1) {
+                bcrypt.compare(req.body.password, result.rows[0].password, function(err, result1) {
                     if(result1) {
                         // Password is correct. Set session variables for user.
-                        var userid = result[0].user_id;
+                        var userid = result.rows[0].user_id;
                         req.session.user_id = userid;
-                        var user_full_name = result[0].first_name + " "+ result[0].last_name;
+                        var user_full_name = result.rows[0].first_name + " "+ result.rows[0].last_name;
                         req.session.user_full_name = user_full_name;
 
-                        if(result[0].isadmin){
+                        if(result.rows[0].isadmin){
                             var isadmin = true;
                             req.session.isadmin = isadmin;
                             res.redirect('/admin');
@@ -61,7 +62,7 @@ router.post('/register', function(req,res,next){
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(req.body.password, salt, (err, hash) => {
             if(err) { console.log(err)}
-            pool.query(insertQuery,[req.body.firstname, req.body.lastname,req.body.username, hash],(err, result) => {
+            pool.query(insertQuery,[req.body.username, req.body.firstname,req.body.lastname, hash],(err, result) => {
                 if (err) {
                     console.log(err);
                 } else {
