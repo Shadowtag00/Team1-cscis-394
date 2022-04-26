@@ -8,11 +8,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 
 //basic authentication
-const basicAuth = require('express-basic-auth')
+const basicAuth = require('express-basic-auth');
 app.use(basicAuth({
     users: {'admin' : 'Team1Password'},
     challenge: true
-}))
+}));
 const session = require(express-session);
 
 
@@ -34,10 +34,10 @@ if (process.env.DATABASE_URL1 != null){
         database: 'api',
         password: 'password',
         port: 5432
+    }
 }
-}
-console.log(connectionParams)
-const pool = new Pool(connectionParams)
+console.log(connectionParams);
+const pool = new Pool(connectionParams);
 
 
 //ROUTING
