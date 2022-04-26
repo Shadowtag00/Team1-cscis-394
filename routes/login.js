@@ -5,7 +5,7 @@ var bcrypt = require('bcrypt.js');
 
 //Display login prompt
 router.get('/', function(req,res,next){
-    res.render('index', {message: "Please Login"});
+    res.render('login', {message: "Please Login"});
 });
 
 
@@ -37,11 +37,11 @@ router.post('/login', function(req, res, next) {
                         res.redirect('/home');
                     } else {
                         // password do not match
-                        res.render('index', {message: "Incorrect Password"});
+                        res.render('login', {message: "Incorrect Password"});
                     }
                 });
             }
-            else {res.render('index', {message: "Incorrect Username"});}
+            else {res.render('login', {message: "Incorrect Username"});}
         }
    });
 });

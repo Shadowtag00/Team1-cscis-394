@@ -41,7 +41,7 @@ const pool = new Pool(connectionParams)
 
 
 //ROUTING
-var indexRouter = require('./routes/index');
+var loginRouter = require('./routes/login');
 var homeRouter = require('./routes/home');
 
 
@@ -86,7 +86,7 @@ app.use(function(req, res, next) {
 });
 
 //Web page routing
-app.use('/', indexRouter);
+app.use('/', loginRouter);
 app.use('/home', homeRouter);
 
 
