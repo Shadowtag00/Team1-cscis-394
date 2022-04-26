@@ -1,12 +1,11 @@
-const express = require('express')
-var app = express();
-app.locals.moment = require('moment')						//added - calling moment() will give current date and time
+const express = require('express');
+app.locals.moment = require('moment');						//added - calling moment() will give current date and time
 const bodyParser = require('body-parser');
-const methodOverride = require('method-override')
+const methodOverride = require('method-override');
 const { urlencoded } = require('express');
 const port = process.env.PORT || 3002
 var path = require('path');
-
+var cookieParser = require('cookie-parser');
 
 //basic authentication
 const basicAuth = require('express-basic-auth')
@@ -14,29 +13,53 @@ app.use(basicAuth({
     users: {'admin' : 'Team1Password'},
     challenge: true
 }))
+const session = require(express-session);
+
+
+//Database
+const Pool = require('pg').Pool
+
+
+//const connectionParams = process.env.DATABASE_URL1 || {
+var connectionParams = null;
+if (process.env.DATABASE_URL1 != null){
+    connectionParams = {
+        connectionString: process.env.DATABASE_URL1,
+        ssl: {rejectUnauthorized: false}
+    }
+} else {
+    connectionParams = {
+        user: 'api_user',
+        host: 'localhost',
+        database: 'api',
+        password: 'password',
+        port: 5432
+}
+}
+console.log(connectionParams)
+const pool = new Pool(connectionParams)
+
+
+//ROUTING
+var indexRouter = require('./routes/index');
+var homeRouter = require('./routes/home');
+
+
+var app = express();
 //set view engine for express app
 app.set('views', path.join(__dirname, 'views'));
-app.set("view engine", "jade")
-
-//app.use(express.static(app, "index"));
-
+app.set("view engine", "jade");
 //for parsing application/json
 app.use(bodyParser.json());
-
+app.use(bodyParser.urlencoded({extended: true}));
 //for user sessions
-var cookieParser = require('cookie-parser');
-const session = require('express-session');
 app.use(cookieParser());
-
 app.use(session({secret: 'Team1ProjectSecret'}));
 app.use(function(req,res,next){
     res.locals.session = req.session;
     next();
 });
 
-//for parsing application/xwww-
-app.use(bodyParser.urlencoded({extended: true}));
-//form-urlencoded
 
 
 //added this
@@ -62,37 +85,14 @@ app.use(function(req, res, next) {
  next();
 });
 
-
-//ROUTING
-var indexRouter = require('./routes/index');
-var homeRouter = require('./routes/home');
-
+//Web page routing
 app.use('/', indexRouter);
 app.use('/home', homeRouter);
 
 
-//Database
-const Pool = require('pg').Pool
 
 
-//const connectionParams = process.env.DATABASE_URL1 || {
-var connectionParams = null;
-if (process.env.DATABASE_URL1 != null){
-    connectionParams = {
-        connectionString: process.env.DATABASE_URL1,
-        ssl: {rejectUnauthorized: false}
-    }
-} else {
-    connectionParams = {
-        user: 'api_user',
-        host: 'localhost',
-        database: 'api',
-        password: 'password',
-        port: 5432
-}
-}
-console.log(connectionParams)
-const pool = new Pool(connectionParams)
+
 
 
 app.listen(port, () => {
