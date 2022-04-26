@@ -43,6 +43,7 @@ router.post('/login', function(req, res, next) {
                     }
                 });
             }
+            // username does not match
             else {res.render('login', {message: "Incorrect Username"});}
         }
    });
