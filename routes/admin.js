@@ -1,5 +1,10 @@
 var express = require("express");
 var router = express.Router();
+function adminonly(req,res,next){
+    if (!req.session.isadmin)
+    {return res.redirect('/');}
+    next();
+    }
 
 //CREATE (Add comment)
 router.post('/', (req,res) => {
@@ -10,7 +15,7 @@ router.post('/', (req,res) => {
     pool.query(`INSERT INTO comments (text) VALUES ('${req.body.commentbox}')`, (err, result) => {
         console.log(err, result)
 
-        res.redirect('/home')
+        res.redirect('/admin')
     })
 })
 
@@ -21,7 +26,7 @@ router.get('/comment_form', (req, res) => {
 
 
 //READ (Display comments)
-router.get('/', (req, res) =>{
+router.get('/', adminonly, (req, res) =>{
 
     console.log('Accept: ' + req.get('Accept'))
     pool.query('SELECT VERSION()', (err, version_results) => {
@@ -34,7 +39,7 @@ router.get('/', (req, res) =>{
         pool.query('SELECT * FROM comments ORDER BY comment_id DESC', (err, comments_results) => {
             console.log(err, comments_results)
 
-            res.render('home', {
+            res.render('admin', {
                                     comments: comments_results.rows
                                 })
             console.log('Content-Type: ' + res.get('Content-Type'))
@@ -45,25 +50,25 @@ router.get('/', (req, res) =>{
 
 
 // UPDATE
-router.get('/comments/:comment_id/form', (req, res) => {
+router.get('/comments/:comment_id/form', adminonly, (req, res) => {
     let query = "UPDATE comments SET is_flagged = NOT is_flagged WHERE comment_id = " + req.params.comment_id;
     console.log(req.params.comment_id)
 
     pool.query(query, (err, result) => {
         console.log(err, result)      
-        res.redirect('/home')
+        res.redirect('/admin')
     })
 })
 
 //DELETE
-router.get('/comments/:comment_id/delete', (req, res) => {
+router.get('/comments/:comment_id/delete', adminonly, (req, res) => {
     const id = req.params.comment_id
     let query = "DELETE FROM comments WHERE comment_id = " + req.params.comment_id;
     console.log(id)
 
     pool.query(query, (err, result) => {
         console.log(err)
-        res.redirect('/home')
+        res.redirect('/admin')
     })
 })
 

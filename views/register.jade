@@ -1,3 +1,12 @@
+script.
+    function toggleVis(){
+        var x = document.getElementById("passwordInput2");
+        if(x.type === "password"){
+            x.type = "text";
+        } else{
+            x.type = "password";
+        }
+    }
 h1 New User 
 form(action='/register' method ='post')
     table 
@@ -17,5 +26,7 @@ form(action='/register' method ='post')
             tr 
                 td Password: 
                 td 
-                    input(type='text' name='password' required='')
+                    input(type='password' name='password' id = 'passwordInput2' required='')
+                    input(type='checkbox' onclick='toggleVis()')
+                    | Show Password
     button(type='submit') Register

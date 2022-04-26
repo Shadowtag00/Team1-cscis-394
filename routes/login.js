@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var bcrypt = require('bcrypt.js');
+var bcrypt = require('bcryptjs');
 
 
 //Display login prompt
@@ -12,7 +12,7 @@ router.get('/', function(req,res,next){
 
 //Check Login Credentials
 router.post('/login', function(req, res, next) {
-    let query = "select username, password, user_id FROM user WHERE username = '" + req.body.username + "'";
+    let query = "select username, password, user_id FROM users WHERE username = '" + req.body.username + "'";
 
     // execute query
     pool.query(query, (err, result) => {
@@ -32,9 +32,11 @@ router.post('/login', function(req, res, next) {
                         if(result[0].isadmin){
                             var isadmin = true;
                             req.session.isadmin = isadmin;
+                            res.redirect('/admin');
+                        } else{
+                            res.redirect('/home');
                         }
 
-                        res.redirect('/home');
                     } else {
                         // password do not match
                         res.render('login', {message: "Incorrect Password"});
@@ -54,11 +56,11 @@ router.get('/register', function(req,res,next){
 
 //Save register information to db
 router.post('/register', function(req,res,next){
-    let insertQuery = "INSERT INTO users (username, first_name, last_name, password) VALUES (?, ?, ?, ?)";
+    let insertQuery = "INSERT INTO users (username, first_name, last_name, password) VALUES ($1, $2, $3, $4)";
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(req.body.password, salt, (err, hash) => {
             if(err) { console.log(err)}
-            pool.query(insertquery,[req.body.firstname, req.body.lastname,req.body.username, hash],(err, result) => {
+            pool.query(insertQuery,[req.body.firstname, req.body.lastname,req.body.username, hash],(err, result) => {
                 if (err) {
                     console.log(err);
                 } else {

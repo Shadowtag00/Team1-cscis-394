@@ -1,4 +1,14 @@
 doctype html
+script.
+    function toggleVis(){
+        var x = document.getElementById("passwordInput");
+        if(x.type === "password"){
+            x.type = "text";
+        } else{
+            x.type = "password";
+        }
+    }
+
 html
     title Comment Filter Application
     p #{message}
@@ -8,7 +18,9 @@ html
             input(type='text' name='username' required='')
         p 
             | Password: 
-            input(type='password' name='password' required='')
+            input(type='password' name='password' id="passwordInput" required='')
+            input(type='checkbox' onclick='toggleVis()')
+            | Show Password
         button(type='submit') Login 
 
     br

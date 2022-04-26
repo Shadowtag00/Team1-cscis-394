@@ -3,9 +3,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const { urlencoded } = require('express');
+var bcrypt = require('bcryptjs');
 const port = process.env.PORT || 3002
 var path = require('path');
 var cookieParser = require('cookie-parser');
+var app = express();
 
 //basic authentication
 const basicAuth = require('express-basic-auth');
@@ -13,15 +15,16 @@ app.use(basicAuth({
     users: {'admin' : 'Team1Password'},
     challenge: true
 }));
-const session = require(express-session);
+const session = require('express-session');
 
 
 //Database
 const Pool = require('pg').Pool
 
 
-//const connectionParams = process.env.DATABASE_URL1 || {
-var connectionParams = null;
+const connectionParams = process.env.DATABASE_URL1;
+
+/*
 if (process.env.DATABASE_URL1 != null){
     connectionParams = {
         connectionString: process.env.DATABASE_URL1,
@@ -36,16 +39,17 @@ if (process.env.DATABASE_URL1 != null){
         port: 5432
     }
 }
+*/
+console.log("Connected to database!");
 console.log(connectionParams);
 const pool = new Pool(connectionParams);
 
+global.pool = pool;
 
 //ROUTING
-var loginRouter = require('./routes/login');
-var homeRouter = require('./routes/home');
+var loginRouter = require('./routes/login.js');
+var homeRouter = require('./routes/admin.js');
 
-
-var app = express();
 //set view engine for express app
 app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", "jade");
@@ -87,7 +91,7 @@ app.use(function(req, res, next) {
 
 //Web page routing
 app.use('/', loginRouter);
-app.use('/home', homeRouter);
+app.use('/admin', adminRouter);
 
 
 
