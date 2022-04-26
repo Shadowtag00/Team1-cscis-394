@@ -25,7 +25,7 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE public.comments (
-    comment_id integer NOT NULL,
+    comment_id SERIAL,
     text character varying(250) NOT NULL,
     username character varying(30),
     is_flagged boolean DEFAULT false,
@@ -66,7 +66,8 @@ CREATE TABLE public.users (
     first_name character varying(50) NOT NULL,
     last_name character varying(50) NOT NULL,
     password character varying(30) NOT NULL,
-    is_admin boolean DEFAULT false
+    is_admin boolean DEFAULT false,
+    user_id SERIAL PRIMARY KEY
 );
 
 
@@ -92,7 +93,7 @@ ALTER TABLE ONLY public.comments
 --
 
 ALTER TABLE ONLY public.users
-    ADD CONSTRAINT users_pkey PRIMARY KEY (username);
+    ADD CONSTRAINT users_pkey PRIMARY KEY (user_id);
 
 
 --

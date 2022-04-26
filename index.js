@@ -22,8 +22,10 @@ const session = require('express-session');
 const Pool = require('pg').Pool
 
 
-const connectionParams = process.env.DATABASE_URL1;
-
+const connectionParams = {
+    connectionString: process.env.DATABASE_URL1,
+    ssl: {rejectUnauthorized: false}
+};
 /*
 if (process.env.DATABASE_URL1 != null){
     connectionParams = {
