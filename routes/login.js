@@ -30,9 +30,9 @@ router.post('/login', function(req, res, next) {
                         var user_full_name = result.rows[0].first_name + " "+ result.rows[0].last_name;
                         req.session.user_full_name = user_full_name;
 
-                        if(result.rows[0].isadmin){
+                        if(result.rows[0].is_admin){
                             var isadmin = true;
-                            req.session.isadmin = isadmin;
+                            req.session.is_admin = isadmin;
                             res.redirect('/admin');
                         } else{
                             res.redirect('/home');
@@ -77,7 +77,7 @@ router.post('/register', function(req,res,next){
 router.get('/logout', function(req, res, next) {
     req.session.user_id = 0;
     req.session.user_full_name = "";
-    req.session.isadmin = false;
+    req.session.is_admin = false;
     res.redirect('/');
 });
 
