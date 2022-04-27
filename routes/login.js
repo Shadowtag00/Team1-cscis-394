@@ -31,10 +31,9 @@ router.post('/login', function(req, res, next) {
                         req.session.user_full_name = user_full_name;
 
                         if(result.rows[0].is_admin){
-                            //var isadmin = true;
-                            //req.session.is_admin = isadmin;
-                            //res.redirect('/admin');
-                            res.redirect('/home'); // i added this for testing homepage
+                            var isadmin = true;
+                            req.session.is_admin = isadmin;
+                            res.redirect('/admin');
                         } else{
                             res.redirect('/home');
                         }
