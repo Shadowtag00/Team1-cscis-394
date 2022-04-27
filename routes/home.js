@@ -16,7 +16,7 @@ function checkLogin(req,res,next){ //verifies there's a user signed in
 }
 
 //CREATE (Add comment)
-router.post('/home', checkLogin,(req,res) => {
+router.post('/', checkLogin,(req,res) => {
     
     //added this
     console.log(req.path)    
@@ -35,7 +35,7 @@ router.get('/comment_form', checkLogin,(req, res) => {
 
 
 //READ (Display comments)
-router.get('/home', adminonly, (req, res) =>{
+router.get('/', adminonly, (req, res) =>{
 
     console.log('Accept: ' + req.get('Accept'))
     pool.query('SELECT VERSION()', (err, version_results) => {

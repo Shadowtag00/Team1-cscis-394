@@ -35,6 +35,7 @@ router.post('/login', function(req, res, next) {
                             //req.session.is_admin = isadmin;
                             //res.redirect('/admin');
                             res.redirect('/home');
+                            res.render('home');
                         } else{
                             res.redirect('/home');
                         }
