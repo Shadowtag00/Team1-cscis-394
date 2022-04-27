@@ -54,7 +54,7 @@ router.post('/search_button', checkLogin,(req,res) => {
 
 
 //READ (Display comments)
-router.get('/', adminonly, (req, res) =>{
+router.get('/', checkLogin, (req, res) =>{
 
     console.log('Accept: ' + req.get('Accept'))
     pool.query('SELECT VERSION()', (err, version_results) => {
