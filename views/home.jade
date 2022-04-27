@@ -38,15 +38,17 @@ body
 	br
 	br
 	h1(style='clear:left') Enter Comment
-	form(action='/home.jade', method='post')
+	form(action='/home', method='post')
 		table
 			tbody 
 				tr 
 					td #{message}
 					td 
-						textarea(name="comment_box", cols="100", rows="4", placeholder='Enter a Comment...')
+						div.input
+							textarea(name="comment_box", cols="100", rows="4", placeholder='Enter a Comment...')
 					td 
-						button(type='submit', name='post_button') Post Comment 
+						div.actions
+							button(type='submit', name='post_button') Post Comment 
 	h2 Comments 
 	table(style='width:30%', height='30px')
 		tbody 
