@@ -43,11 +43,9 @@ body
 			tr 
 				td #{message}
 				td 
-					form(name='comment-page', method='post', action='/home')
-						div.input
-							textarea(name="comment_box", cols="100", rows="4", placeholder='Enter a Comment...')
-						div.actions	
-							input(type='submit', value='post comment')  
+					textarea(name="comment_box", cols="100", rows="4", placeholder='Enter a Comment...')
+				td 
+					button(type='submit', name='post_button') Post Comment 
 	h2 Comments 
 	table(style='width:30%', height='90px')
 		thead
