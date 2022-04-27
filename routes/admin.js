@@ -12,8 +12,8 @@ function checkLogin(req,res,next){ //verifies there's a user signed in
     next();
 }
 //CREATE (Add comment)
-//router.post('/', checkLogin,(req,res) => {
-router.post('/comment_form', checkLogin,(req,res) => {
+//router.post('/comment_form', checkLogin,(req,res) => {
+router.post('/', checkLogin,(req,res) => {
     
     //added this
     console.log(req.path)    
