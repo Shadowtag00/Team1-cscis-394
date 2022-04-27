@@ -97,8 +97,6 @@ app.use('/home', homeRouter);
 
 
 
-
-
 app.listen(port, () => {
     console.log(`Comments app listening on port ${port}`)
 })
