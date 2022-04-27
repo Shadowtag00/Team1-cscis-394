@@ -28,10 +28,10 @@ router.post('/', checkLogin,(req,res) => {
     })
 })
 
-//added this
-router.get('/comment_form', checkLogin,(req, res) => {
-    res.render('create')
-})
+// create new comment page
+// router.get('/comment_form', checkLogin,(req, res) => {
+//     res.render('create')
+// })
 
 
 //READ (Display comments)
@@ -45,7 +45,7 @@ router.get('/', adminonly, (req, res) =>{
         }       
 
         console.log(err, version_results.rows)
-        pool.query('SELECT comment_id, text FROM comments ORDER BY comment_id DESC', (err, comments_results) => {
+        pool.query("SELECT username, text FROM comments WHERE is_flagged='f'", (err, comments_results) => {
             console.log(err, comments_results)
             
             res.render('home', {
