@@ -21,7 +21,7 @@ router.post('/', checkLogin,(req,res) => {
     //added this
     console.log(req.path)    
 
-    pool.query(`INSERT INTO comments (text, username) VALUES ('${req.body.comment_box}','${req.session.user_name}')`, (err, result) => {
+    pool.query(`INSERT INTO comments (text, username) VALUES ('${req.body.comment_box}','${req.session.username}')`, (err, result) => {
         console.log(err, result)
 
         res.redirect('/home') 
@@ -75,7 +75,7 @@ router.get('/', checkLogin, (req, res) =>{
             
             res.render('home', {
                                     comments: comments_results.rows,
-                                    message: req.session.user_name
+                                    message: req.session.username
                                 })
             console.log('Content-Type: ' + res.get('Content-Type'))
                             
