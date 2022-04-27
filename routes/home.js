@@ -34,20 +34,23 @@ router.post('/post_button', checkLogin,(req,res) => {
 // })
 
 //SEARCH
-/*
-router.post('/', checkLogin,(req,res) => {
+
+router.post('/search_button', checkLogin,(req,res) => {
     
     //added this
     console.log(req.path)    
-
+/*
     pool.query(`INSERT INTO comments (text) VALUES ('${req.body.commentbox}')`, (err, result) => {
         console.log(err, result)
 
          // previously /admin
     })
+    */
+    Window.sessionStorage.setItem("username", req.body.search_box);
+    console.log(Window.sessionStorage.getItem("username"));
     res.redirect('/home')
 })
-*/
+
 
 //READ (Display comments)
 router.get('/', adminonly, (req, res) =>{
