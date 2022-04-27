@@ -15,7 +15,11 @@ body
 				td 
 					textarea(name="comment_box", cols="50", rows="4") 
 	h2 Comments 
-	table(style='width:50%', height='70px')
+	table(style='width:30%', height='70px')
+		thead
+			tr 
+				th User ID
+				th Comment
 		each comment in comments
 			tr
 				td #{ comment.comment_id }
