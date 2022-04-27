@@ -22,7 +22,7 @@ body
 		thead 
 			tr 
 				th Comment Id
-				th User Id
+				th Username
 				//th Date	
 				th Comment
 				th Flagged?
@@ -32,7 +32,7 @@ body
 			each comment in comments 
 				tr 
 					td #{ comment.comment_id }
-					td #{ comment.user_id }
+					td #{ comment.username }
 					//td #{ moment(Date.now()).format('MM/DD/YYYY') }		//added, added moment in index.js
 					td #{ comment.text } 
 					td #{ comment.is_flagged }
