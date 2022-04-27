@@ -21,9 +21,9 @@ body
 				th User ID
 				th Comment
 		each comment in comments
-			tr(text-align='center')
-				td #{ comment.comment_id }
-				td #{ comment.text }
+			tr
+				td(text-align='center') #{ comment.comment_id }
+				td(text-align='center') #{ comment.text }
 			
 
 
