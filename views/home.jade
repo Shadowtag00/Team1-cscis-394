@@ -8,9 +8,6 @@ head
 			margin: auto;
 			vertical-align: left;
 		}
-		h1.clear {
-			clear: none;
-		}
 		.topnav {
 			overflow: hidden,
 			background-color: #333;
@@ -30,10 +27,13 @@ head
 			background-color: #3c7ae6;
 			color: white;
 		}
+		.topnav a.clear {
+			clear: none;
+		}
 
 body
 	.topnav
-		a(class='active', href='#home') Main Page
+		a(class='active', href='/') Main Page
 		a(href='#posts') My Posts
 		a(href='#login') Sign Up/Login
 		a(href='#logout') Logout
