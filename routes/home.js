@@ -63,6 +63,11 @@ router.get('/', adminonly, (req, res) =>{
         }       
 
         console.log(err, version_results.rows)
+        if (!Window.sessionStorage.getItem("username")){
+            console.log("sessionStorage works")
+        }else{
+            console.log("sessionStorage does not work")
+        }
         pool.query("SELECT username, text FROM comments WHERE is_flagged='f'", (err, comments_results) => {
             console.log(err, comments_results)
             
