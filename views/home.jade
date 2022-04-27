@@ -14,6 +14,11 @@ body
 				td User Comment 
 				td 
 					textarea(name="comment_box", cols="50", rows="4") 
+	table 
+		each comment in comments
+			tr
+				td #{ comment.comment_id }
+				td #{ comment.text }
 			
 
 
