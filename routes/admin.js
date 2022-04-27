@@ -18,7 +18,7 @@ router.post('/', adminonly,(req,res) => {
     //added this
     console.log(req.path)    
 
-    pool.query(`INSERT INTO comments (text) VALUES ('${req.body.commentbox}')`, (err, result) => {
+    pool.query(`INSERT INTO comments (text, username) VALUES ('${req.body.commentbox}', '${req.session.username}')`, (err, result) => {
         console.log(err, result)
 
         res.redirect('/admin')
