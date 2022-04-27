@@ -47,7 +47,7 @@ global.pool = pool;
 //ROUTING
 var loginRouter = require('./routes/login.js');
 var adminRouter = require('./routes/admin.js');
-//var homeRouter = require('./routes/home.js');
+var homeRouter = require('./routes/home.js');
 
 //set view engine for express app
 app.set('views', path.join(__dirname, 'views'));
@@ -91,7 +91,7 @@ app.use(function(req, res, next) {
 //Web page routing
 app.use('/', loginRouter);
 app.use('/admin', adminRouter);
-//app.use('/home', homeRouter);
+app.use('/home', homeRouter);
 
 
 
