@@ -3,14 +3,14 @@ var router = express.Router();
 
 function adminonly(req,res,next){
     if (!req.session.isadmin) {
-       //return res.redirect('/'); 
+       return res.redirect('/'); 
     }
     next();
 }
 
 function checkLogin(req,res,next){ //verifies there's a user signed in
     if(!req.session.user_id){
-       //return res.redirect('/'); 
+       return res.redirect('/'); 
     }
     next();
 }
@@ -53,7 +53,7 @@ router.post('/search_button', checkLogin,(req,res) => {
 
 
 //READ (Display comments)
-router.get('/', adminonly, (req, res) =>{
+router.get('/', checkLogin, (req, res) =>{
 
     console.log('Accept: ' + req.get('Accept'))
     pool.query('SELECT VERSION()', (err, version_results) => {
