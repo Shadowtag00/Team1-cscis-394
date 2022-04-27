@@ -16,7 +16,7 @@ function checkLogin(req,res,next){ //verifies there's a user signed in
 }
 
 //CREATE (Add comment)
-router.post('/post_button', checkLogin,(req,res) => {
+router.post('/home', checkLogin,(req,res) => {
     
     //added this
     console.log(req.path)    
