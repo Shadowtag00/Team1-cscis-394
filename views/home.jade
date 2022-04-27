@@ -48,6 +48,14 @@ body
 					button(type='submit', name='post_button', formmethod='post') Post Comment 
 	h2 Comments 
 	table(style='width:30%', height='90px')
+		tbody 
+			tr 
+				td 
+					textarea(name="search_box", cols="100", rows="4", placeholder='Search for user...')
+				td 
+					button(type='button', name='search_button') Search
+
+	table(style='width:30%', height='90px')
 		thead
 			tr 
 				th Username
