@@ -21,18 +21,12 @@ router.post('/', checkLogin,(req,res) => {
     //added this
     console.log(req.path)    
 
-    pool.query(`INSERT INTO comments (text) VALUES ('${req.body.commentbox}')`, (err, result) => {
+    pool.query(`INSERT INTO comments (text) VALUES ('${req.body.commentbox}','${req.session.user_name}')`, (err, result) => {
         console.log(err, result)
 
         res.redirect('/home') // previously /admin
     })
 })
-
-// create new comment page
-// router.get('/comment_form', checkLogin,(req, res) => {
-//     res.render('create')
-// })
-
 
 //READ (Display comments)
 router.get('/', adminonly, (req, res) =>{
