@@ -50,7 +50,7 @@ router.get('/', adminonly, (req, res) =>{
             
             res.render('home', {
                                     comments: comments_results.rows,
-                                    message: req.session.user_id
+                                    message: 'test'
                                 })
             console.log('Content-Type: ' + res.get('Content-Type'))
                             
