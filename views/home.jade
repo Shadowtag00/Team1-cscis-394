@@ -33,7 +33,6 @@ body
 	.topnav
 		a(class='active', href='home') Main Page
 		a(href='posts') My Posts
-		a(href='login') Sign Up/Login
 		a(href='logout') Logout
 	br
 	br
@@ -42,11 +41,11 @@ body
 	table
 		tbody 
 			tr 
-				td User Comment 
+				td #{message}
 				td 
 					textarea(name="comment_box", cols="100", rows="4", placeholder='Enter a Comment...')
 				td 
-					button(type='button', name='post_button') Post Comment 
+					button(type='submit', name='post_button') Post Comment 
 	h2 Comments 
 	table(style='width:30%', height='90px')
 		tbody 
