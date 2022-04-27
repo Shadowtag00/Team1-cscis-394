@@ -24,7 +24,7 @@ router.post('/', checkLogin,(req,res) => {
     pool.query(`INSERT INTO comments (text) VALUES ('${req.body.commentbox}')`, (err, result) => {
         console.log(err, result)
 
-        res.redirect('/admin')
+        res.redirect('/home') // previously /admin
     })
 })
 
@@ -47,8 +47,9 @@ router.get('/', adminonly, (req, res) =>{
         console.log(err, version_results.rows)
         pool.query('SELECT * FROM comments ORDER BY comment_id DESC', (err, comments_results) => {
             console.log(err, comments_results)
-
-            res.render('admin', {
+            
+            // previously admin
+            res.render('home', {
                                     comments: comments_results.rows
                                 })
             console.log('Content-Type: ' + res.get('Content-Type'))
