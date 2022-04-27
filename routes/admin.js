@@ -55,7 +55,7 @@ router.get('/', adminonly, (req, res) =>{
 
 
 // UPDATE
-router.get('/admin/:comment_id/form', adminonly, (req, res) => {
+router.get('/comments/:comment_id/form', adminonly, (req, res) => {
     let query = "UPDATE comments SET is_flagged = NOT is_flagged WHERE comment_id = " + req.params.comment_id;
     console.log(req.params.comment_id)
 
