@@ -35,28 +35,28 @@ router.get('/comment_form', checkLogin,(req, res) => {
 
 
 //READ (Display comments)
-router.get('/', adminonly, (req, res) =>{
+// router.get('/', adminonly, (req, res) =>{
 
-    console.log('Accept: ' + req.get('Accept'))
-    pool.query('SELECT VERSION()', (err, version_results) => {
-        //added this
-        if (err) {
-            return console.error('Error executing query', err.stack)
-        }       
+//     console.log('Accept: ' + req.get('Accept'))
+//     pool.query('SELECT VERSION()', (err, version_results) => {
+//         //added this
+//         if (err) {
+//             return console.error('Error executing query', err.stack)
+//         }       
 
-        console.log(err, version_results.rows)
-        pool.query('SELECT * FROM comments ORDER BY comment_id DESC', (err, comments_results) => {
-            console.log(err, comments_results)
+//         console.log(err, version_results.rows)
+//         pool.query('SELECT * FROM comments ORDER BY comment_id DESC', (err, comments_results) => {
+//             console.log(err, comments_results)
             
-            // previously admin
-            res.render('home', {
-                                    comments: comments_results.rows
-                                })
-            console.log('Content-Type: ' + res.get('Content-Type'))
+//             // previously admin
+//             res.render('home', {
+//                                     comments: comments_results.rows
+//                                 })
+//             console.log('Content-Type: ' + res.get('Content-Type'))
                             
-        })
-    })   
-})
+//         })
+//     })   
+// })
 
 module.exports = router;
 
