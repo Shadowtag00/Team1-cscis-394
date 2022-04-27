@@ -62,8 +62,8 @@ router.get('/:comment_id/form', adminonly, (req, res) => {
 
     pool.query(query, (err, result) => {
         console.log(err, result)      
-        //res.redirect('/admin')
-	res.redirect('/')
+        res.redirect('/admin')
+	//res.redirect('/')
     })
 })
 
