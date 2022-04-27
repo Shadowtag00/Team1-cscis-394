@@ -13,7 +13,7 @@ function checkLogin(req,res,next){ //verifies there's a user signed in
 }
 //CREATE (Add comment)
 //router.post('/comment_form', checkLogin,(req,res) => {
-router.post('/', checkLogin,(req,res) => {
+router.post('/', adminonly,(req,res) => {
     
     //added this
     console.log(req.path)    
