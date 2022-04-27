@@ -75,7 +75,7 @@ router.get('/', checkLogin, (req, res) =>{
             
             res.render('home', {
                                     comments: comments_results.rows,
-                                    message: req.session.user_name
+                                    message: 'test'
                                 })
             console.log('Content-Type: ' + res.get('Content-Type'))
                             
