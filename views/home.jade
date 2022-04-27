@@ -33,21 +33,32 @@ body
 	.topnav
 		a(class='active', href='home') Main Page
 		a(href='posts') My Posts
-		a(href='logout') Sign Up/Login
 		a(href='logout') Logout
 	br
 	br
 	br
 	h1(style='clear:left') Enter Comment
-	table
+	form(action='/home', method='post', name='user_comment')
+		table
+			tbody 
+				tr 
+					td #{message}
+					td 
+						div.input
+							textarea(name="comment_box", cols="100", rows="4", placeholder='Enter a Comment...')
+					td 
+						div.actions
+							//button(type='submit', name='post_button') Post Comment 
+							input(type='submit', value='Post Comment')
+	h2 Comments 
+	table(style='width:30%', height='30px')
 		tbody 
 			tr 
-				td #{message}
 				td 
-					textarea(name="comment_box", cols="100", rows="4", placeholder='Enter a Comment...')
+					textarea(name="search_box", placeholder='Search for user...')
 				td 
-					button(type='button', name='post_button') Post Comment 
-	h2 Comments 
+					button(type='button', name='search_button') Search
+
 	table(style='width:30%', height='90px')
 		thead
 			tr 
