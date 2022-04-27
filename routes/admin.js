@@ -28,11 +28,6 @@ router.post('/', adminonly,(req,res) => {
     })
 })
 
-//added this
-router.get('/comment_form', checkLogin,(req, res) => {
-    res.render('create')
-})
-
 
 //READ (Display comments)
 router.get('/', adminonly, (req, res) =>{
