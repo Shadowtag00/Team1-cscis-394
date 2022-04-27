@@ -33,6 +33,21 @@ router.post('/', checkLogin,(req,res) => {
 //     res.render('create')
 // })
 
+//SEARCH
+/*
+router.post('/', checkLogin,(req,res) => {
+    
+    //added this
+    console.log(req.path)    
+
+    pool.query(`INSERT INTO comments (text) VALUES ('${req.body.commentbox}')`, (err, result) => {
+        console.log(err, result)
+
+         // previously /admin
+    })
+    res.redirect('/home')
+})
+*/
 
 //READ (Display comments)
 router.get('/', adminonly, (req, res) =>{
