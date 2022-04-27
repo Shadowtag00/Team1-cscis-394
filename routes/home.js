@@ -48,7 +48,6 @@ router.get('/', adminonly, (req, res) =>{
         pool.query('SELECT comment_id, text FROM comments ORDER BY comment_id DESC', (err, comments_results) => {
             console.log(err, comments_results)
             
-            // previously admin
             res.render('home', {
                                     comments: comments_results.rows
                                 })
@@ -56,8 +55,6 @@ router.get('/', adminonly, (req, res) =>{
                             
         })
     })   
-
-    //res.render('home')
 })
 
 module.exports = router;
