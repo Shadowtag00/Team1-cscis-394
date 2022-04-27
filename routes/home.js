@@ -46,8 +46,9 @@ router.post('/search_button', checkLogin,(req,res) => {
          // previously /admin
     })
     */
-    Window.sessionStorage.setItem("username", req.body.search_box);
-    console.log(Window.sessionStorage.getItem("username"));
+    //Window.sessionStorage.setItem("username", req.body.search_box);
+    req.session.search = req.body.search_box
+    console.log(req.session.search);
     res.redirect('/home')
 })
 
@@ -63,13 +64,13 @@ router.get('/', adminonly, (req, res) =>{
         }       
 
         console.log(err, version_results.rows)
-        /*
-        if (!Window.sessionStorage.getItem("username")){
-            console.log("sessionStorage works")
+        
+        if (!req.session.search){
+            console.log("search works")
         }else{
-            console.log("sessionStorage does not work")
+            console.log("search does not work")
         }
-        */
+        
         pool.query("SELECT username, text FROM comments WHERE is_flagged='f'", (err, comments_results) => {
             console.log(err, comments_results)
             
