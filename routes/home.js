@@ -21,7 +21,7 @@ router.post('/post_button', checkLogin,(req,res) => {
     //added this
     console.log(req.path)    
 
-    pool.query(`INSERT INTO comments (text) VALUES ('${req.body.comment_box}','${req.session.user_name}')`, (err, result) => {
+    pool.query(`INSERT INTO comments (text, username) VALUES ('${req.body.comment_box}','${req.session.user_name}')`, (err, result) => {
         console.log(err, result)
 
         res.redirect('/home') // previously /admin
