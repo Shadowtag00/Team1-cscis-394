@@ -81,7 +81,7 @@ router.get('/:comment_id/delete', adminonly, (req, res) => {
 })
 
 // When the user scrolls the page, execute staticHeader
-window.onscroll = function() {staticHeader()};
+//window.onscroll = function() {staticHeader()};
 
 // Get the header
 var header = document.getElementById("myHeader");
