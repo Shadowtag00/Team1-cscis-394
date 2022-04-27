@@ -34,7 +34,7 @@ router.post('/', checkLogin,(req,res) => {
 // })
 
 //SEARCH
-router.post('/search_button', checkLogin,(req,res) => {
+router.post('/:search_button', checkLogin,(req,res) => {
     
     //added this
     console.log(req.path)    
