@@ -8,6 +8,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var app = express();
 app.locals.moment = require('moment');
+process.env.TZ = "America/Chicago";
 //basic authentication
 /*
 const basicAuth = require('express-basic-auth');
