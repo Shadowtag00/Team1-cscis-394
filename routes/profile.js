@@ -9,7 +9,7 @@ function checkLogin(req,res,next){ //verifies there's a user signed in
 }
 
 //READ (Display comments)
-router.get('/profile', checkLogin, (req, res) =>{
+router.get('/profile', function(req, res, next) {
 
     res.redirect('/')
     
