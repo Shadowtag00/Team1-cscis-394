@@ -85,7 +85,7 @@ router.get('/', checkLogin, (req, res) =>{
 
 router.get('/profile_change', checkLogin, (req, res) =>{
 
-    res.redirect('/profile')   
+    res.render('profile') 
 })
 
 module.exports = router;
