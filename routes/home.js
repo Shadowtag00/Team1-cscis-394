@@ -21,34 +21,10 @@ router.post('/', checkLogin,(req,res) => {
     //added this
     console.log(req.path)    
 
-    pool.query(`INSERT INTO comments (text, username, post_date) VALUES ('${req.body.comment_box}','${req.session.username}',(to_timestamp(${Date.now()} / 1000.0)))`, (err, result) => {
+    pool.query(`INSERT INTO comments (text, username, post_date) VALUES ('${req.body.comment_box}','${req.session.username}',to_timestamp(${Date.now()} / 1000.0))`, (err, result) => {
         console.log(err, result)
-        //console.log((to_timestamp(${Date.now()} / 1000.0)))
         res.redirect('/home') 
     })
-})
-
-// create new comment page
-// router.get('/comment_form', checkLogin,(req, res) => {
-//     res.render('create')
-// })
-
-//SEARCH
-router.post('/:search_button', checkLogin,(req,res) => {
-    
-    //added this
-    console.log(req.path)    
-/*
-    pool.query(`INSERT INTO comments (text) VALUES ('${req.body.commentbox}')`, (err, result) => {
-        console.log(err, result)
-
-         // previously /admin
-    })
-    */
-    //Window.sessionStorage.setItem("username", req.body.search_box);
-    req.session.search = req.body.search_box
-    console.log(req.session.search);
-    res.redirect('/home')
 })
 
 
@@ -63,14 +39,8 @@ router.get('/', checkLogin, (req, res) =>{
         }       
 
         console.log(err, version_results.rows)
-        
-        if (!req.session.search){
-            console.log("search works")
-        }else{
-            console.log("search does not work")
-        }
-        
-        pool.query("SELECT username, text FROM comments WHERE is_flagged='f'", (err, comments_results) => {
+           
+        pool.query("SELECT username, text, post_date FROM comments WHERE is_flagged='f'", (err, comments_results) => {
             console.log(err, comments_results)
             
             res.render('home', {
