@@ -32,8 +32,8 @@ head
 		
 body
 	.topnav
-		//a(class='active', href='home') Main Page
-		//a(href='posts') My Posts
+		a(class='active', href='home') Main Page
+		a(href='posts') My Posts
 		a(href='logout') Logout
 	br
 	br
@@ -55,7 +55,7 @@ body
 			tr 
 				th Comment Id
 				th Username
-				//th Date	
+				th Date	
 				th Comment
 				th Flagged?
 				th Flag/Unflag
@@ -65,7 +65,7 @@ body
 				tr 
 					td #{ comment.comment_id }
 					td #{ comment.username }
-					//td #{ moment(Date.now()).format('MM/DD/YYYY') }		//added, added moment in index.js
+					td #{moment(comment.post_date).format('MM-DD-YYYY HH:SS')}
 					td #{ comment.text } 
 					td #{ comment.is_flagged }
 					td
