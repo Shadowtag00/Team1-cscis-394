@@ -21,7 +21,7 @@ router.post('/', checkLogin,(req,res) => {
     //added this
     console.log(req.path)    
 
-    pool.query(`INSERT INTO comments (text, username, post_date) VALUES ('${req.body.comment_box}','${req.session.username}','(to_timestamp(${Date.now()} / 1000.0))')`, (err, result) => {
+    pool.query(`INSERT INTO comments (text, username, post_date) VALUES ('${req.body.comment_box}','${req.session.username}',(to_timestamp(${Date.now()} / 1000.0)))`, (err, result) => {
         console.log(err, result)
         //console.log((to_timestamp(${Date.now()} / 1000.0)))
         res.redirect('/home') 
