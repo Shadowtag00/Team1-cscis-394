@@ -37,7 +37,13 @@ body
 	br
 	br
 	br
-	h1(style='clear:left') Enter Comment
+	p 
+		form(action='/search' method='get')
+			|User Search: 
+			input(type="text" name="searchcriteria")
+			input(type='submit' value='Search')
+	br
+	h1(style='clear:left') Enter a Comment
 	form(action='/home', method='post', name='user_comment')
 		table
 			tbody 
@@ -48,21 +54,13 @@ body
 							textarea(name="comment_box", cols="100", rows="4", placeholder='Enter a Comment...')
 					td 
 						div.actions
-							//button(type='submit', name='post_button') Post Comment 
 							input(type='submit', value='Post Comment')
 	h2 Comments 
-	table(style='width:30%', height='30px')
-		tbody 
-			tr 
-				td 
-					textarea(name="search_box", placeholder='Search for user...')
-				td 
-					button(type='button', name='search_button') Search
-
+	
 	table(style='width:30%', height='90px')
 		thead
 			tr 
-				th Username
+				th User
 				th Comment
 		each comment in comments
 			tr

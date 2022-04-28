@@ -1,14 +1,15 @@
-router.get('/', function(req, res, next) {
-    let query = "SELECT username, text FROM comments WHERE is_flagged='f' AND username=";
+var express = require('express');
+var router = express.Router();
 
-    //console.log("Query: " + query );
+router.get('/', function(req, res, next) {
+    let query = `SELECT username, text FROM comments WHERE is_flagged='f' AND username= '${req.query.searchcriteria}'`;
+
     // execute query
-    db.query(query, (err, result) => {
+    pool.query(query, (err, result) => {
         if (err) {
             console.log(err);
-            res.render('error');
         } else {
-            res.render('search', {allrecs: result});
+            res.render('search', {allrecs: result.rows});
         }
     });
 });
