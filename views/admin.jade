@@ -65,8 +65,8 @@ body
 				tr 
 					td #{ comment.comment_id }
 					td #{ comment.username }
-					td #{moment(comment.post_date).format('MM-DD-YYYY HH:SS')}
-					td #{ comment.text } 
+					td #{ comment.text }
+					td #{moment(comment.post_date).format('MM-DD-YYYY HH:SS')} 
 					td #{ comment.is_flagged }
 					td
 						a(href='/admin/#{comment.comment_id}/form') Flag/Unflag
