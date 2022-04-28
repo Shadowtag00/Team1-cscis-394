@@ -1,7 +1,12 @@
 var express = require('express');
 var router = express.Router();
-
-router.get('/', function(req, res, next) {
+function checkLogin(req,res,next){ //verifies there's a user signed in
+    if(!req.session.user_id){
+       return res.redirect('/'); 
+    }
+    next();
+}
+router.get('/', checkLogin,function(req, res, next) {
     let query = `SELECT username, text FROM comments WHERE is_flagged='f' AND username= '${req.query.searchcriteria}'`;
 
     // execute query
