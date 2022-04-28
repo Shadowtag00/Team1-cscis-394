@@ -10,13 +10,14 @@ var cookieParser = require('cookie-parser');
 var app = express();
 
 //basic authentication
+/*
 const basicAuth = require('express-basic-auth');
 app.use(basicAuth({
     users: {'admin' : 'Team1Password'},
     challenge: true
 }));
 const session = require('express-session');
-
+*/
 
 //Database
 const Pool = require('pg').Pool
