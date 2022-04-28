@@ -9,7 +9,6 @@ router.get('/', function(req,res,next){
 });
 
 
-
 //Check Login Credentials
 router.post('/login', function(req, res, next) {
     let query = "select username, password, user_id, is_admin FROM users WHERE username = '" + req.body.username + "'";
