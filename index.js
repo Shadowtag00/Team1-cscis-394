@@ -51,7 +51,7 @@ var loginRouter = require('./routes/login.js');
 var adminRouter = require('./routes/admin.js');
 var homeRouter = require('./routes/home.js');
 var searchRouter = require('./routes/search.js'); 
-//var profileRouter = require('./routes/profile.js');
+var profileRouter = require('./routes/profile.js');
 
 //set view engine for express app
 app.set('views', path.join(__dirname, 'views'));
@@ -99,7 +99,7 @@ app.use('/', loginRouter);
 app.use('/admin', adminRouter);
 app.use('/home', homeRouter);
 app.use('/search', searchRouter);
-//app.use('/profile', profileRouter);
+app.use('/profile', profileRouter);
 
 app.listen(port, () => {
     console.log(`Comments app listening on port ${port}`)
