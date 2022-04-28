@@ -1,9 +1,45 @@
-table(style='width:30%', height='90px')
-		thead
-			tr 
-				th Username
-				th Comment
-		each comment in comments
-			tr
-				td(style='text-align:center') #{ comment.username }
-				td(style='text-align:center') #{ comment.text }
+style.
+		table, th, tr, td {
+			border:1px solid black;
+		}
+		body {
+			margin: auto;
+			vertical-align: left;
+		}
+		.topnav {
+			overflow: hidden,
+			background-color: #333;
+		}
+		.topnav a {
+			float: left;
+			color: black;
+			padding: 15px 15px;
+			text-decoration: none;
+			font-size: 17px;
+		}
+		.topnav a:hover {
+			background-color: #ddd;
+			color: black;
+		}
+		.topnav a.active {
+			background-color: #3c7ae6;
+			color: white;
+		}
+body
+	.topnav
+		a(class='active', href='home') Main Page
+		a(href='posts') My Posts
+		a(href='logout') Logout
+	br
+	br
+	br
+	h1 Results 
+	table(style='width:30%', height='90px')
+			thead
+				tr 
+					th User
+					th Comment
+			each comment in allrecs
+				tr
+					td(style='text-align:center') #{ comment.username }
+					td(style='text-align:center') #{ comment.text }
