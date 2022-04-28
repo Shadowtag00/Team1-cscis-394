@@ -25,11 +25,11 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE public.comments (
-    comment_id integer,
+    comment_id integer NOT NULL,
     text character varying(250) NOT NULL,
     username character varying(30),
     is_flagged boolean DEFAULT false,
-    post_date date
+    post_date timestamp with time zone
 );
 
 
@@ -65,19 +65,48 @@ CREATE TABLE public.users (
     username character varying(30) NOT NULL,
     first_name character varying(50) NOT NULL,
     last_name character varying(50) NOT NULL,
-    password character varying(30) NOT NULL,
+    password character varying(100) NOT NULL,
     is_admin boolean DEFAULT false,
-    user_id SERIAL PRIMARY KEY
+    user_id integer NOT NULL
 );
 
 
 ALTER TABLE public.users OWNER TO pavldkvmlvbxfk;
 
 --
+-- Name: users_user_id_seq; Type: SEQUENCE; Schema: public; Owner: pavldkvmlvbxfk
+--
+
+CREATE SEQUENCE public.users_user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_user_id_seq OWNER TO pavldkvmlvbxfk;
+
+--
+-- Name: users_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: pavldkvmlvbxfk
+--
+
+ALTER SEQUENCE public.users_user_id_seq OWNED BY public.users.user_id;
+
+
+--
 -- Name: comments comment_id; Type: DEFAULT; Schema: public; Owner: pavldkvmlvbxfk
 --
 
 ALTER TABLE ONLY public.comments ALTER COLUMN comment_id SET DEFAULT nextval('public.comments_comment_id_seq'::regclass);
+
+
+--
+-- Name: users user_id; Type: DEFAULT; Schema: public; Owner: pavldkvmlvbxfk
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN user_id SET DEFAULT nextval('public.users_user_id_seq'::regclass);
 
 
 --
@@ -93,7 +122,7 @@ ALTER TABLE ONLY public.comments
 --
 
 ALTER TABLE ONLY public.users
-    ADD CONSTRAINT users_pkey PRIMARY KEY (user_id);
+    ADD CONSTRAINT users_pkey PRIMARY KEY (username);
 
 
 --
