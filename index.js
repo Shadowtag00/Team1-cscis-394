@@ -16,8 +16,9 @@ app.use(basicAuth({
     users: {'admin' : 'Team1Password'},
     challenge: true
 }));
-const session = require('express-session');
 */
+const session = require('express-session');
+
 
 //Database
 const Pool = require('pg').Pool
