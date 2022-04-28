@@ -20,7 +20,7 @@ router.get('/', checkLogin, (req, res) =>{
 
         console.log(err, version_results.rows)
         
-        pool.query(`SELECT username, text FROM comments WHERE is_flagged='f' and username=${req.session.username}`, (err, comments_results) => {
+        pool.query(`SELECT username, text FROM comments WHERE is_flagged='f' and username='${req.session.username}'`, (err, comments_results) => {
             console.log(err, comments_results)
             
             res.render('home', {
