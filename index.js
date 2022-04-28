@@ -53,9 +53,11 @@ var searchRouter = require('./routes/search.js');
 //set view engine for express app
 app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", "jade");
+
 //for parsing application/json
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
 //for user sessions
 app.use(cookieParser());
 app.use(session({secret: 'Team1ProjectSecret'}));
@@ -95,18 +97,11 @@ app.use('/admin', adminRouter);
 app.use('/home', homeRouter);
 app.use('/search', searchRouter);
 
-
-
-
-
 app.listen(port, () => {
     console.log(`Comments app listening on port ${port}`)
 })
 
 module.exports = app;
-
-
-
 
 
 /*
