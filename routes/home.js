@@ -53,6 +53,34 @@ router.get('/', checkLogin, (req, res) =>{
     })   
 })
 
+router.get('/profile', function(req, res, next) {
+
+    res.redirect('/')
+    
+    // console.log('Accept: ' + req.get('Accept'))
+    // pool.query('SELECT VERSION()', (err, version_results) => {
+    //     //added this
+    //     if (err) {
+    //         return console.error('Error executing query', err.stack)
+    //     }       
+
+    //     console.log(err, version_results.rows)
+        
+    //     //  and username='${req.session.username}'
+    //     pool.query(`SELECT username, text FROM comments WHERE is_flagged='f'`, (err, comments_results) => {
+    //         console.log(err, comments_results)
+            
+    //         res.render('profile', {
+    //                                 comments: comments_results.rows,
+    //                                 message: req.session.username
+    //                             })
+    //         console.log('Content-Type: ' + res.get('Content-Type'))
+                            
+    //     })
+    // }) 
+     
+})
+
 module.exports = router;
 
 
