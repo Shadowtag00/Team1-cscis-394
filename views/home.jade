@@ -68,6 +68,7 @@ body
 				td(style='text-align:center') #{ comment.username }
 				td(style='text-align:center') #{ comment.text }
 				td(style='text-align:center') #{moment(comment.post_date).format('MM-DD-YYYY HH:SS')}
+				td(href='/update_profile') Update
 			
 //- body
 //- 	a(href='/comment_form') Create new comment

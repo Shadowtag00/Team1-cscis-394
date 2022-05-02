@@ -28,6 +28,12 @@ router.post('/', checkLogin,(req,res) => {
 })
 
 
+//added
+router.get('/update_profile', checkLogin, (req, res) => {
+	res.render('create')
+})
+
+
 //READ (Display comments)
 router.get('/', checkLogin, (req, res) =>{
 
