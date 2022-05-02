@@ -38,7 +38,7 @@ router.get('/update_profile', function(req, res, next) {
 router.get('/:username/delete', checkLogin, (req, res) => {
 	const u_name = req.session.username
 	//const u_name = req.params.username
-	let query = `Delete From users where username =  + 'req.session.username'`;
+	let query = `DELETE FROM users WHERE username = 'req.session.username'`;
 	//let query = "Delete From users where username = " + req.params.username;
 	console.log(u_name)
 
