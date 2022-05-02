@@ -34,6 +34,19 @@ router.get('/update_profile', function(req, res, next) {
 })
 
 
+//added - delete profile
+router.get('/:username/delete', checkLogin, (req, res) => {
+	const u_name = req.params.username
+	let query = "Delete From users where username = " + req.params.username;
+	console.log(u_name)
+
+	pool.query(query, (err, result) => {
+		console.log(err)
+		res.redirect('/')
+	})
+})
+
+
 //READ (Display comments)
 router.get('/', checkLogin, (req, res) =>{
 
