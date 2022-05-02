@@ -30,7 +30,7 @@ router.post('/', checkLogin,(req,res) => {
 
 //added
 router.get('/update_profile', checkLogin, (req, res) => {
-	res.render('create')
+	res.render('update')
 })
 
 
