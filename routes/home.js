@@ -29,7 +29,7 @@ router.post('/', checkLogin,(req,res) => {
 
 
 //added
-router.get('/home/update_profile', checkLogin, (req, res) => {
+router.get('/update_profile', checkLogin, (req, res) => {
 	res.render('update')
 })
 
