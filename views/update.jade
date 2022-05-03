@@ -1,5 +1,37 @@
+head
+	style.
+		body {
+			margin: auto;
+			vertical-align: left;
+			background: #e6e6e6;
+		}
+		.topnav {
+			overflow: hidden;
+			background-color: #333;
+		}
+		.topnav a {
+			float: left;
+			color: black;
+			padding: 15px 15px;
+			text-decoration: none;
+			font-size: 17px;
+		}
+		.topnav a:hover {
+			background-color: #ddd;
+			color: black;
+		}
+		.topnav a.active {
+			background-color: #3c7ae6;
+			color: white;
+		}
 body
-
-	form(name="profile-update-page", method = "post", action="/")
-
-	h1 Update Profile
+	.topnav
+		a(href='home') Main Page
+		a(href='profile') My Posts
+		a(href='logout') Logout
+	br
+	br
+	br
+	h1(style='clear:left') Edit yyour profile
+	br
+	br
