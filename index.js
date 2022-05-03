@@ -52,7 +52,7 @@ var adminRouter = require('./routes/admin.js');
 var homeRouter = require('./routes/home.js');
 var searchRouter = require('./routes/search.js'); 
 var profileRouter = require('./routes/profile.js');
-var updateRouter = require('./routers/update.js')
+var updateRouter = require('./routes/update.js')
 
 //set view engine for express app
 app.set('views', path.join(__dirname, 'views'));
