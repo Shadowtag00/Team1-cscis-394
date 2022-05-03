@@ -68,6 +68,7 @@ router.get('/', checkLogin, (req, res) =>{
            
         pool.query("SELECT username, text, post_date FROM comments WHERE is_flagged='f'", (err, comments_results) => {
             console.log(err, comments_results)
+	//Here create sortBy to sort by dates to show most recent posts first
             
             res.render('home', {
                                     comments: comments_results.rows,
