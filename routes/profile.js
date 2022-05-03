@@ -38,7 +38,7 @@ router.get('/', function(req, res, next) {
 //DELETE
 router.get('/:comment_id/delete', (req, res) => {
     let query = "DELETE FROM comments WHERE comment_id = ";
-    console.log(id)
+    console.log(comment_id)
 
     pool.query(query, (err, result) => {
         console.log(err)
