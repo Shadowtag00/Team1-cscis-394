@@ -41,6 +41,18 @@ router.get('/', function(req, res, next) {
      
 })
 
+// UPDATE
+    router.get('/:comment_id/form', useronly, (req, res) => {
+        let query = "UPDATE comments SET is_flagged = NOT is_flagged WHERE comment_id = " + req.params.comment_id;
+        console.log(req.params.comment_id)
+    
+        pool.query(query, (err, result) => {
+            console.log(err, result)      
+            res.redirect('/profile')
+        //res.redirect('/')
+        })
+    })
+
 //DELETE
 router.get('/:comment_id/delete', useronly, (req, res) => {
     const id = req.params.comment_id
