@@ -1,6 +1,12 @@
 var express = require("express");
 var router = express.Router();
 
+function useronly(req,res,next){
+    if (!req.session.is_admin)
+    {return res.redirect('/');}
+    next();
+    }
+
 function checkLogin(req,res,next){ //verifies there's a user signed in
     if(!req.session.user_id){
        return res.redirect('/'); 
@@ -36,7 +42,7 @@ router.get('/', function(req, res, next) {
 })
 
 //DELETE
-router.get('/:comment_id/delete', (req, res) => {
+router.get('/:comment_id/delete', useronly, (req, res) => {
     const id = req.params.comment_id
     let query = "DELETE FROM comments WHERE comment_id = " + req.params.comment_id;
     console.log(id)
