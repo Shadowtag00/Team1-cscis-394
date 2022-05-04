@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcryptjs');
 
-
 //Display login prompt
 router.get('/', function(req,res,next){
     if(req.session.user_id && req.session.is_admin) //if session is admin, load admin page
@@ -12,7 +11,6 @@ router.get('/', function(req,res,next){
     else
         res.render('login', {message: "Please Login"});
 });
-
 
 //Check Login Credentials
 router.post('/login', function(req, res, next) {
@@ -56,7 +54,6 @@ router.post('/login', function(req, res, next) {
    });
 });
 
-
 //Enable registration
 router.get('/register', function(req,res,next){
     res.render('register');
@@ -78,7 +75,6 @@ router.post('/register', function(req,res,next){
         });
     });
 });
-
 
 //enable logging out
 router.get('/logout', function(req, res, next) {
