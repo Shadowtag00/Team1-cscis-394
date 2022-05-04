@@ -66,7 +66,7 @@ router.get('/', checkLogin, (req, res) =>{
 
         console.log(err, version_results.rows)
            
-        pool.query("SELECT username, text, post_date FROM comments WHERE is_flagged='f'", (err, comments_results) => {
+        pool.query("SELECT username, text, post_date FROM comments WHERE is_flagged='f' ORDER BY post_date DESC", (err, comments_results) => {
 	//Already choose selected posts that weren't flagged
 		
             console.log(err, comments_results)
