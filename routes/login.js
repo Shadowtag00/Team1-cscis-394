@@ -81,6 +81,7 @@ router.get('/logout', function(req, res, next) {
     req.session.user_full_name = "";
 	req.session.username = "";
     req.session.is_admin = false;
+    req.session.destroy();
     res.redirect('/');
 });
 

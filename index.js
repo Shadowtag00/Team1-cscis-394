@@ -63,13 +63,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 //for user sessions
-app.use(cookieParser());
-app.use(session({secret: 'Team1ProjectSecret'}));
+const oneDay = 1000 * 60 * 60 * 24; //calculation for one day
+app.use(session({
+    secret: 'Team1ProjectSecret',
+    saveUninitialized: true,
+    cookie: {maxAge: oneDay}, //cookie expires after a day if user doesn't log out
+    resave: false
+}));
 app.use(function(req,res,next){
     res.locals.session = req.session;
     next();
 });
-
+app.use(cookieParser());
 
 
 //added this
