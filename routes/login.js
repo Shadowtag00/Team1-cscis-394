@@ -5,8 +5,10 @@ var bcrypt = require('bcryptjs');
 
 //Display login prompt
 router.get('/', function(req,res,next){
-    if(req.session.cookie && req.session.is_admin)
-        res.render('admin');
+    if(req.session.user_id && req.session.is_admin) //if session is admin, load admin page
+        res.redirect('/admin');
+    else if(req.session.user_id && !req.session.is_admin) //if session is a regular user, load home page
+        res.redirect('/home');
     else
         res.render('login', {message: "Please Login"});
 });
