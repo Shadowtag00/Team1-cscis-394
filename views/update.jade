@@ -37,29 +37,40 @@ body
 	br
 	br
 	br
-	h1(style='clear:left') Edit Your Profile
+	h1 Edit Your Profile
 	br
 	br
 	br
-	form(action='/updateProfile' method ='post')
-	table
-		tbody
-			tr
-				td First Name:
-				td
-					input(type='text' name='firstname' required='')
-			tr
-				td Last Name:
-				td
-					input(type='text' name='lastname' required='')
-			tr
-				td Username:
-				td
-					input(type='text' name='username' required='')
-			tr
-				td Password:
-				td
-					input(type='password' name='password' id = 'passwordInput2' required='')
-					input(type='checkbox' onclick='toggleVis()')
-					| Show Password
-	button(type='submit') Register
+	form(action='/updateName', method='post', name='firstNameUpdate')
+		table
+			tbody
+				tr
+					td First Name 
+					td
+						div.input
+							input(type='text' name='firstName')
+					td 
+						div.actions
+							input(type='submit', value='Change First Name')
+	form(action='/updateLastName', method='post', name='firstNameUpdate')
+		table
+			tbody
+				tr
+					td Last Name 
+					td
+						div.input
+							input(type='text' name='lastName')
+					td 
+						div.actions
+							input(type='submit', value='Change Last Name')
+	form(action='/updatePassword', method='post', name='firstNameUpdate')
+		table
+			tbody
+				tr
+					td Password
+					td
+						div.input
+							input(type='text' name='password')
+					td 
+						div.actions
+							input(type='submit', value='Change Password')

@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+//var bcrypt = require('bcryptjs');
 
 function useronly(req,res,next){
     if (!req.session.user_id)
@@ -21,20 +22,22 @@ router.get('/', checkLogin, (req, res) => {
     res.render('update')
 })
 
-router.post('/register', function(req,res,next){
-    let insertQuery = "INSERT INTO users (username, first_name, last_name, password) VALUES ($1, $2, $3, $4)";
-    bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(req.body.password, salt, (err, hash) => {
-            if(err) { console.log(err)}
-            pool.query(insertQuery,[req.body.username, req.body.firstname,req.body.lastname, hash],(err, result) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    res.redirect('/');
-                }
-            });
-        });
-    });
+router.post('/updateName', function(req,res,next)
+{
+    let insertQuery = "UPDATE users SET first_name = $1, last_name = $2, password = $3";
+    
+});
+
+router.post('/updateLastName', function(req,res,next)
+{
+    let insertQuery = "UPDATE users SET first_name = $1, last_name = $2, password = $3";
+    
+});
+
+router.post('/updatePassword', function(req,res,next)
+{
+    let insertQuery = "UPDATE users SET first_name = $1, last_name = $2, password = $3";
+    
 });
 
 
