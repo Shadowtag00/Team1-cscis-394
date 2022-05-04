@@ -38,17 +38,19 @@ router.get('/delete', checkLogin, (req, res) => {
 	//const u_name = req.params.username
 	//let query = `DELETE FROM users WHERE username = '${req.session.username}'`;
 	//let query = "Delete From users where username = " + req.params.username;
-	let query = "DELETE FROM users WHERE user_id = " + req.session.user_id;
+	//let query = "DELETE FROM users WHERE user_id = " + req.session.user_id;
 	console.log(u_name)
 
-	pool.query(query, (err, result) => {
+	pool.query(`DELETE FROM comments WHERE username = '${req.session.username}'`, (err, result) => {
 		console.log(err)
-		req.session.user_id = 0;
+	})
+    pool.query(`DELETE FROM users WHERE username = '${req.session.username}'`), (err, result) => {
+        req.session.user_id = 0;
 		req.session.user_full_name = "";
 		req.session.username = "";
 		req.session.is_admin = false;
 		res.redirect('/')
-	})
+    }
 })
 
 //READ (Display comments)
