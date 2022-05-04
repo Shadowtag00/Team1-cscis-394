@@ -71,8 +71,10 @@ body
 					td #{moment(comment.post_date).format('MM-DD-YYYY HH:SS')} 
 					td #{ comment.is_flagged }
 					td
-						a(href='/admin/#{comment.comment_id}/form') Flag/Unflag
+						a(href='/admin/#{comment.comment_id}/form')
+							button Flag/Unflag
 					td
 						
-						a(href='/admin/#{comment.comment_id}/delete' onClick="return confirm('Are you sure you want to delete this comment?');") Delete
+						a(href='/admin/#{comment.comment_id}/delete' onClick="return confirm('Are you sure you want to delete this comment?');")
+							button Delete
 
