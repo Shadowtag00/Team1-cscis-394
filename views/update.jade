@@ -41,24 +41,24 @@ body
 	br
 	br
 	br
-	form(action='/register' method ='post')
-    table 
-        tbody 
-            tr 
-                td First Name: 
-                td
+	form(action='/updateProfile' method ='post')
+	table
+        tbody
+            tr
+                td First Name:
+				td
                     input(type='text' name='firstname' required='')
-            tr 
-                td Last Name: 
-                td 
+            tr
+                td Last Name:
+                td
                     input(type='text' name='lastname' required='')
-            tr 
-                td Username: 
-                td 
+            tr
+                td Username:
+                td
                     input(type='text' name='username' required='')
-            tr 
-                td Password: 
-                td 
+            tr
+                td Password:
+                td
                     input(type='password' name='password' id = 'passwordInput2' required='')
                     input(type='checkbox' onclick='toggleVis()')
                     | Show Password
