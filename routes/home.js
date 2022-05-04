@@ -35,10 +35,7 @@ router.get('/update', function(req, res, next) {
 //added - delete profile
 router.get('/delete', checkLogin, (req, res) => {
 	const u_name = req.session.username
-	//const u_name = req.params.username
-	//let query = `DELETE FROM users WHERE username = '${req.session.username}'`;
-	//let query = "Delete From users where username = " + req.params.username;
-	//let query = "DELETE FROM users WHERE user_id = " + req.session.user_id;
+
 	console.log(u_name)
 
 	pool.query(`DELETE FROM comments WHERE username = '${req.session.username}'`, (err, result) => {
@@ -50,7 +47,7 @@ router.get('/delete', checkLogin, (req, res) => {
 		req.session.username = "";
 		req.session.is_admin = false;
 		res.redirect('/')
-    }
+    })
 })
 
 //READ (Display comments)
