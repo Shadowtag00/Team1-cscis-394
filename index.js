@@ -67,7 +67,7 @@ const oneDay = 1000 * 60 * 60 * 24; //calculation for one day
 app.use(session({
     secret: 'Team1ProjectSecret',
     saveUninitialized: true,
-    //cookie: {maxAge: oneDay}, //cookie expires after a day if user doesn't log out
+    cookie: {maxAge: oneDay}, //cookie expires after a day if user doesn't log out
     resave: false
 }));
 app.use(function(req,res,next){
