@@ -30,6 +30,7 @@ router.post('/login', function(req, res, next) {
                         req.session.user_full_name = user_full_name;
 			            var user_name = result.rows[0].username;
 			            req.session.username = user_name;
+                        //res.cookie(user_name, result.rows[0].password, {expires: new Date(Date.now()+9000000)});
 
                         if(result.rows[0].is_admin){
                             var isadmin = true;
