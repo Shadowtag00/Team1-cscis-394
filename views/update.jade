@@ -1,5 +1,10 @@
 head
 	style.
+		table, th, tr, td {
+			border:1px solid black;
+			margin-left: auto;
+			margin-right: auto;
+		}
 		body {
 			margin: auto;
 			vertical-align: left;
@@ -11,7 +16,7 @@ head
 		}
 		.topnav a {
 			float: left;
-			color: black;
+			color: white;
 			padding: 15px 15px;
 			text-decoration: none;
 			font-size: 17px;
@@ -36,3 +41,25 @@ body
 	br
 	br
 	br
+	form(action='/register' method ='post')
+    table 
+        tbody 
+            tr 
+                td First Name: 
+                td
+                    input(type='text' name='firstname' required='')
+            tr 
+                td Last Name: 
+                td 
+                    input(type='text' name='lastname' required='')
+            tr 
+                td Username: 
+                td 
+                    input(type='text' name='username' required='')
+            tr 
+                td Password: 
+                td 
+                    input(type='password' name='password' id = 'passwordInput2' required='')
+                    input(type='checkbox' onclick='toggleVis()')
+                    | Show Password
+    button(type='submit') Register
