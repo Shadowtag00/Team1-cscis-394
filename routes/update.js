@@ -13,3 +13,18 @@ function checkLogin(req,res,next){ //verifies there's a user signed in
     }
     next();
 }
+
+//READ (Display Update)
+router.get('/', checkLogin, (req, res) => {
+
+    console.log('Accept: ' + req.get('Accept'))
+
+    console.log(err, version_results.rows)
+           
+    res.render('update')
+    
+    console.log('Content-Type: ' + res.get('Content-Type')) 
+})
+
+
+module.exports = router;

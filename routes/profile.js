@@ -38,7 +38,6 @@ router.get('/', function(req, res, next) {
                             
         })
     }) 
-     
 })
 
 // UPDATE
