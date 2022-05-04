@@ -41,7 +41,7 @@ router.get('/delete', checkLogin, (req, res) => {
 	pool.query(`DELETE FROM comments WHERE username = '${req.session.username}'`, (err, result) => {
 		console.log(err)
 	})
-    pool.query(`DELETE FROM users WHERE username = '${req.session.username}'`), (err, result) => {
+    pool.query(`DELETE FROM users WHERE username = '${req.session.username}'`, (err, result) => {
         req.session.user_id = 0;
 		req.session.user_full_name = "";
 		req.session.username = "";
