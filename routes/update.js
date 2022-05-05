@@ -68,7 +68,13 @@ router.post('/', checkLogin, (req, res) =>
         }
         else if (req.body.username)
         {
-            res.redirect('/')
+            pool.query(`UPDATE comments SET username = '${req.body.username}' WHERE username = '${req.session.username}'`, (err, result) => {
+                if (err) { console.log(err); }
+            })
+            pool.query(`UPDATE users SET username = '${req.body.username}' WHERE username = '${req.session.username}'`, (err, result) => {
+                if (err) { console.log(err); }
+            })
+            req.session.username = req.body.username;
         }
     });
 
