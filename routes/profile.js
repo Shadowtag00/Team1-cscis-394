@@ -15,7 +15,7 @@ function checkLogin(req,res,next){ //verifies there's a user signed in
 }
 
 //READ (Display comments)
-router.get('/', useronly, (req, res) => {
+router.get('/', checkLogin, (req, res) =>{
     
     console.log('Accept: ' + req.get('Accept'))
     pool.query('SELECT VERSION()', (err, version_results) => {
@@ -41,7 +41,7 @@ router.get('/', useronly, (req, res) => {
 })
 
 // UPDATE
-    router.get('/:comment_id/form', useronly, (req, res) => {
+    router.get('/:comment_id/form', checkLogin, (req, res) => {
         let query = "UPDATE comments SET is_flagged = NOT is_flagged WHERE comment_id = " + req.params.comment_id;
         console.log(req.params.comment_id)
     
@@ -53,7 +53,7 @@ router.get('/', useronly, (req, res) => {
     })
 
 //DELETE
-router.get('/:comment_id/delete', useronly, (req, res) => {
+router.get('/:comment_id/delete', checkLogin, (req, res) => {
     const id = req.params.comment_id
     let query = "DELETE FROM comments WHERE comment_id = " + req.params.comment_id;
     console.log(id)

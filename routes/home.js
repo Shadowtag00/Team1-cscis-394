@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 
 function adminonly(req,res,next){
-    if (!req.session.isadmin) {
+    if (!req.session.is_admin) {
        return res.redirect('/'); 
     }
     next();
