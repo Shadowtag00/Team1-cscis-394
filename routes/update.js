@@ -38,6 +38,7 @@ router.post('/', checkLogin, (req, res) =>
             pool.query(`UPDATE users SET first_name = '${req.body.firstName}' WHERE username = '${req.session.username}'`, (err, result) => 
             {
                 if (err) { console.log(err); }
+                else { console.log("Done")}
             })
         }
         else if (req.body.lastName)
@@ -58,6 +59,7 @@ router.post('/', checkLogin, (req, res) =>
             res.redirect('/')
         }
     });
+    console.log("End")
 });
 
 // router.post('/updateLastName', function(req,res,next)
