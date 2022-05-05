@@ -22,17 +22,18 @@ router.get('/', checkLogin, (req, res) => {
     res.render('update')
 })
 
-router.post('/update', function(req,res,next)
+router.post('/', checkLogin, (req, res) => 
 {
-    console.log(req.query.name);
-    if (req.body.name == 'firstNameUpdate')
-    {
-        req.session.firstname = req.body.firstname;
+    console.log("here");
+    res.redirect('/');
+    // if (req.body.name == 'firstNameUpdate')
+    // {
+    //     req.session.firstname = req.body.firstname;
 
-        pool.query(`UPDATE users SET first_name = '${req.session.firstname}' WHERE username = '${req.session.username}'`, (err, result) => {
-            console.log(err);
-        })
-    }
+    //     pool.query(`UPDATE users SET first_name = '${req.session.firstname}' WHERE username = '${req.session.username}'`, (err, result) => {
+    //         console.log(err);
+    //     })
+    // }
 });
 
 // router.post('/updateLastName', function(req,res,next)
