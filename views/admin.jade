@@ -73,7 +73,7 @@ body
 					td #{ comment.comment_id }
 					td #{ comment.username }
 					td #{ comment.text }
-					td #{moment(comment.post_date).format('MM-DD-YYYY HH:MM')} 
+					td #{moment(comment.post_date).format('MM-DD-YYYY hh:mm a')} 
 					td #{ comment.is_flagged }
 					td
 						a(href='/admin/#{comment.comment_id}/form')
