@@ -20,7 +20,7 @@ router.get('/', checkLogin, (req, res) =>
 {
     console.log('Accept: ' + req.get('Accept'))
     console.log(req.session.username)
-    pool.query(`SELECT first_name, last_name FROM users WHERE username = '${req.session.username}'`), (err, result) =>
+    pool.query(`SELECT first_name, last_name FROM users WHERE username = '${req.session.username}'`, (err, result) =>
     {
         if (err) { console.log(err); }
         else 
