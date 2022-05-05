@@ -15,7 +15,7 @@ function checkLogin(req,res,next){ //verifies there's a user signed in
 }
 
 //READ (Display comments)
-router.get('/', function(req, res, next) {
+router.get('/', useronly, (req, res) => {
     
     console.log('Accept: ' + req.get('Accept'))
     pool.query('SELECT VERSION()', (err, version_results) => {
