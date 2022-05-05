@@ -73,6 +73,11 @@ body
 				td(style='text-align:center') #{ comment.text }
 				td(style='text-align:center') #{moment(comment.post_date).format('MM-DD-YYYY HH:MM')}
 
+	ul
+		while n < page_count+1
+	li
+		a(href="?page="+n)=n++
+
 			
 //- body
 //- 	a(href='/comment_form') Create new comment
