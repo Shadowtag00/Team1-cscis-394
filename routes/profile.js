@@ -8,7 +8,7 @@ function useronly(req,res,next){
     }
 
 function checkLogin(req,res,next){ //verifies there's a user signed in
-    if(!req.session.user_id){
+    if(!req.session.username){
        return res.redirect('/'); 
     }
     next();
