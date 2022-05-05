@@ -19,7 +19,8 @@ function checkLogin(req,res,next){ //verifies there's a user signed in
 router.get('/', checkLogin, (req, res) => 
 {
     console.log('Accept: ' + req.get('Accept'))
-    pool.query(`SELECT first_name, last_name, password FROM users WHERE username = '${req.session.username}'`), (err, result) =>
+    console.log(req.session.username)
+    pool.query(`SELECT first_name, last_name FROM users WHERE username = '${req.session.username}'`), (err, result) =>
     {
         if (err) { console.log(err); }
         else 
@@ -70,7 +71,7 @@ router.post('/', checkLogin, (req, res) =>
             res.redirect('/')
         }
     });
-    
+
     console.log("End")
     res.redirect('/update')
 });
