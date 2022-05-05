@@ -25,9 +25,9 @@ router.get('/', checkLogin, (req, res) => {
 // POST (Update Profile)
 router.post('/', checkLogin, (req, res) => 
 {
-    let query = "select username, password, user_id, is_admin FROM users WHERE username = '" + req.session.username + "'";
     console.log("Begin")
     console.log(req.session.username)
+    let query = "select first_name, last_name, password FROM users WHERE username = '" + req.session.username + "'";
     pool.query(query, (err, result) => 
     {
         if (err) {console.log(err)}
