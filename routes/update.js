@@ -26,8 +26,8 @@ router.get('/', checkLogin, (req, res) =>
         else 
         {
             res.render('update', {
-                firstname: result.rows[0].firstName,
-                lastname: result.rows[0].lastName,
+                firstname: result.rows[0].first_name,
+                lastname: result.rows[0].last_name,
                 username: req.session.username
             })
         }
