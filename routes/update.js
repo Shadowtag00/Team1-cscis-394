@@ -16,10 +16,21 @@ function checkLogin(req,res,next){ //verifies there's a user signed in
 }
 
 //READ (Display Update)
-router.get('/', checkLogin, (req, res) => {
-
+router.get('/', checkLogin, (req, res) => 
+{
     console.log('Accept: ' + req.get('Accept'))
-    res.render('update')
+    pool.query(`SELECT first_name, last_name, password FROM users WHERE username = '${req.session.username}'`), (err, result) =>
+    {
+        if (err) { console.log(err); }
+        else 
+        {
+            res.render('update', {
+                firstname: result.rows[0].firstName,
+                lastname: result.rows[0].lastName,
+                username: req.session.username
+            })
+        }
+    }
 })
 
 // POST (Update Profile)
@@ -59,24 +70,9 @@ router.post('/', checkLogin, (req, res) =>
             res.redirect('/')
         }
     });
+    
     console.log("End")
     res.redirect('/update')
 });
-
-// router.post('/updateLastName', function(req,res,next)
-// {
-//     req.session.lastname = req.body.lastname;
-
-//     pool.query(`UPDATE users SET last_name = '${req.session.lastname}' WHERE username = '${req.session.username}'`, (err, result) => {
-//         console.log(err);
-//     })
-// });
-
-// router.post('/updatePassword', function(req,res,next)
-// {
-//     let insertQuery = "UPDATE users SET first_name = $1, last_name = $2, password = $3";
-    
-// });
-
 
 module.exports = router;
