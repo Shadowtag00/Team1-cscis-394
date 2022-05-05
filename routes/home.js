@@ -105,6 +105,3 @@ function is_banned(text) {
 }
 
 module.exports = router;
-
-
-
