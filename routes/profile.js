@@ -53,7 +53,7 @@ router.get('/', useronly, (req, res) => {
     })
 
 //DELETE
-router.get('/:comment_id/profile/delete', useronly, (req, res) => {
+router.get('/:comment_id/delete', useronly, (req, res) => {
     const id = req.params.comment_id
     let query = "DELETE FROM comments WHERE comment_id = " + req.params.comment_id;
     console.log(id)
