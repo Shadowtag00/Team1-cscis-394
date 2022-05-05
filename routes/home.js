@@ -21,10 +21,20 @@ router.post('/', checkLogin,(req,res) => {
     //added this
     console.log(req.path)    
 
-    pool.query(`INSERT INTO comments (text, username, post_date) VALUES ('${req.body.comment_box}','${req.session.username}',to_timestamp(${Date.now()} / 1000.0))`, (err, result) => {
+    if (is_banned(req.body.comment_box) ){
+        pool.query(`INSERT INTO comments (text, username, is_flagged, post_date) VALUES ('${req.body.comment_box}','${req.session.username}', 'true', to_timestamp(${Date.now()} / 1000.0))`, (err, result) => {
         console.log(err, result)
         res.redirect('/home') 
     })
+    }
+    else{
+        pool.query(`INSERT INTO comments (text, username, post_date) VALUES ('${req.body.comment_box}','${req.session.username}',to_timestamp(${Date.now()} / 1000.0))`, (err, result) => {
+            console.log(err, result)
+            res.redirect('/home') 
+        })
+    }
+    
+    
 })
 
 //added
@@ -62,7 +72,7 @@ router.get('/', checkLogin, (req, res) =>{
 
         console.log(err, version_results.rows)
            
-        pool.query("SELECT username, text, post_date FROM comments WHERE is_flagged='f' ORDER BY post_date DESC", (err, comments_results) => {
+        pool.query("SELECT username, text, post_date FROM comments WHERE is_flagged='f' ORDER BY post_date DESC LIMIT 25", (err, comments_results) => {
 	//Already choose selected posts that weren't flagged
 		
             console.log(err, comments_results)
@@ -71,13 +81,28 @@ router.get('/', checkLogin, (req, res) =>{
 	//Renders posts here
             res.render('home', {
                                     comments: comments_results.rows,
-                                    message: req.session.username
+                                    message: req.session.username,
+                                    page_count: 8
                                 })
             console.log('Content-Type: ' + res.get('Content-Type'))
                             
         })
     })   
 })
+
+//function will check if the comment includes banned words on not
+function is_banned(text) {
+
+    const banned_words = ["banned", "words", "go", "here"];
+    const words = text.split(" ");
+
+    for (let i = 0; i < words.length; i++) {
+        if (banned_words.includes(words[i])) {
+            return true;
+        }
+    }
+    return false;
+}
 
 module.exports = router;
 
