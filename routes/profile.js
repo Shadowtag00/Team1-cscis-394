@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 
 function useronly(req,res,next){
-    if (!req.session.user_id)
+    if (!req.session.username)
     {return res.redirect('/');}
     next();
     }
