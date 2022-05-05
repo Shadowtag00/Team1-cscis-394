@@ -31,8 +31,8 @@ router.get('/', checkLogin, (req, res) =>
                 username: req.session.username
             })
         }
-    }
-})
+    });
+});
 
 // POST (Update Profile)
 router.post('/', checkLogin, (req, res) => 
