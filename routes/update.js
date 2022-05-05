@@ -24,8 +24,11 @@ router.get('/', checkLogin, (req, res) => {
 
 router.post('/', checkLogin, (req, res) => 
 {
-    console.log("here");
-    res.redirect('/');
+    console.log("Begin")
+    console.log(req.body)
+    console.log("End")
+    res.redirect('/')
+
     // if (req.body.name == 'firstNameUpdate')
     // {
     //     req.session.firstname = req.body.firstname;
