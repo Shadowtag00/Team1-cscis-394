@@ -60,6 +60,7 @@ router.post('/', checkLogin, (req, res) =>
         }
     });
     console.log("End")
+    res.redirect('/update')
 });
 
 // router.post('/updateLastName', function(req,res,next)
