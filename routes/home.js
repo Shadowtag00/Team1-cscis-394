@@ -22,13 +22,13 @@ router.post('/', checkLogin,(req,res) => {
     console.log(req.path)    
 
     if (is_banned(req.body.comment_box) ){
-        pool.query(`INSERT INTO comments (text, username, is_flagged, post_date) VALUES ('${req.body.comment_box}','${req.session.username}', 'true', to_timestamp(${Date.now()} / 1000.0))`, (err, result) => {
+        pool.query(`INSERT INTO comments (text, username, is_flagged, post_date) VALUES ('${req.body.comment_box}','${req.session.username}', 'true', CURRENT_TIMESTAMP)`, (err, result) => {
         console.log(err, result)
         res.redirect('/home') 
     })
     }
     else{
-        pool.query(`INSERT INTO comments (text, username, post_date) VALUES ('${req.body.comment_box}','${req.session.username}',to_timestamp(${Date.now()} / 1000.0))`, (err, result) => {
+        pool.query(`INSERT INTO comments (text, username, post_date) VALUES ('${req.body.comment_box}','${req.session.username}',CURRENT_TIMESTAMP)`, (err, result) => {
             console.log(err, result)
             res.redirect('/home') 
         })
