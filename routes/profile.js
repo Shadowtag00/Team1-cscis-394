@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 
 function useronly(req,res,next){
-    if (!req.session.user_id)
+    if (!req.session.username)
     {return res.redirect('/');}
     next();
     }
@@ -15,7 +15,7 @@ function checkLogin(req,res,next){ //verifies there's a user signed in
 }
 
 //READ (Display comments)
-router.get('/', useronly, (req, res) => {
+router.get('/', checkLogin, (req, res) =>{
     
     console.log('Accept: ' + req.get('Accept'))
     pool.query('SELECT VERSION()', (err, version_results) => {
@@ -27,7 +27,7 @@ router.get('/', useronly, (req, res) => {
         console.log(err, version_results.rows)
         
         //  and username='${req.session.username}'
-        pool.query(`SELECT username, text * FROM comments WHERE is_flagged='f' and username='${req.session.username}'`, (err, comments_results) => {
+        pool.query(`SELECT username, text FROM comments WHERE is_flagged='f' and username='${req.session.username}'`, (err, comments_results) => {
             console.log(err, comments_results)
             
             res.render('profile', {
@@ -41,7 +41,7 @@ router.get('/', useronly, (req, res) => {
 })
 
 // UPDATE
-    router.get('/:comment_id/form', useronly, (req, res) => {
+    router.get('/:comment_id/form', checkLogin, (req, res) => {
         let query = "UPDATE comments SET is_flagged = NOT is_flagged WHERE comment_id = " + req.params.comment_id;
         console.log(req.params.comment_id)
     
@@ -53,7 +53,7 @@ router.get('/', useronly, (req, res) => {
     })
 
 //DELETE
-router.get('/:comment_id/delete', useronly, (req, res) => {
+router.get('/:comment_id/delete', checkLogin, (req, res) => {
     const id = req.params.comment_id
     let query = "DELETE FROM comments WHERE comment_id = " + req.params.comment_id;
     console.log(id)
