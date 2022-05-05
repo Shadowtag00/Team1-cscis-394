@@ -32,20 +32,20 @@ router.post('/updateName', function(req,res,next)
     
 });
 
-router.post('/updateLastName', function(req,res,next)
-{
-    req.session.lastname = req.body.lastname;
+// router.post('/updateLastName', function(req,res,next)
+// {
+//     req.session.lastname = req.body.lastname;
 
-    pool.query(`UPDATE users SET last_name = '${req.session.lastname}' WHERE username = '${req.session.username}'`, (err, result) => {
-        console.log(err);
-    })
-});
+//     pool.query(`UPDATE users SET last_name = '${req.session.lastname}' WHERE username = '${req.session.username}'`, (err, result) => {
+//         console.log(err);
+//     })
+// });
 
-router.post('/updatePassword', function(req,res,next)
-{
-    let insertQuery = "UPDATE users SET first_name = $1, last_name = $2, password = $3";
+// router.post('/updatePassword', function(req,res,next)
+// {
+//     let insertQuery = "UPDATE users SET first_name = $1, last_name = $2, password = $3";
     
-});
+// });
 
 
 module.exports = router;
