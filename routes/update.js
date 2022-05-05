@@ -27,7 +27,9 @@ router.post('/', checkLogin, (req, res) =>
 {
     if (req.body.firstName)
     {
-        req.session.firstname = req.body.firstName;
+        let temp = req.session.user_full_name.split(' ');
+        let temp_lastName = temp[1];
+        req.session.user_full_name = req.body.firstName + ' ' + temp_lastName;
         pool.query(`UPDATE users SET first_name = '${req.body.firstName}' WHERE username = '${req.session.username}'`, (err, result) => 
         {
             console.log(err);
