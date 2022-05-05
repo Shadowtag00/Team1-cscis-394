@@ -22,9 +22,9 @@ router.get('/', checkLogin, (req, res) => {
     res.render('update')
 })
 
-router.post('/update', function(req,res,next)
+router.post('/', function(req,res,next)
 {
-    console.log("HERE !! ")
+    console.log("here")
     if (req.body.name == 'firstNameUpdate')
     {
         req.session.firstname = req.body.firstname;
