@@ -38,9 +38,9 @@ router.post('/', checkLogin,(req,res) => {
 })
 
 //added
-router.get('/update', function(req, res, next) {
-	res.redirect('/')
-})
+// router.get('/update', function(req, res, next) {
+// 	res.redirect('/')
+// })
 
 //added - delete profile
 router.get('/delete', checkLogin, (req, res) => {
