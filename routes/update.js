@@ -24,7 +24,7 @@ router.get('/', checkLogin, (req, res) => {
 
 router.post('/update', function(req,res,next)
 {
-    console.log(req.query.name);
+    console.log("HERE !! ")
     if (req.body.name == 'firstNameUpdate')
     {
         req.session.firstname = req.body.firstname;
