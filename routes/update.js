@@ -22,20 +22,33 @@ router.get('/', checkLogin, (req, res) => {
     res.render('update')
 })
 
+// POST (Update Profile)
 router.post('/', checkLogin, (req, res) => 
 {
-    if (req.body.lastName)
+    if (req.body.firstName)
+    {
+        req.session.firstname = req.body.firstName;
+        pool.query(`UPDATE users SET first_name = '${req.body.firstName}' WHERE username = '${req.session.username}'`, (err, result) => 
+        {
+            console.log(err);
+        })
+    }
+    else if (req.body.lastName)
+    {
+        req.session.lastname = req.body.lastName;
+        pool.query(`UPDATE users SET last_name = '${req.body.lastName}' WHERE username = '${req.session.username}'`, (err, result) => 
+        {
+            console.log(err);
+        })
+    }
+    else if (req.body.password)
     {
         res.redirect('/')
     }
-    // if (req.body.name == 'firstNameUpdate')
-    // {
-    //     req.session.firstname = req.body.firstname;
-
-    //     pool.query(`UPDATE users SET first_name = '${req.session.firstname}' WHERE username = '${req.session.username}'`, (err, result) => {
-    //         console.log(err);
-    //     })
-    // }
+    else if (req.body.username)
+    {
+        res.redirect('/')
+    }
 });
 
 // router.post('/updateLastName', function(req,res,next)
