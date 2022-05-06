@@ -2,9 +2,10 @@ head
 	title Comment Filter Application
 	style.
 		table, th, tr, td {
-		border:1px solid black;
-		margin-left: auto;
-		margin-right: auto;
+			border:1px solid black;
+			margin-left: auto;
+			margin-right: auto;
+			margin-bottom: 15px;
 		}
 		body {
 			margin: auto;
@@ -73,7 +74,7 @@ body
 					td #{ comment.comment_id }
 					td #{ comment.username }
 					td #{ comment.text }
-					td #{moment(comment.post_date).format('MM-DD-YYYY HH:MM')} 
+					td #{moment(comment.post_date).format('MM-DD-YYYY hh:mm a')} 
 					td #{ comment.is_flagged }
 					td
 						a(href='/admin/#{comment.comment_id}/form')

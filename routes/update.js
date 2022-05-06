@@ -16,36 +16,70 @@ function checkLogin(req,res,next){ //verifies there's a user signed in
 }
 
 //READ (Display Update)
-router.get('/', checkLogin, (req, res) => {
-
+router.get('/', checkLogin, (req, res) => 
+{
     console.log('Accept: ' + req.get('Accept'))
-    res.render('update')
-})
-
-router.post('/updateName', function(req,res,next)
-{
-    req.session.firstname = req.body.firstname;
-
-    pool.query(`UPDATE users SET first_name = '${req.session.firstname}' WHERE username = '${req.session.username}'`, (err, result) => {
-        console.log(err);
-    })
-    
+    console.log(req.session.username)
+    pool.query(`SELECT first_name, last_name FROM users WHERE username = '${req.session.username}'`, (err, result) =>
+    {
+        if (err) { console.log(err); }
+        else 
+        {
+            res.render('update', {
+                firstname: result.rows[0].first_name,
+                lastname: result.rows[0].last_name,
+                username: req.session.username
+            })
+        }
+    });
 });
 
-router.post('/updateLastName', function(req,res,next)
+// POST (Update Profile)
+router.post('/', checkLogin, (req, res) => 
 {
-    req.session.lastname = req.body.lastname;
+    console.log("Begin")
+    console.log(req.session.username)
+    let query = "select first_name, last_name, password FROM users WHERE username = '" + req.session.username + "'";
+    pool.query(query, (err, result) => 
+    {
+        if (err) {console.log(err)}
+        else if (req.body.firstName) 
+        {
+            req.session.user_full_name = req.body.firstName + ' ' + result.rows[0].last_name;
+            console.log(req.session.user_full_name)
+            pool.query(`UPDATE users SET first_name = '${req.body.firstName}' WHERE username = '${req.session.username}'`, (err, result) => 
+            {
+                if (err) { console.log(err); }
+                else { console.log("Done")}
+            })
+        }
+        else if (req.body.lastName)
+        {
+            req.session.user_full_name = result.rows[0].first_name + ' ' + req.body.lastName;
+            console.log(req.session.user_full_name)
+            pool.query(`UPDATE users SET last_name = '${req.body.lastName}' WHERE username = '${req.session.username}'`, (err, result) => 
+            {
+                if (err) { console.log(err); }
+            })
+        }
+        else if (req.body.password)
+        {
+            res.redirect('/')
+        }
+        else if (req.body.username)
+        {
+            // pool.query(`UPDATE comments SET username = '${req.body.username}' WHERE username = '${req.session.username}'`, (err, result) => {
+            //     if (err) { console.log(err); }
+            // })
+            // pool.query(`UPDATE users SET username = '${req.body.username}' WHERE username = '${req.session.username}'`, (err, result) => {
+            //     if (err) { console.log(err); }
+            // })
+            req.session.username = req.body.username;
+        }
+    });
 
-    pool.query(`UPDATE users SET last_name = '${req.session.lastname}' WHERE username = '${req.session.username}'`, (err, result) => {
-        console.log(err);
-    })
+    console.log("End")
+    res.redirect('/update')
 });
-
-router.post('/updatePassword', function(req,res,next)
-{
-    let insertQuery = "UPDATE users SET first_name = $1, last_name = $2, password = $3";
-    
-});
-
 
 module.exports = router;

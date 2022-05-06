@@ -4,6 +4,7 @@ head
 			border:1px solid black;
 			margin-left: auto;
 			margin-right: auto;
+			margin-bottom: 15px;
 		}
 		body {
 			margin: auto;
@@ -41,33 +42,44 @@ body
 	br
 	br
 	br
-	form(action='updateName', method='post', name='firstNameUpdate')
+	form(action='/update', method='post', name='firstNameUpdate')
 		table
 			tbody
 				tr
-					td First Name 
+					td #{firstname}
 					td
 						div.input
 							input(type='text' name='firstName' required)
 					td 
 						div.actions
 							input(type='submit', value='Change First Name')
-	form(action='updateLastName', method='post', name='firstNameUpdate')
+	form(action='/update', method='post', name='lastNameUpdate')
 		table
 			tbody
 				tr
-					td Last Name 
+					td #{lastname}
 					td
 						div.input
 							input(type='text' name='lastName' required)
 					td 
 						div.actions
 							input(type='submit', value='Change Last Name')
-	form(action='updatePassword', method='post', name='firstNameUpdate')
+	form(action='/update', method='post', name='passwordUpdate')
 		table
 			tbody
 				tr
 					td Password
+					td
+						div.input
+							input(type='text' name='password' required)
+					td 
+						div.actions
+							input(type='submit', value='Change Password')
+	form(action='/update', method='post', name='usernameUpdate')
+		table
+			tbody
+				tr
+					td #{username}
 					td
 						div.input
 							input(type='text' name='password' required)

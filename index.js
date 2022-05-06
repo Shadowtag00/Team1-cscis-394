@@ -56,7 +56,7 @@ var updateRouter = require('./routes/update.js');
 
 //set view engine for express app
 app.set('views', path.join(__dirname, 'views'));
-app.set("view engine", "jade");
+app.set("view engine", "pug");
 
 //for parsing application/json
 app.use(bodyParser.json());
