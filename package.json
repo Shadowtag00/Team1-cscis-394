@@ -28,6 +28,7 @@
     "method-override": "^3.0.0",
     "moment": "^2.29.3",
     "pg": "^8.7.3",
+    "pug": "^3.0.2",
     "save": "^2.4.0"
   },
   "devDependencies": {
