@@ -31,8 +31,8 @@ head
 			color: white;
 		}
 	script.
-		function firstNameChange() {
-			alert("First name changed.");
+		function passwordChange() {
+			alert("Password updated.");
 		}
 body
 	.topnav
@@ -56,7 +56,7 @@ body
 							input(type='text' name='firstName' required )
 					td 
 						div.actions
-							button(onclick='firstNameChange()', type='submit') Change First Name
+							input(type='submit', value='Change First Name')
 	form(action='/update', method='post', name='lastNameUpdate')
 		table
 			tbody
@@ -78,7 +78,7 @@ body
 							input(type='text' name='password' required)
 					td 
 						div.actions
-							input(type='submit', value='Change Password')
+							button(onclick='passwordChange()', type='submit') Change Password 
 	form(action='/update', method='post', name='usernameUpdate')
 		table
 			tbody
