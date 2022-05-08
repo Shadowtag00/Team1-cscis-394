@@ -43,7 +43,7 @@ router.post('/', checkLogin, (req, res) =>
     pool.query(query, (err, result) => 
     {
         if (err) {console.log(err)}
-        else if (req.body.firstName) 
+        else if (req.body.firstName) // first name 
         {
             req.session.user_full_name = req.body.firstName + ' ' + result.rows[0].last_name;
             console.log(req.session.user_full_name)
@@ -53,7 +53,7 @@ router.post('/', checkLogin, (req, res) =>
                 else { console.log("Done")}
             })
         }
-        else if (req.body.lastName)
+        else if (req.body.lastName) // last name 
         {
             req.session.user_full_name = result.rows[0].first_name + ' ' + req.body.lastName;
             console.log(req.session.user_full_name)
@@ -62,11 +62,11 @@ router.post('/', checkLogin, (req, res) =>
                 if (err) { console.log(err); }
             })
         }
-        else if (req.body.password)
+        else if (req.body.password) // password 
         {
             res.redirect('/')
         }
-        else if (req.body.username)
+        else if (req.body.username) // username 
         {
             // pool.query(`UPDATE comments SET username = '${req.body.username}' WHERE username = '${req.session.username}'`, (err, result) => {
             //     if (err) { console.log(err); }
