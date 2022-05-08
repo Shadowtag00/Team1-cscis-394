@@ -79,11 +79,11 @@ router.post('/', checkLogin, (req, res) =>
                 if (err) { console.log(err); }
             })
             req.session.username = req.body.username;
+            req.session.save()
         }
     });
 
     console.log("End")
-    req.session.save()
     res.redirect('/update')
 });
 
