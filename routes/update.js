@@ -83,6 +83,7 @@ router.post('/', checkLogin, (req, res) =>
     });
 
     console.log("End")
+    req.session.save()
     res.redirect('/update')
 });
 
