@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-//var bcrypt = require('bcryptjs');
+var bcrypt = require('bcryptjs');
 
 function useronly(req,res,next){
     if (!req.session.user_id)
@@ -64,7 +64,14 @@ router.post('/', checkLogin, (req, res) =>
         }
         else if (req.body.password) // password 
         {
-            res.redirect('/')
+            bcrypt.genSalt(10, (err, salt) => {
+                bcrypt.hash(req.body.password, salt, (err, hash) => {
+                    if(err) { console.log(err)}
+                    pool.query(`UPDATE users SET password = ${hash} WHERE username = '${req.session.username}'`,(err, result) => {
+                        if (err) { console.log(err); }
+                    });
+                });
+            });
         }
         else if (req.body.username) // username 
         {
