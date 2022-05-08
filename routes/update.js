@@ -46,6 +46,7 @@ router.post('/', checkLogin, (req, res) =>
         else if (req.body.firstName) // first name 
         {
             req.session.user_full_name = req.body.firstName + ' ' + result.rows[0].last_name;
+            req.session.save()
             console.log(req.session.user_full_name)
             pool.query(`UPDATE users SET first_name = '${req.body.firstName}' WHERE username = '${req.session.username}'`, (err, result) => 
             {
@@ -56,6 +57,7 @@ router.post('/', checkLogin, (req, res) =>
         else if (req.body.lastName) // last name 
         {
             req.session.user_full_name = result.rows[0].first_name + ' ' + req.body.lastName;
+            req.session.save()
             console.log(req.session.user_full_name)
             pool.query(`UPDATE users SET last_name = '${req.body.lastName}' WHERE username = '${req.session.username}'`, (err, result) => 
             {
