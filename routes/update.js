@@ -67,7 +67,7 @@ router.post('/', checkLogin, (req, res) =>
             bcrypt.genSalt(10, (err, salt) => {
                 bcrypt.hash(req.body.password, salt, (err, hash) => {
                     if(err) { console.log(err)}
-                    pool.query(`UPDATE users SET password = ${hash} WHERE username = '${req.session.username}'`,(err, result) => {
+                    pool.query(`UPDATE users SET password = '${hash}' WHERE username = '${req.session.username}'`,(err, result) => {
                         if (err) { console.log(err); }
                     });
                 });
