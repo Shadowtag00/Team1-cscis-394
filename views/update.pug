@@ -31,6 +31,10 @@ head
 			background-color: #3c7ae6;
 			color: white;
 		}
+	script.
+		function passwordChange() {
+			alert("Password updated.");
+		}
 body
 	.topnav
 		a(href='home') Main Page
@@ -47,25 +51,25 @@ body
 		table
 			tbody
 				tr
-					td First Name 
+					td #{firstname}
 					td
 						div.input
-							input(type='text' name='firstName' required)
+							input(type='text' name='firstName' required )
 					td 
 						div.actions
 							input(type='submit', value='Change First Name')
-	form(action='/update', method='post', name='firstNameUpdate')
+	form(action='/update', method='post', name='lastNameUpdate')
 		table
 			tbody
 				tr
-					td Last Name 
+					td #{lastname}
 					td
 						div.input
 							input(type='text' name='lastName' required)
 					td 
 						div.actions
 							input(type='submit', value='Change Last Name')
-	form(action='/update', method='post', name='firstNameUpdate')
+	form(action='/update', method='post', name='passwordUpdate')
 		table
 			tbody
 				tr
@@ -75,4 +79,15 @@ body
 							input(type='text' name='password' required)
 					td 
 						div.actions
-							input(type='submit', value='Change Password')
+							button(onclick='passwordChange()', type='submit') Change Password 
+	form(action='/update', method='post', name='usernameUpdate')
+		table
+			tbody
+				tr
+					td #{username}
+					td
+						div.input
+							input(type='text' name='username' required)
+					td 
+						div.actions
+							input(type='submit', value='Change Username')

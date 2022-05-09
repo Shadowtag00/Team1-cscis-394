@@ -75,10 +75,11 @@ body
 				td(style='text-align:center') #{ comment.text }
 				td(style='text-align:center') #{moment(comment.post_date).format('MM-DD-YYYY hh:mm a')}
 
-	ul
+	-var n = 1;
+	ul.pagination
 		while n < page_count+1
-	li
-		a(href="?page="+n)=n++
+			li
+				a(href="?page="+n)=n++
 
 			
 //- body

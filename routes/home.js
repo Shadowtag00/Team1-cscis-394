@@ -1,4 +1,5 @@
 var express = require("express");
+const url = require("url");
 var router = express.Router();
 
 function adminonly(req,res,next){
@@ -63,6 +64,7 @@ router.get('/delete', checkLogin, (req, res) => {
 //READ (Display comments)
 router.get('/', checkLogin, (req, res) =>{
 
+
     console.log('Accept: ' + req.get('Accept'))
     pool.query('SELECT VERSION()', (err, version_results) => {
         //added this
@@ -71,18 +73,38 @@ router.get('/', checkLogin, (req, res) =>{
         }       
 
         console.log(err, version_results.rows)
-           
-        pool.query("SELECT username, text, post_date FROM comments WHERE is_flagged='f' ORDER BY post_date DESC LIMIT 25", (err, comments_results) => {
+
+        //pagination
+        const urlParams = new URLSearchParams(req.url)
+        console.log(urlParams)
+        if (urlParams.has('/?page')==false){
+            var pagenumber = 1
+        }
+        else{
+            var pagenumber = urlParams.get('/?page')
+        }
+        //console.log(pagenumber)
+        var offset = (pagenumber - 1) * 10
+        var page_count
+        //console.log(offset)
+        
+        pool.query(`SELECT username, text, post_date FROM comments WHERE is_flagged='f'`, (err, pageCount)=>{
+            page_count = (pageCount.rowCount)/10
+            console.log(page_count)
+        })
+        //console.log(pageCount)
+        pool.query(`SELECT username, text, post_date FROM comments WHERE is_flagged='f' ORDER BY post_date DESC LIMIT 10 OFFSET ${offset}`, (err, comments_results) => {
 	//Already choose selected posts that weren't flagged
 		
             console.log(err, comments_results)
+
 	//Here create sortBy to sort by dates to show most recent posts first
             
 	//Renders posts here
             res.render('home', {
                                     comments: comments_results.rows,
                                     message: req.session.username,
-                                    page_count: 8
+                                    page_count: page_count
                                 })
             console.log('Content-Type: ' + res.get('Content-Type'))
                             
