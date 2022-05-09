@@ -12,7 +12,7 @@ describe('The express server', function(err){
         });
     });
 
-    if('Should render the login page for the root path', function(done){
+    it('Should render the login page for the root path', function(done){
 
         request(server)
             .get('/')
