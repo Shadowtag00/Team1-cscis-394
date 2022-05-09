@@ -43,24 +43,6 @@ router.post('/', checkLogin,(req,res) => {
 // 	res.redirect('/')
 // })
 
-//added - delete profile
-router.get('/delete', checkLogin, (req, res) => {
-	const u_name = req.session.username
-
-	console.log(u_name)
-
-	pool.query(`DELETE FROM comments WHERE username = '${req.session.username}'`, (err, result) => {
-		console.log(err)
-	})
-    pool.query(`DELETE FROM users WHERE username = '${req.session.username}'`, (err, result) => {
-        req.session.user_id = 0;
-		req.session.user_full_name = "";
-		req.session.username = "";
-		req.session.is_admin = false;
-		res.redirect('/')
-    })
-})
-
 //READ (Display comments)
 router.get('/', checkLogin, (req, res) =>{
 
