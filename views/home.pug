@@ -13,6 +13,10 @@ head
 			background: #e6e6e6;
 			text-align: center;
 		}
+		button {
+			background-color: lightgray;
+			border-radius: 6px;
+		}
 		.topnav {
 			overflow: hidden;
 			background-color: #333;
@@ -69,7 +73,7 @@ body
 				th User
 				th Comment
 				th Post Date
-				th Reply
+				th Reply:
 		each comment in comments
 			tr
 				td(style='text-align:center') #{ comment.username }
