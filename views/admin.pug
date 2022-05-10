@@ -80,7 +80,11 @@ body
 					td #{moment(comment.post_date).format('MM-DD-YYYY hh:mm a')} 
 					td #{ comment.is_flagged }
 					td
-						a(href=`admin/${comment.comment_id}/form`)
+<<<<<<< HEAD
+						a(href=`/admin/${comment.comment_id}/form`)
+=======
+						a(href=`/admin/${comment.comment_id}/form`)
+>>>>>>> a99678b4cfd441db4cd7ddb4ee526ca62bbbc08a
 							button Flag/Unflag
 					td
 						button Edit
