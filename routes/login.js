@@ -18,16 +18,18 @@ router.post('/login',
     body('username')
         .isAlphanumeric()
         .isLength({min : 1, max:30})
-        .withMessage('Must enter a valid username.'), 
+        .withMessage('Username must be less than 30 characters and only contain letters and numbers.'), 
     body('password')
-        .isAlphanumeric()
+        .matches(/^[A-Za-z0-9 .,'!&]+$/)
         .isLength({min : 1, max:30})
-        .withMessage('Must enter a valid password.'),
+        .withMessage('Password must be less than 30 characters.'),
     function(req, res, next) {
     //validate inputs
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
-        return res.status(400).send({errors : errors.array()});
+        //return res.status(400).send({errors : errors.array()});
+        res.render('login', {errors:errors.array()});
+        return;
     }
 
     let query = "select username, password, user_id, is_admin FROM users WHERE username = '" + req.body.username + "'";
@@ -80,17 +82,17 @@ router.post('/register',
     body('firstname')
         .isAlpha()
         .isLength({min : 1})
-        .withMessage('Must enter a valid first name.'), 
+        .withMessage('First name must only contain characters.'), 
     body('lastname')
         .isAlpha()
         .isLength({min : 1})
-        .withMessage('Must enter a valid last name.'),
+        .withMessage('Last name must only contain characters.'),
     body('username')
         .isAlphanumeric()
         .isLength({min:1, max:30})
-        .withMessage('Username must be valid and less than 30 characters.'),
+        .withMessage('Username must be less than 30 characters and only contain letters and numbers.'),
     body('password')
-        .isAlphanumeric()
+        .matches(/^[A-Za-z0-9 .,'!&]+$/)
         .isLength({min:1, max:30})
         .withMessage('Password must be valid and less than 30 characters.'),
     function(req,res,next){
@@ -98,7 +100,9 @@ router.post('/register',
     //validate registration
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
-        return res.status(400).send({ errors: errors.array()});
+        //return res.status(400).send({ errors: errors.array()});
+        res.render('register', {errors:errors.array()});
+        return;
     }
 
     let insertQuery = "INSERT INTO users (username, first_name, last_name, password) VALUES ($1, $2, $3, $4)";
