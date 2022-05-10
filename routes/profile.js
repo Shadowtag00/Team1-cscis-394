@@ -58,17 +58,17 @@ router.get('/', checkLogin, (req, res) =>{
     }) 
 })
 
-//DELETE
-//router.get('/:comment_id/deleteComment', checkLogin, (req, res) => {
-//    const id = req.params.comment_id
-//    let query = "DELETE FROM comments WHERE comment_id = " + req.params.comment_id;
-//    console.log(id)
-//
-//    pool.query(query, (err, result) => {
-//        console.log(err)
-//        res.redirect('/profile')
-//    })
-//})
+DELETE
+router.get('/:comment_id/deleteComment', checkLogin, (req, res) => {
+    const id = req.params.comment_id
+    let query = "DELETE FROM comments WHERE comment_id = " + req.params.comment_id;
+    console.log(id)
+
+    pool.query(query, (err, result) => {
+        console.log(err)
+        res.redirect('/profile')
+    })
+})
 
 module.exports = router;
 
