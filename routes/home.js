@@ -97,7 +97,8 @@ router.get('/', checkLogin, (req, res) =>{
 //function will check if the comment includes banned words on not
 function is_banned(text) {
 
-    const banned_words = ["banned", "words", "go", "here"];
+
+    const banned_words = ["fuck", "shit", "bitch", "ass"];
     const words = text.split(" ");
 
     for (let i = 0; i < words.length; i++) {
