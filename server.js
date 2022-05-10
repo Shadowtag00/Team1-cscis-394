@@ -53,7 +53,7 @@ var homeRouter = require('./routes/home.js');
 var searchRouter = require('./routes/search.js'); 
 var profileRouter = require('./routes/profile.js');
 var updateRouter = require('./routes/update.js');
-var replyRouter = require('./routes/reply.js');
+//var replyRouter = require('./routes/reply.js');
 
 //set view engine for express app
 app.set('views', path.join(__dirname, 'views'));
@@ -108,7 +108,7 @@ app.use('/home', homeRouter);
 app.use('/search', searchRouter);
 app.use('/profile', profileRouter);
 app.use('/update', updateRouter);
-app.use('/reply', replyRouter);
+//app.use('/reply', replyRouter);
 
 
 module.exports = app;
