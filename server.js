@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const {body, validationResult} = require('express-validator');
 const methodOverride = require('method-override');
 const { urlencoded } = require('express');
 var bcrypt = require('bcryptjs');

@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcryptjs');
+const { body, validationResult } = require('express-validator');
 
 //Display login prompt
 router.get('/', function(req,res,next){
@@ -13,7 +14,22 @@ router.get('/', function(req,res,next){
 });
 
 //Check Login Credentials
-router.post('/login', function(req, res, next) {
+router.post('/login', 
+    body('username')
+        .isAlphanumeric()
+        .isLength({min : 1, max:30})
+        .withMessage('Must enter a valid username.'), 
+    body('password')
+        .isAlphanumeric()
+        .isLength({min : 1, max:30})
+        .withMessage('Must enter a valid password.'),
+    function(req, res, next) {
+    //validate inputs
+    const errors = validationResult(req);
+    if(!errors.isEmpty()) {
+        return res.status(400).send({errors : errors.array()});
+    }
+
     let query = "select username, password, user_id, is_admin FROM users WHERE username = '" + req.body.username + "'";
 
     // execute query
@@ -60,7 +76,31 @@ router.get('/register', function(req,res,next){
 });
 
 //Save register information to db
-router.post('/register', function(req,res,next){
+router.post('/register', 
+    body('firstname')
+        .isAlpha()
+        .isLength({min : 1})
+        .withMessage('Must enter a valid first name.'), 
+    body('lastname')
+        .isAlpha()
+        .isLength({min : 1})
+        .withMessage('Must enter a valid last name.'),
+    body('username')
+        .isAlphanumeric()
+        .isLength({min:1, max:30})
+        .withMessage('Username must be valid and less than 30 characters.'),
+    body('password')
+        .isAlphanumeric()
+        .isLength({min:1, max:30})
+        .withMessage('Password must be valid and less than 30 characters.'),
+    function(req,res,next){
+
+    //validate registration
+    const errors = validationResult(req);
+    if(!errors.isEmpty()) {
+        return res.status(400).send({ errors: errors.array()});
+    }
+
     let insertQuery = "INSERT INTO users (username, first_name, last_name, password) VALUES ($1, $2, $3, $4)";
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(req.body.password, salt, (err, hash) => {
