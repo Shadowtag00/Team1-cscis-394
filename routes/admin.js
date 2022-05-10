@@ -67,7 +67,7 @@ router.get('/:comment_id/form', adminonly, (req, res) => {
 })
 
 //DELETE
-router.get('/:comment_id/deleteComment', adminonly, (req, res) => {
+router.get('/:comment_id/delete', adminonly, (req, res) => {
     const id = req.params.comment_id
     let query = "DELETE FROM comments WHERE comment_id = " + req.params.comment_id;
     console.log(id)
