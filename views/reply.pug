@@ -1,0 +1,72 @@
+head 
+	title Comment Filter Application
+	style.
+		table, th, tr, td {
+			border:1px solid black;
+			margin-left: auto;
+			margin-right: auto;
+			margin-bottom: 15px;
+		}
+		body {
+			margin: auto;
+			vertical-align: left;
+			background: #e6e6e6;
+			text-align: center;
+		}
+		button {
+			background-color: lightgray;
+			border-radius: 6px;
+		}
+		.topnav {
+			overflow: hidden;
+			background-color: #333;
+		}
+		.topnav a {
+			float: left;
+			color: white;
+			padding: 15px 15px;
+			text-decoration: none;
+			font-size: 17px;
+		}
+		.topnav a:hover {
+			background-color: #ddd;
+			color: black;
+		}
+		.topnav a.active {
+			background-color: #3c7ae6;
+			color: white;
+		}
+		ul, li {
+			display: inline;
+			padding: 5px 5px;
+		}
+
+body
+	.topnav
+		a(class='active', href='home') Main Page 
+		a(href='profile') My Posts
+		a(href='logout' style="float:right") Logout
+	br
+	h2(style='clear:left') Enter a Comment
+	form(action='/reply', method='post', name='reply_comment', style='clear:left')
+		table
+			tbody 
+				tr 
+					td #{message}
+					td 
+						div.input
+							textarea(name="comment_box", cols="100", rows="4", placeholder='Enter a Comment...')
+					td 
+						div.actions
+							input(type='submit', value='Post Reply')
+
+	table(style='width:30%', height='90px')
+		thead
+			tr 
+				th User
+				th Reply
+		each r in reply
+			tr
+				td(style='text-align:center') #{ r.username }
+				td(style='text-align:center') #{ r.text }
+		

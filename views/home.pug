@@ -80,7 +80,8 @@ body
 				td(style='text-align:center') #{ comment.text }
 				td(style='text-align:center') #{ moment(comment.post_date).format('MM-DD-YYYY hh:mm a') }
 				td
-					button Reply
+					//button Reply
+					a(href='reply') button Reply
 
 	-var n = 1;
 	ul.pagination
