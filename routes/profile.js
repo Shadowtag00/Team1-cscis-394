@@ -15,7 +15,7 @@ function checkLogin(req,res,next){ //verifies there's a user signed in
 }
 
 //added - delete profile
-router.get('/delete', checkLogin, (req, res) => {
+router.get('/:comment_id/delete', checkLogin, (req, res) => {
 	const u_name = req.session.username
 
 	console.log(u_name)
