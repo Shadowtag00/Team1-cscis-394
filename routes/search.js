@@ -6,7 +6,7 @@ function checkLogin(req,res,next){ //verifies there's a user signed in
     }
     next();
 }
-router.get('/', checkLogin,function(req, res, next) {
+router.get('/', checkLogin, function(req, res, next) {
     let query = `SELECT username, text FROM comments WHERE is_flagged='f' AND UPPER(username) = UPPER('${req.query.searchcriteria}')`;
 
     // execute query
