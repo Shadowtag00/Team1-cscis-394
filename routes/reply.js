@@ -74,11 +74,11 @@ router.get('/', checkLogin, (req, res) =>{
 	        //Here create sortBy to sort by dates to show most recent posts first
             
     	    //Renders posts here
-            //reply_results.rows
-            res.render('reply', {
-                                    comments: "test",
-                                    message: req.session.username
-                                })
+            res.render('reply')
+            // res.render('reply', {
+            //     comments: reply_results.rows,
+            //     message: req.session.username
+            // })               
             console.log('Content-Type: ' + res.get('Content-Type'))
                             
         })
