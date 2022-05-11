@@ -64,7 +64,7 @@ router.get('/', checkLogin, (req, res) =>{
             return console.error('Error executing query', err.stack)
         }       
 
-        console.log(err, version_results.rows)
+        //console.log(err, version_results.rows)
 
         pool.query(`SELECT username, text FROM reply WHERE is_flagged='f'`, (err, reply_results) => {
 	        //Already choose selected posts that weren't flagged
@@ -74,11 +74,11 @@ router.get('/', checkLogin, (req, res) =>{
 	        //Here create sortBy to sort by dates to show most recent posts first
             
     	    //Renders posts here
-            res.render('reply')
-            // res.render('reply', {
-            //     comments: reply_results.rows,
-            //     message: req.session.username
-            // })               
+            //reply_results.rows
+            res.render('reply', {
+                                    comments: "test",
+                                    message: req.session.username
+            })               
             console.log('Content-Type: ' + res.get('Content-Type'))
                             
         })
