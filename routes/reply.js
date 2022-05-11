@@ -56,7 +56,7 @@ router.post('/', checkLogin,(req,res) => {
 //READ (Display comments)
 router.get('/', checkLogin, (req, res) =>{
 
-    console.log("Helo")
+    console.log("begin")
     console.log('Accept: ' + req.get('Accept'))
     pool.query('SELECT VERSION()', (err, version_results) => {
         //added this
@@ -67,22 +67,23 @@ router.get('/', checkLogin, (req, res) =>{
         console.log(err, version_results.rows)
 
         pool.query(`SELECT username, text FROM reply WHERE is_flagged='f'`, (err, reply_results) => {
-	//Already choose selected posts that weren't flagged
+	        //Already choose selected posts that weren't flagged
 		
             console.log(err, reply_results)
 
-	//Here create sortBy to sort by dates to show most recent posts first
+	        //Here create sortBy to sort by dates to show most recent posts first
             
-	//Renders posts here
+    	    //Renders posts here
+            //reply_results.rows
             res.render('reply', {
-                                    comments: reply_results.rows,
+                                    comments: "test",
                                     message: req.session.username
                                 })
             console.log('Content-Type: ' + res.get('Content-Type'))
                             
         })
     })
-    console.log("world") 
+    console.log("end") 
 })
 
 module.exports = router;
