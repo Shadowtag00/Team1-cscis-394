@@ -41,11 +41,11 @@ body
         a(class='active', href='home') Main Page
         a(href='profile') My Posts
         a(href='update') Update Profile
-        a(href='/profile/delete' onClick="return confirm('Are you sure you want to delete this profile?';") Delete Profile
+        a(href=`/profile/${user}/delete` onClick="return confirm('Are you sure you want to delete this profile?';") Delete Profile
         a(href='logout' style="float:right") Logout
         a(href='admin' style="float:right") Admin
     br
-    h1(style='clear:left') #{message}
+    h1(style='clear:left') #{user}
     br
     h2 Comments 
     table(style='width:30%', height='90px')
