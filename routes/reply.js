@@ -52,16 +52,16 @@ router.get('/', checkLogin, (req, res) =>{
 
         console.log(err, version_results.rows)
 
-        pool.query(`SELECT username, text FROM reply WHERE is_flagged='f'`, (err, comments_results) => {
+        pool.query(`SELECT username, text FROM reply WHERE is_flagged='f'`, (err, reply_results) => {
 	//Already choose selected posts that weren't flagged
 		
-            console.log(err, comments_results)
+            console.log(err, reply_results)
 
 	//Here create sortBy to sort by dates to show most recent posts first
             
 	//Renders posts here
             res.render('reply', {
-                                    comments: comments_results.rows,
+                                    comments: reply_results.rows,
                                     message: req.session.username
                                 })
             console.log('Content-Type: ' + res.get('Content-Type'))
