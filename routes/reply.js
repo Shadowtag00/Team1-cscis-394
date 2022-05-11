@@ -56,7 +56,7 @@ router.post('/', checkLogin,(req,res) => {
 //READ (Display comments)
 router.get('/', checkLogin, (req, res) =>{
 
-    
+    console.log("Begin")
     console.log('Accept: ' + req.get('Accept'))
     pool.query('SELECT VERSION()', (err, version_results) => {
         //added this
@@ -81,7 +81,8 @@ router.get('/', checkLogin, (req, res) =>{
             console.log('Content-Type: ' + res.get('Content-Type'))
                             
         })
-    })   
+    })
+    console.log("End") 
 })
 
 module.exports = router;
