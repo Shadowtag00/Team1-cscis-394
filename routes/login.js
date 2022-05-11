@@ -16,10 +16,12 @@ router.get('/', function(req,res,next){
 //Check Login Credentials
 router.post('/login', 
     body('username')
+        .notEmpty()
         .isAlphanumeric()
         .isLength({min : 1, max:30})
         .withMessage('Username must be less than 30 characters and only contain letters and numbers.'), 
     body('password')
+        .notEmpty()
         .matches(/^[A-Za-z0-9 .,'!&]+$/)
         .isLength({min : 1, max:30})
         .withMessage('Password must be less than 30 characters.'),
@@ -80,18 +82,22 @@ router.get('/register', function(req,res,next){
 //Save register information to db
 router.post('/register', 
     body('firstname')
+        .notEmpty()
         .isAlpha()
         .isLength({min : 1})
         .withMessage('First name must only contain characters.'), 
     body('lastname')
+        .notEmpty()
         .isAlpha()
         .isLength({min : 1})
         .withMessage('Last name must only contain characters.'),
     body('username')
+        .notEmpty()
         .isAlphanumeric()
         .isLength({min:1, max:30})
         .withMessage('Username must be less than 30 characters and only contain letters and numbers.'),
     body('password')
+        .notEmpty()
         .matches(/^[A-Za-z0-9 .,'!&]+$/)
         .isLength({min:1, max:30})
         .withMessage('Password must be valid and less than 30 characters.'),

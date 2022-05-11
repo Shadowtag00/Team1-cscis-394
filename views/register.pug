@@ -10,7 +10,7 @@ script.
 h1 New User 
 if errors !== undefined 
     each error in errors 
-        p #{error.msg}
+        p #{error.msg} #{error.param}
 form(action='/register' method ='post')
     table 
         tbody 
