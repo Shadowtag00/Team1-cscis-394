@@ -37,14 +37,14 @@ router.post('/', checkLogin,(req,res) => {
     //added this
     console.log(req.path)    
 
-    if (is_banned(req.body.comment_box) ){
-        pool.query(`INSERT INTO reply (text, username, is_flagged) VALUES ('${req.body.comment_box}','${req.session.username}', 'true')`, (err, result) => {
+    if (is_banned(req.body.reply_comment_box) ){
+        pool.query(`INSERT INTO reply (text, username, is_flagged) VALUES ('${req.body.reply_comment_box}','${req.session.username}', 'true')`, (err, result) => {
         console.log(err, result)
         res.redirect('/reply') 
     })
     }
     else{
-        pool.query(`INSERT INTO reply (text, username) VALUES ('${req.body.comment_box}','${req.session.username}')`, (err, result) => {
+        pool.query(`INSERT INTO reply (text, username) VALUES ('${req.body.reply_comment_box}','${req.session.username}')`, (err, result) => {
             console.log(err, result)
             res.redirect('/reply') 
         })
