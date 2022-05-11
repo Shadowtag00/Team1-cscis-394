@@ -22,7 +22,7 @@ const session = require('express-session');
 
 //Database
 const Pool = require('pg').Pool
-
+/*istanbul ignore if */
 if (process.env.DATABASE_URL1 != null){
     connectionParams = {
         connectionString: process.env.DATABASE_URL1,
