@@ -41,8 +41,11 @@ head
 			padding: 5px 5px;
 		}
 	script.
-		function profanity() {
-			alert("Your comment contained profanity and was not posted");
+		var profanity = !{profanity};
+		function profanityCheck() {
+			if (profanity == "true"){
+				alert("Your comment contained profanity and was not posted");
+			}
 		}
 
 body

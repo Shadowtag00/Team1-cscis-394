@@ -25,12 +25,14 @@ router.post('/', checkLogin,(req,res) => {
     if (is_banned(req.body.comment_box) ){
         pool.query(`INSERT INTO comments (text, username, is_flagged, post_date) VALUES ('${req.body.comment_box}','${req.session.username}', 'true', CURRENT_TIMESTAMP)`, (err, result) => {
         console.log(err, result)
+        req.session.profanity = {prof: "true"};
         res.redirect('/home') 
     })
     }
     else{
         pool.query(`INSERT INTO comments (text, username, post_date) VALUES ('${req.body.comment_box}','${req.session.username}',CURRENT_TIMESTAMP)`, (err, result) => {
             console.log(err, result)
+            req.session.profanity = {prof: "false"};
             res.redirect('/home') 
         })
     }
@@ -76,17 +78,19 @@ router.get('/', checkLogin, (req, res) =>{
         })
         //console.log(pageCount)
         pool.query(`SELECT username, text, post_date FROM comments WHERE is_flagged='f' ORDER BY post_date DESC LIMIT 10 OFFSET ${offset}`, (err, comments_results) => {
-	//Already choose selected posts that weren't flagged
+	        //Already choose selected posts that weren't flagged
 		
             console.log(err, comments_results)
 
-	//Here create sortBy to sort by dates to show most recent posts first
+	        //Here create sortBy to sort by dates to show most recent posts first
             
-	//Renders posts here
+	        //Renders posts here
+            var profanity = req.session.profanity;
             res.render('home', {
                                     comments: comments_results.rows,
                                     message: req.session.username,
-                                    page_count: page_count
+                                    page_count: page_count,
+                                    profanity: JSON.stringify(profanity)
                                 })
             console.log('Content-Type: ' + res.get('Content-Type'))
                             
