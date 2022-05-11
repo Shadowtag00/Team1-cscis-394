@@ -48,7 +48,7 @@ body
 		a(href='logout' style="float:right") Logout
 	br
 	h2(style='clear:left') Enter a Comment
-	form(action='/reply', method='post', name='reply_comment', style='clear:left')
+	form(action="/reply", method="post", name="reply_comment", style="clear:left")
 		table
 			tbody 
 				tr 
@@ -58,7 +58,7 @@ body
 							textarea(name="comment_box", cols="100", rows="4", placeholder='Enter a Comment...')
 					td 
 						div.actions
-							input(type='submit', value='Post Reply')
+							input(type="submit", value="Post Reply")
 
 	table(style='width:30%', height='90px')
 		thead
