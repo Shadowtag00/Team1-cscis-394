@@ -14,8 +14,7 @@ html
     h2 #{message}
     if Errors !== undefined 
         each error in Errors 
-            p #{error.msg}:
-            p #{error.param}
+            p(style="color:red") Note: #{error.msg}
     form(action='/login', method='post')
         p 
             | Username: 
