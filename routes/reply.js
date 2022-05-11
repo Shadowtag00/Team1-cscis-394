@@ -52,7 +52,7 @@ router.get('/', checkLogin, (req, res) =>{
 
         console.log(err, version_results.rows)
 
-        pool.query(`SELECT username, text FROM reply WHERE is_flagged='f'`, (err, comments_result) => {
+        pool.query(`SELECT username, text FROM reply WHERE is_flagged='f'`, (err, comments_results) => {
 	//Already choose selected posts that weren't flagged
 		
             console.log(err, comments_results)
