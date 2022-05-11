@@ -8,7 +8,9 @@ script.
         }
     }
 h1 New User 
-
+if Errors !== undefined 
+    each error in Errors 
+        p(style="color:red") Note: #{error.msg}
 form(action='/register' method ='post')
     table 
         tbody 

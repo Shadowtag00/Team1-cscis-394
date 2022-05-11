@@ -60,10 +60,10 @@ describe('The express server', function(err){
     });
 
 
-    it('Should respond to trying to login with no credentials with an error', function(done){
+    it('Should respond to trying to login with no credentials with a re-render of the page', function(done){
         request(server)
             .post('/login')
-            .expect(400)
+            .expect(200)
             .end(done);
     });
 
@@ -109,10 +109,10 @@ describe('The express server', function(err){
     });
 
 
-    it('Should respond to trying to register with incorrect or no credentials with an error', function(done){
+    it('Should respond to trying to register with incorrect or no credentials with a re-render of the page', function(done){
         request(server)
             .post('/register')
-            .expect(400)
+            .expect(200)
             .end(done);
     });
     
