@@ -30,7 +30,7 @@ router.post('/login',
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
         //return res.status(400).send({errors : errors.array()});
-        res.render('login', {errors:errors.array()});
+        res.render('login', {Errors:errors.array()});
         return;
     }
 
@@ -106,8 +106,8 @@ router.post('/register',
     //validate registration
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
-        //return res.status(400).send({ errors: errors.array()});
-        res.render('register', {errors:errors.array()});
+        return res.status(400).send({ errors: errors.array()});
+        //res.render('register', {Errors:errors.array()});
         return;
     }
 

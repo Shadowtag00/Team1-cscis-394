@@ -12,9 +12,10 @@ script.
 html
     title Comment Filter Application
     h2 #{message}
-    if errors !== undefined 
-        each error in errors 
-            p #{error.msg} #{error.param}
+    if Errors !== undefined 
+        each error in Errors 
+            p #{error.msg}:
+            p #{error.param}
     form(action='/login', method='post')
         p 
             | Username: 
