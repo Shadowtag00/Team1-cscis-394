@@ -16,6 +16,20 @@ function checkLogin(req,res,next){ //verifies there's a user signed in
     next();
 }
 
+function is_banned(text) {
+
+
+    const banned_words = ["fuck", "shit", "bitch", "ass"];
+    const words = text.split(" ");
+
+    for (let i = 0; i < words.length; i++) {
+        if (banned_words.includes(words[i])) {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 //CREATE (Add comment)
 router.post('/', checkLogin,(req,res) => {
