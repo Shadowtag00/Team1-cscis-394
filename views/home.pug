@@ -49,6 +49,13 @@ head
 				alert("Your comment contained profanity and was not posted");
 			}
 		}
+		html
+
+	script(src='https://code.jquery.com/jquery-3.5.1.slim.min.js', integrity='sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj', crossorigin='anonymous')
+	script(src='https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js', integrity='sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN', crossorigin='anonymous')
+	script(src='https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js', integrity='sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s', crossorigin='anonymous')
+	link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css', integrity='sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk', crossorigin='anonymous')
+
 
 body
 	.topnav
@@ -56,48 +63,55 @@ body
 		a(href='profile') My Posts
 		a(href='logout' style="float:right") Logout
 	br
-	p 
-		form(action='/search' method='get')
-			|User Search: 
-			input(type="text" name="searchcriteria")
-			input(type='submit' value='Search')
-	br
-	h2(style='clear:left') Enter a Comment
-	form(action='/home', method='post', name='user_comment', style='clear:left')
-		table
-			tbody 
-				tr 
-					td #{message}
-					td 
-						div.input
-							textarea(name="comment_box", cols="100", rows="4", placeholder='Enter a Comment...')
-					td 
-						div.actions
-							button(type='submit', onclick="profanityCheck()") Post Comment
-	h3 Comments 
-	
-	table(style='width:30%', height='90px')
-		thead
-			tr 
-				th User
-				th Comment
-				th Post Date
-				th Reply:
-		each comment in comments
-			tr
-				td(style='text-align:center') #{ comment.username }
-				td(style='text-align:center') #{ comment.text }
-				td(style='text-align:center') #{ moment(comment.post_date).format('MM-DD-YYYY hh:mm a') }
-				td
-					//button Reply
-					a(href='/reply') 
-						button Reply
+	div.container
+		p 
+			form(action='/search' method='get')
+				|User Search: 
+				input(type="text" name="searchcriteria")
+				input(type='submit' value='Search')
+		br
+		h2(style='clear:left') Enter a Comment
+		form(action='/home', method='post', name='user_comment', style='clear:left')
+			table
+				tbody 
+					tr 
+						td #{message}
+						td 
+							div.input
+								textarea.form-control(name="comment_box", placeholder='Enter a Comment...')
+						td 
+							div.actions
+								button.btn(type='submit', onclick="profanityCheck()") Post Comment
+		div.container
+			h3 Comments 
+			
+			table.table.table-striped.table-hover.table-bordered
+				thead
+					tr 
+						th User
+						th Comment
+						th Post Date
+						th Reply:
+				each comment in comments
+					tr
+						td(style='text-align:center') #{ comment.username }
+						td(style='text-align:center') #{ comment.text }
+						td(style='text-align:center') #{ moment(comment.post_date).format('MM-DD-YYYY hh:mm a') }
+						td
+							//button Reply
+							a(href='/reply') 
+								button.btn Reply
+			div.container
+				-var n = 1;
+				ul.pagination
+					while n < page_count+1
+						li.page-item
+							a.page-link(href="?page="+n)=n++
 
-	-var n = 1;
-	ul.pagination
-		while n < page_count+1
-			li
-				a(href="?page="+n)=n++
+
+
+
+
 
 			
 //- body
