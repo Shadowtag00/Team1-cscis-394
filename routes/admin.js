@@ -78,22 +78,23 @@ router.get('/:comment_id/delete', adminonly, (req, res) => {
     })
 })
 
-// When the user scrolls the page, execute staticHeader
-//window.onscroll = function() {staticHeader()};
+//RENDER EDIT COMMENTS
+router.get('/:comment_id/edit', adminonly, (req, res) => {
+    console.log(req.params.comment_id)
+    pool.query("SELECT * FROM comments WHERE comment_id = " + req.params.comment_id, (err, edit_results) => {
+        console.log(err, edit_results)
+        res.render('edit', {user_record: edit_results.rows[0]});
+    })
+})
 
-// Get the header
-//var header = document.getElementById("myHeader");
 
-// Get the offset position of the navbar
-//var sticky = header.offsetTop;
-
-// Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
-//function staticHeader() {
-//  if (window.pageYOffset > sticky) {
-//    header.classList.add("sticky");
-//  } else {
-//    header.classList.remove("sticky");
-//  }
-//}
-
+//EDIT COMMENT
+router.post('/submit_edit', adminonly, (req,res) =>{
+    let query = "UPDATE comments SET text = '" + req.body.comment_box + "' WHERE comment_id = " + req.body.comment_id;
+    console.log(query)
+    pool.query(query,(err,result) => {
+        console.log(err, result)
+        res.redirect('/admin')
+    })
+})
 module.exports = router;

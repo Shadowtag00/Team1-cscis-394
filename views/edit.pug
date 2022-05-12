@@ -1,0 +1,71 @@
+head 
+    title Comment Filter Application
+    style.
+        table, th, tr, td {
+            border:1px solid black;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 15px;
+        }
+        body {
+            margin: auto;
+            vertical-align: left;
+            background: #e6e6e6;
+            text-align: center;
+        }
+        button {
+            background-color: lightgray;
+            border-radius: 6px;
+        }
+        .topnav {
+            overflow: hidden;
+            background-color: #333;
+        }
+        .topnav a {
+            float: left;
+            color: white;
+            padding: 15px 15px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .topnav a.active {
+            background-color: #3c7ae6;
+            color: white;
+        }
+        ul, li {
+            display: inline;
+            padding: 5px 5px;
+        }
+    script.
+        var profanity = !{profanity};
+        function profanityCheck() {
+            console.log("in pug")
+            console.log(profanity)
+            if (profanity == "true"){
+                alert("Your comment contained profanity and was not posted");
+            }
+        }
+
+body
+    .topnav
+        a(class='active', href='home') Main Page
+        a(href='profile') My Posts
+        a(href='logout' style="float:right") Logout
+    br
+    form(action="/admin/submit_edit", method="post")
+        h2 Edit #{user_record.username}'s Comment:
+        table
+            tbody
+                tr
+                    td
+                        input(type="hidden" name = "comment_id" value=user_record.comment_id)
+                    td
+                        div.input
+                            textarea(name="comment_box", cols="100", rows="4") #{user_record.text}
+                    td
+                        div.actions
+                            button(type='submit', onclick="profanityCheck()") Update Comment
