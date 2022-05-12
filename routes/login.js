@@ -88,7 +88,7 @@ router.post('/register',
     body('lastname')
         .notEmpty()
         .isAlpha()
-        .withMessage('First name must only contain characters.')
+        .withMessage('Last name must only contain characters.')
         .isLength({min : 1})
         .withMessage('Last name must not be empty.'),
     body('username')
