@@ -108,6 +108,7 @@ function is_banned(text) {
 
     for (let i = 0; i < words.length; i++) {
         if (banned_words.includes(words[i])) {
+            //alert("Posts with profanity are not allowed! Your comment has been flagged for review.")
             return true;
         }
     }
