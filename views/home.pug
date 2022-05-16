@@ -83,7 +83,7 @@ html
 									textarea.form-control(name="comment_box", placeholder='Enter a Comment...')
 							td 
 								div.actions
-									button.btn(type='submit', onclick="profanityCheck()") Post Comment
+									button (type='submit', onclick="profanityCheck()") Post Comment
 			div.container
 				h3 Comments 
 				
@@ -102,7 +102,7 @@ html
 							td
 								//button Reply
 								a(href='/reply') 
-									button.btn Reply
+									button Reply
 				div.container
 					-var n = 1;
 					ul.pagination
