@@ -70,10 +70,11 @@ html
 			a(href='profile') My Posts
 			a(href='logout' style="float:right") Logout
 
-			form(action='/search' method='get')
-				|User Search: 
-				input(type="text" name="searchcriteria")
-				input(type='submit' value='Search')
+			div.container
+				form(action='/search' method='get')
+					|User Search: 
+					input(type="text" name="searchcriteria")
+					input(type='submit' value='Search')
 		br
 		//div.container
 		//	p 
