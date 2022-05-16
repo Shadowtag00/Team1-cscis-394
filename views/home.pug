@@ -19,7 +19,7 @@ html
 				//border-radius: 6px;
 				//color: white;
 				border: none;
-				text-align: center;
+				//text-align: center;
 				//vertical-align: middle;
 				display: flex;
 			}
@@ -88,7 +88,8 @@ html
 									textarea.form-control(name="comment_box", placeholder='Enter a Comment...')
 							td 
 								div.actions
-									button(type='submit', onclick="profanityCheck()") Post Comment
+									//button(type='submit', onclick="profanityCheck()") Post Comment
+									input(type='submit', onclick="profanityCheck()", value="Post Comment")
 			div.container
 				h3 Comments 
 				
