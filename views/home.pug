@@ -69,14 +69,19 @@ html
 			a(class='active', href='home') Main Page 
 			a(href='profile') My Posts
 			a(href='logout' style="float:right") Logout
+
+			form(action='/search' method='get')
+				|User Search: 
+				input(type="text" name="searchcriteria")
+				input(type='submit' value='Search')
 		br
-		div.container
-			p 
-				form(action='/search' method='get')
-					|User Search: 
-					input(type="text" name="searchcriteria")
-					input(type='submit' value='Search')
-			br
+		//div.container
+		//	p 
+		//		form(action='/search' method='get')
+		//			|User Search: 
+		//			input(type="text" name="searchcriteria")
+		//			input(type='submit' value='Search')
+		//	br
 			h2(style='clear:left') Enter a Comment
 			form(action='/home', method='post', name='user_comment', style='clear:left')
 				table
