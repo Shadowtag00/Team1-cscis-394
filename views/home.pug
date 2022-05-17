@@ -67,8 +67,8 @@ html
 		.topnav
 			a(class='active', href='home') Main Page 
 			a(href='profile') My Posts
-			form(action='/search' method='get' class="form-control") 
-					input(style="float:center" type="text" name="searchcriteria" placeholder="User Search...")
+			form(action='/search' method='get')
+					input(style="float:center" type="text" name="searchcriteria" placeholder="User Search..." class="form-control")
 					input(type='submit' value='Search')
 			a(href='logout' style="float:right") Logout
 		br
