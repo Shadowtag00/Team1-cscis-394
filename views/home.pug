@@ -75,7 +75,6 @@ html
 					input(type="text" name="searchcriteria" placeholder="User Search...")
 					input(type='submit' value='Search')
 			br
-			h2(style='clear:left') Enter a Comment
 			form(action='/home', method='post', name='user_comment', style='clear:left')
 				table
 					tbody 
@@ -88,9 +87,7 @@ html
 								div.actions
 									//button(type='submit', onclick="profanityCheck()") Post Comment
 									input(type='submit', onclick="profanityCheck()", value="Post Comment")
-			div.container
-				h3 Comments 
-				
+			div.container				
 				table.table.table-striped.table-hover.table-bordered
 					thead
 						tr 

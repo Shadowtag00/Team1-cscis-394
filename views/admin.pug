@@ -59,14 +59,12 @@ body
 		h2 Welcome Admin
 
 	form(name="comment-page", method="post", action="/admin")
-		div.input 
-			span.label Post a comment:
+		div.input
 			br
 			textarea(placeholder='Add a comment...',name="commentbox", cols="40", rows="5",maxlength="250")
 		div.actions
 			input(type="submit", value="Post Comment")
 	br
-	h3 Comments
 	table(style='width:50%') 
 		thead 
 			tr 
