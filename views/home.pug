@@ -67,12 +67,13 @@ html
 		.topnav
 			a(class='active', href='home') Main Page 
 			a(href='profile') My Posts
-			form(action='/search' method='get' class='col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3')
-					input(style="float:center" type="text" name="searchcriteria" placeholder="User Search..." class="form-control")
-					input(type='submit' value='Search')
 			a(href='logout' style="float:right") Logout
 		br
 		div.container
+			p 
+				form(action='/search' method='get')
+					input(type="text" name="searchcriteria" placeholder="User Search...")
+					input(type='submit' value='Search')
 			br
 			h2(style='clear:left') Enter a Comment
 			form(action='/home', method='post', name='user_comment', style='clear:left')
