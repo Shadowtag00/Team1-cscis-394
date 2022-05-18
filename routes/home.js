@@ -26,7 +26,7 @@ router.post('/', checkLogin,(req,res) => {
     if (is_banned(req.body.comment_box) ){
         pool.query(`INSERT INTO comments (text, username, is_flagged, post_date) VALUES ('${req.body.comment_box}','${req.session.username}', 'true', CURRENT_TIMESTAMP)`, (err, result) => {
             console.log(err, result);
-            req.session.profanity = "true";
+            req.session.profanity = {prof: "true"};
             req.session.save();
             res.redirect('/');
     })
@@ -34,7 +34,7 @@ router.post('/', checkLogin,(req,res) => {
     else{
         pool.query(`INSERT INTO comments (text, username, post_date) VALUES ('${req.body.comment_box}','${req.session.username}',CURRENT_TIMESTAMP)`, (err, result) => {
             console.log(err, result);
-            req.session.profanity = "false";
+            req.session.profanity = {prof: "false"};
             req.session.save();
             res.redirect('/');
         })
@@ -89,7 +89,7 @@ router.get('/', checkLogin, (req, res) =>{
                                     comments: comments_results.rows,
                                     message: req.session.username,
                                     page_count: page_count,
-                                    profanity: req.session.profanity
+                                    profanity: JSON.stringify(req.session.profanity)
                                 })
             console.log('Content-Type: ' + res.get('Content-Type'))
                             
