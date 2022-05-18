@@ -60,9 +60,11 @@ html
 					.then((resp) => resp.json()) // Transform the data into json
 					.then(function(response) {
 						if (response.prof) {
+							console.log(prof);
 							output = prof;
 						}
 						if (response.redirect_path) { //optional check to see if a redirect path exists
+							console.log(redirect_path);
 							location.href = redirect_path;
 						}
 					})
