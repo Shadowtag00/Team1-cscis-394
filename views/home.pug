@@ -55,7 +55,7 @@ html
 			function profanityCheck() {
 				output = #{profanity};
 				console.log(output);
-				if (output.localCompare("true") == 0){
+				if (output.localeCompare("true") == 0){
 					alert("Profanity detected! Comment will not be displayed.");
 				}
 			}
