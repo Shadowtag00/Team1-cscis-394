@@ -43,7 +43,6 @@ html
 			}
 			.topnav input[type=text] {
 				padding: 6px;
-				margin-top: 8px;
 				margin-right: 8px;
 				border: none;
 			}
@@ -79,9 +78,10 @@ html
 			a(class='active', href='home') Main Page 
 			a(href='profile') My Posts
 			a(href='logout' style="float:right") Logout
-			form(action='/search' method='get')
-				input(type="text" name="searchcriteria" placeholder="User Search...")
-				input(type='submit' value='Search')
+			p
+				form(action='/search' method='get')
+					input(type="text" name="searchcriteria" placeholder="User Search...")
+					input(type='submit' value='Search')
 		br
 		div.container
 			form(action='/home', method='post', name='user_comment', style='clear:left')
