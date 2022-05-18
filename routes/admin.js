@@ -20,12 +20,29 @@ router.post('/', adminonly,(req,res) => {
     
     //added this
     console.log(req.path)    
-
+    if (is_banned(req.body.comment_box) ){
+        pool.query(`INSERT INTO comments (text, username, is_flagged, post_date) VALUES ('${req.body.comment_box}','${req.session.username}', 'true', CURRENT_TIMESTAMP)`, (err, result) => {
+            console.log(err, result);
+            req.session.profanity = {prof: "true"};
+            req.session.save();
+            res.redirect('/admin');
+    })
+    }
+    else{
+        pool.query(`INSERT INTO comments (text, username, post_date) VALUES ('${req.body.comment_box}','${req.session.username}',CURRENT_TIMESTAMP)`, (err, result) => {
+            console.log(err, result);
+            req.session.profanity = {prof: "false"};
+            req.session.save();
+            res.redirect('/admin');
+        })
+    }
+    /*
     pool.query(`INSERT INTO comments (text, username, post_date) VALUES ('${req.body.commentbox}', '${req.session.username}', CURRENT_TIMESTAMP)`, (err, result) => {
         console.log(err, result)
 
         res.redirect('/admin')
     })
+    */
 })
 
 
@@ -40,11 +57,17 @@ router.get('/', adminonly, (req, res) =>{
         }       
 
         console.log(err, version_results.rows)
+
+        if (!req.session.profanity){
+            req.session.profanity = {prof: "false"};
+        }
         pool.query('SELECT * FROM comments ORDER BY comment_id DESC', (err, comments_results) => {
             console.log(err, comments_results)
 
             res.render('admin', {
-                                    comments: comments_results.rows
+                                    comments: comments_results.rows,
+                                    //page_count: page_count,
+                                    profanity: JSON.stringify(req.session.profanity)
                                 })
             console.log('Content-Type: ' + res.get('Content-Type'))
                             
@@ -97,4 +120,20 @@ router.post('/submit_edit', adminonly, (req,res) =>{
         res.redirect('/admin')
     })
 })
+
+//function will check if the comment includes banned words on not
+function is_banned(text) {
+
+
+    const banned_words = ["fuck", "shit", "bitch", "ass"];
+    const words = text.split(" ");
+
+    for (let i = 0; i < words.length; i++) {
+        if (banned_words.includes(words[i])) {
+            //alert("Posts with profanity are not allowed! Your comment has been flagged for review.")
+            return true;
+        }
+    }
+    return false;
+}
 module.exports = router;
