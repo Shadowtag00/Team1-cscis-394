@@ -11,18 +11,12 @@ describe('The home page', function(err){
             done();
         });
     });
-
-    it('Should redirect (refresh) homepage when user posts a comment', function(done){
+    /*
+    it('Should display all unflagged comments when loading the homepage', function(done){
         request(server)
-            .post('/home')
-            .send({
-                "comment_box": "test"
-            })
-            .expect(302)
-            .expect('Location', '/home')
-            .end(done);
+            .get('/home')
     });
-
+    */
     after(function(done){
         app.close(function(){
             done();

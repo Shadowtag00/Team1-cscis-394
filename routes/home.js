@@ -2,6 +2,7 @@ var express = require("express");
 const url = require("url");
 var router = express.Router();
 
+
 function adminonly(req,res,next){
     if (!req.session.is_admin) {
        return res.redirect('/'); 
@@ -24,24 +25,23 @@ router.post('/', checkLogin,(req,res) => {
 
     if (is_banned(req.body.comment_box) ){
         pool.query(`INSERT INTO comments (text, username, is_flagged, post_date) VALUES ('${req.body.comment_box}','${req.session.username}', 'true', CURRENT_TIMESTAMP)`, (err, result) => {
-        console.log(err, result)
-        res.redirect('/home') 
+            console.log(err, result);
+            req.session.profanity = {prof: "true"};
+            req.session.save();
+            res.redirect('/');
     })
     }
     else{
         pool.query(`INSERT INTO comments (text, username, post_date) VALUES ('${req.body.comment_box}','${req.session.username}',CURRENT_TIMESTAMP)`, (err, result) => {
-            console.log(err, result)
-            res.redirect('/home') 
+            console.log(err, result);
+            req.session.profanity = {prof: "false"};
+            req.session.save();
+            res.redirect('/');
         })
     }
     
     
 })
-
-//added
-// router.get('/update', function(req, res, next) {
-// 	res.redirect('/')
-// })
 
 //READ (Display comments)
 router.get('/', checkLogin, (req, res) =>{
@@ -76,17 +76,21 @@ router.get('/', checkLogin, (req, res) =>{
         })
         //console.log(pageCount)
         pool.query(`SELECT username, text, post_date FROM comments WHERE is_flagged='f' ORDER BY post_date DESC LIMIT 10 OFFSET ${offset}`, (err, comments_results) => {
-	//Already choose selected posts that weren't flagged
+	        //Already choose selected posts that weren't flagged
 		
             console.log(err, comments_results)
 
-	//Here create sortBy to sort by dates to show most recent posts first
+	        //Here create sortBy to sort by dates to show most recent posts first
             
-	//Renders posts here
+	        //Renders posts here
+            if (!req.session.profanity){
+                req.session.profanity = {prof: "false"};
+            }
             res.render('home', {
                                     comments: comments_results.rows,
                                     message: req.session.username,
-                                    page_count: page_count
+                                    page_count: page_count,
+                                    profanity: JSON.stringify(req.session.profanity)
                                 })
             console.log('Content-Type: ' + res.get('Content-Type'))
                             
@@ -97,11 +101,13 @@ router.get('/', checkLogin, (req, res) =>{
 //function will check if the comment includes banned words on not
 function is_banned(text) {
 
-    const banned_words = ["banned", "words", "go", "here"];
+
+    const banned_words = ["fuck", "shit", "bitch", "ass"];
     const words = text.split(" ");
 
     for (let i = 0; i < words.length; i++) {
         if (banned_words.includes(words[i])) {
+            //alert("Posts with profanity are not allowed! Your comment has been flagged for review.")
             return true;
         }
     }

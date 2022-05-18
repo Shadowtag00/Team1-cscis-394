@@ -20,12 +20,29 @@ router.post('/', adminonly,(req,res) => {
     
     //added this
     console.log(req.path)    
-
+    if (is_banned(req.body.comment_box) ){
+        pool.query(`INSERT INTO comments (text, username, is_flagged, post_date) VALUES ('${req.body.comment_box}','${req.session.username}', 'true', CURRENT_TIMESTAMP)`, (err, result) => {
+            console.log(err, result);
+            req.session.profanity = {prof: "true"};
+            req.session.save();
+            res.redirect('/admin');
+    })
+    }
+    else{
+        pool.query(`INSERT INTO comments (text, username, post_date) VALUES ('${req.body.comment_box}','${req.session.username}',CURRENT_TIMESTAMP)`, (err, result) => {
+            console.log(err, result);
+            req.session.profanity = {prof: "false"};
+            req.session.save();
+            res.redirect('/admin');
+        })
+    }
+    /*
     pool.query(`INSERT INTO comments (text, username, post_date) VALUES ('${req.body.commentbox}', '${req.session.username}', CURRENT_TIMESTAMP)`, (err, result) => {
         console.log(err, result)
 
         res.redirect('/admin')
     })
+    */
 })
 
 
@@ -40,11 +57,17 @@ router.get('/', adminonly, (req, res) =>{
         }       
 
         console.log(err, version_results.rows)
+
+        if (!req.session.profanity){
+            req.session.profanity = {prof: "false"};
+        }
         pool.query('SELECT * FROM comments ORDER BY comment_id DESC', (err, comments_results) => {
             console.log(err, comments_results)
 
             res.render('admin', {
-                                    comments: comments_results.rows
+                                    comments: comments_results.rows,
+                                    //page_count: page_count,
+                                    profanity: JSON.stringify(req.session.profanity)
                                 })
             console.log('Content-Type: ' + res.get('Content-Type'))
                             
@@ -78,22 +101,39 @@ router.get('/:comment_id/delete', adminonly, (req, res) => {
     })
 })
 
-// When the user scrolls the page, execute staticHeader
-//window.onscroll = function() {staticHeader()};
+//RENDER EDIT COMMENTS
+router.get('/:comment_id/edit', adminonly, (req, res) => {
+    console.log(req.params.comment_id)
+    pool.query("SELECT * FROM comments WHERE comment_id = " + req.params.comment_id, (err, edit_results) => {
+        console.log(err, edit_results)
+        res.render('edit', {user_record: edit_results.rows[0]});
+    })
+})
 
-// Get the header
-//var header = document.getElementById("myHeader");
 
-// Get the offset position of the navbar
-//var sticky = header.offsetTop;
+//EDIT COMMENT
+router.post('/submit_edit', adminonly, (req,res) =>{
+    let query = "UPDATE comments SET text = '" + req.body.comment_box + "' WHERE comment_id = " + req.body.comment_id;
+    console.log(query)
+    pool.query(query,(err,result) => {
+        console.log(err, result)
+        res.redirect('/admin')
+    })
+})
 
-// Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
-//function staticHeader() {
-//  if (window.pageYOffset > sticky) {
-//    header.classList.add("sticky");
-//  } else {
-//    header.classList.remove("sticky");
-//  }
-//}
+//function will check if the comment includes banned words on not
+function is_banned(text) {
 
+
+    const banned_words = ["fuck", "shit", "bitch", "ass"];
+    const words = text.split(" ");
+
+    for (let i = 0; i < words.length; i++) {
+        if (banned_words.includes(words[i])) {
+            //alert("Posts with profanity are not allowed! Your comment has been flagged for review.")
+            return true;
+        }
+    }
+    return false;
+}
 module.exports = router;

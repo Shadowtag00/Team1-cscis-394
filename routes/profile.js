@@ -15,7 +15,7 @@ function checkLogin(req,res,next){ //verifies there's a user signed in
 }
 
 //added - delete profile
-router.get('/:comment_id/delete', checkLogin, (req, res) => {
+router.get('/:username/delete', checkLogin, (req, res) => {
 	const u_name = req.session.username
 
 	console.log(u_name)
@@ -45,12 +45,12 @@ router.get('/', checkLogin, (req, res) =>{
         console.log(err, version_results.rows)
         
         //  and username='${req.session.username}'
-        pool.query(`SELECT username, text FROM comments WHERE is_flagged='f' and username='${req.session.username}'`, (err, comments_results) => {
+        pool.query(`SELECT username, text, comment_id FROM comments WHERE is_flagged='f' and username='${req.session.username}'`, (err, comments_results) => {
             console.log(err, comments_results)
             
             res.render('profile', {
                                     comments: comments_results.rows,
-                                    message: req.session.username
+                                    user: req.session.username
                                 })
             console.log('Content-Type: ' + res.get('Content-Type'))
                             

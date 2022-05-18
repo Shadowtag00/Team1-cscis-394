@@ -16,18 +16,20 @@ router.get('/', function(req,res,next){
 //Check Login Credentials
 router.post('/login', 
     body('username')
+        .notEmpty()
         .isAlphanumeric()
-        .isLength({min : 1, max:30})
-        .withMessage('Must enter a valid username.'), 
+        .isLength({min : 1, max:30}), 
     body('password')
-        .isAlphanumeric()
-        .isLength({min : 1, max:30})
-        .withMessage('Must enter a valid password.'),
+        .notEmpty()
+        .matches(/^[A-Za-z0-9 .,'!&]+$/)
+        .isLength({min : 1, max:30}),
     function(req, res, next) {
     //validate inputs
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
-        return res.status(400).send({errors : errors.array()});
+        //return res.status(400).send({errors : errors.array()});
+        res.render('login', {Errors:errors.array()});
+        return;
     }
 
     let query = "select username, password, user_id, is_admin FROM users WHERE username = '" + req.body.username + "'";
@@ -78,27 +80,36 @@ router.get('/register', function(req,res,next){
 //Save register information to db
 router.post('/register', 
     body('firstname')
+        .notEmpty()
         .isAlpha()
+        .withMessage('First name must only contain characters.')
         .isLength({min : 1})
-        .withMessage('Must enter a valid first name.'), 
+        .withMessage('First name must not be empty.'), 
     body('lastname')
+        .notEmpty()
         .isAlpha()
+        .withMessage('Last name must only contain characters.')
         .isLength({min : 1})
-        .withMessage('Must enter a valid last name.'),
+        .withMessage('Last name must not be empty.'),
     body('username')
+        .notEmpty()
         .isAlphanumeric()
+        .withMessage('Username can only contain letters and numbers.')
         .isLength({min:1, max:30})
-        .withMessage('Username must be valid and less than 30 characters.'),
+        .withMessage('Username must be less than 30 characters.'),
     body('password')
-        .isAlphanumeric()
+        .notEmpty()
+        .matches(/^[A-Za-z0-9 .,'!&]+$/)
         .isLength({min:1, max:30})
-        .withMessage('Password must be valid and less than 30 characters.'),
+        .withMessage('Password must be less than 30 characters.'),
     function(req,res,next){
 
     //validate registration
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
-        return res.status(400).send({ errors: errors.array()});
+        //return res.status(400).send({ errors: errors.array()});
+        res.render('register', {Errors:errors.array()});
+        return;
     }
 
     let insertQuery = "INSERT INTO users (username, first_name, last_name, password) VALUES ($1, $2, $3, $4)";

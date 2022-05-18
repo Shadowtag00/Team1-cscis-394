@@ -8,7 +8,7 @@ head
         }
         body {
             margin: auto;
-            vertical-align: left;
+            vertical-align: center;
             background: #e6e6e6;
             text-align: center;
         }
@@ -36,30 +36,37 @@ head
             background-color: #3c7ae6;
             color: white;
         }
+    
+    script(src='https://code.jquery.com/jquery-3.5.1.slim.min.js', integrity='sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj', crossorigin='anonymous')
+    script(src='https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js', integrity='sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN', crossorigin='anonymous')
+    script(src='https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js', integrity='sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s', crossorigin='anonymous')
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css', integrity='sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk', crossorigin='anonymous')
+
 body
     .topnav
         a(class='active', href='home') Main Page
         a(href='profile') My Posts
         a(href='update') Update Profile
-        a(href='/profile/delete' onClick="return confirm('Are you sure you want to delete this profile?';") Delete Profile
+        a(href=`/profile/${user}/delete` onClick="return confirm('Are you sure you want to delete this profile?';") Delete Profile
         a(href='logout' style="float:right") Logout
         a(href='admin' style="float:right") Admin
     br
-    h1(style='clear:left') #{message}
-    br
-    h2 Comments 
-    table(style='width:30%', height='90px')
-        thead
-            tr 
-                th Username
-                th Comment
-                th Delete
-        tbody
-            each comment in comments
-                tr
-                    td(style='text-align:center') #{ comment.username }
-                    td(style='text-align:center') #{ comment.text }
-                    td 
-                        a(href='/profile/${comment.comment_id}/deleteComment' onClick="return confirm('Are you sure you want to delete this comment?');")
-                            button Delete
-                        
+    div.container
+        h1(style='clear:left') User: #{user}
+        br
+        div.container
+            table(style='width:30%', height='90px')
+                thead
+                    tr 
+                        th Username
+                        th Comment
+                        th Delete
+                tbody
+                    each comment in comments
+                        tr
+                            td(style='text-align:center') #{ comment.username }
+                            td(style='text-align:center') #{ comment.text }
+                            td 
+                                a(href=`/profile/${comment.comment_id}/deleteComment` onClick="return confirm('Are you sure you want to delete this comment?');")
+                                    button Delete
+                                
