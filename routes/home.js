@@ -87,7 +87,7 @@ router.get('/', checkLogin, (req, res) =>{
                                     comments: comments_results.rows,
                                     message: req.session.username,
                                     page_count: page_count,
-                                    profanity: req.session.profanity
+                                    profanity: JSON.stringify(req.session.profanity)
                                 })
             console.log('Content-Type: ' + res.get('Content-Type'))
                             
