@@ -57,15 +57,15 @@ html
 				//fetch("https://team1-cscis-394.herokuapp.com/home", {method: 'POST'})
 				//.then(data => {return data.json()}).then(data => {output = data})
 				fetch("http://yousite.com/endPoint")
-  					.then((resp) => resp.json()) // Transform the data into json
-  					.then(function(response) {
+					.then((resp) => resp.json()) // Transform the data into json
+					.then(function(response) {
 						if (response.prof) {
 							output = prof;
 						}
-    					if (response.redirect_path) { //optional check to see if a redirect path exists
-      						location.href = redirect_path;
-    					}
-  					})
+						if (response.redirect_path) { //optional check to see if a redirect path exists
+							location.href = redirect_path;
+						}
+					})
 				if (output == "true"){
 					alert("Profanity detected! Comment will not be displayed.");
 				}
