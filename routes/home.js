@@ -83,6 +83,9 @@ router.get('/', checkLogin, (req, res) =>{
 	        //Renders posts here
             //let profanity = req.session.profanity; JSON.stringify(profanity)
             console.log(req.session.profanity);
+            if (!req.session.profanity){
+                req.session.profanity = {prof: "false"};
+            }
             res.render('home', {
                                     comments: comments_results.rows,
                                     message: req.session.username,
