@@ -28,14 +28,14 @@ router.post('/', checkLogin,(req,res) => {
         console.log(err, result);
         //req.session.profanity = {prof: "true"};
         res.send({prof: "true"});
-        res.redirect('/home') ;
+        //res.redirect('/home') ;
     })
     }
     else{
         pool.query(`INSERT INTO comments (text, username, post_date) VALUES ('${req.body.comment_box}','${req.session.username}',CURRENT_TIMESTAMP)`, (err, result) => {
             console.log(err, result);
             //req.session.profanity = {prof: "false"};
-            res.send({prof: "false"});
+            //res.send({prof: "false"});
             res.redirect('/home');
         })
     }
