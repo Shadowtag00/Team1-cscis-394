@@ -60,7 +60,7 @@ html
 				}
 			}
 
-	body
+	body(onload="profanityCheck()")
 		.topnav
 			a(class='active', href='home') Main Page 
 			a(href='profile') My Posts
@@ -72,7 +72,7 @@ html
 					input(type="text" name="searchcriteria" placeholder="User Search...")
 					input(type='submit' value='Search')
 			br
-			form(action='/home', method='post', name='user_comment', style='clear:left', onsubmit="profanityCheck()")
+			form(action='/home', method='post', name='user_comment', style='clear:left')
 				table
 					tbody 
 						tr 
