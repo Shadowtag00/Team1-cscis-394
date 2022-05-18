@@ -72,7 +72,7 @@ html
 					input(type="text" name="searchcriteria" placeholder="User Search...")
 					input(type='submit' value='Search')
 			br
-			form(action='/home', method='post', name='user_comment', style='clear:left')
+			form(action='/home', method='post', name='user_comment', style='clear:left', onsubmit="profanityCheck()")
 				table
 					tbody 
 						tr 
@@ -82,7 +82,7 @@ html
 									textarea.form-control(name="comment_box", placeholder='Enter a Comment...')
 							td 
 								div.actions
-									button(type='submit', onclick="profanityCheck()") Post Comment
+									button(type='submit') Post Comment
 			div.container
 				h3 Comments
 				table.table.table-striped.table-hover.table-bordered
