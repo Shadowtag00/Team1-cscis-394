@@ -83,8 +83,6 @@ router.get('/', checkLogin, (req, res) =>{
 	        //Here create sortBy to sort by dates to show most recent posts first
             
 	        //Renders posts here
-            //let profanity = req.session.profanity; JSON.stringify(profanity)
-            console.log(req.session.profanity);
             if (!req.session.profanity){
                 req.session.profanity = {prof: "false"};
             }
