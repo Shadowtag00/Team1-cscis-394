@@ -27,27 +27,19 @@ router.post('/', checkLogin,(req,res) => {
         pool.query(`INSERT INTO comments (text, username, is_flagged, post_date) VALUES ('${req.body.comment_box}','${req.session.username}', 'true', CURRENT_TIMESTAMP)`, (err, result) => {
         console.log(err, result);
         req.session.profanity = {prof: "true"};
-        //res.send({prof : "true", redirect_path: "/home"});
-        //res.redirect('/home') ;
         res.redirect('/');
     })
     }
     else{
         pool.query(`INSERT INTO comments (text, username, post_date) VALUES ('${req.body.comment_box}','${req.session.username}',CURRENT_TIMESTAMP)`, (err, result) => {
             console.log(err, result);
-            //req.session.profanity = {prof: "false"};
-            //res.send({prof: "false"});
-            res.redirect('/home');
+            req.session.profanity = {prof: "false"};
+            res.redirect('/');
         })
     }
     
     
 })
-
-//added
-// router.get('/update', function(req, res, next) {
-// 	res.redirect('/')
-// })
 
 //READ (Display comments)
 router.get('/', checkLogin, (req, res) =>{
