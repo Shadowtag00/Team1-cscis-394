@@ -51,6 +51,11 @@ html
 		script(src='https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js', integrity='sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s', crossorigin='anonymous')
 		link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css', integrity='sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk', crossorigin='anonymous')
 		script.
+			let output = !{profanity};
+			console.log(output);
+			if (output.prof == "true"){
+				alert("Profanity detected! Comment will not be displayed.");
+			}
 			function profanityCheck() {
 				let output = !{profanity};
 				console.log(output);
@@ -81,7 +86,7 @@ html
 									textarea.form-control(name="comment_box", placeholder='Enter a Comment...')
 							td 
 								div.actions
-									button(type='submit', onclick="profanityCheck()") Post Comment
+									button(type='submit') Post Comment
 			div.container
 				h3 Comments
 				table.table.table-striped.table-hover.table-bordered
