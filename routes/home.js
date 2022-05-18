@@ -26,9 +26,10 @@ router.post('/', checkLogin,(req,res) => {
     if (is_banned(req.body.comment_box) ){
         pool.query(`INSERT INTO comments (text, username, is_flagged, post_date) VALUES ('${req.body.comment_box}','${req.session.username}', 'true', CURRENT_TIMESTAMP)`, (err, result) => {
         console.log(err, result);
-        //req.session.profanity = {prof: "true"};
-        res.send({prof : "true", redirect_path: "/home"});
+        req.session.profanity = {prof: "true"};
+        //res.send({prof : "true", redirect_path: "/home"});
         //res.redirect('/home') ;
+        res.redirect('/');
     })
     }
     else{
@@ -88,11 +89,12 @@ router.get('/', checkLogin, (req, res) =>{
 	        //Here create sortBy to sort by dates to show most recent posts first
             
 	        //Renders posts here
-            //var profanity = req.session.profanity; profanity: JSON.stringify(profanity)
+            var profanity = req.session.profanity; 
             res.render('home', {
                                     comments: comments_results.rows,
                                     message: req.session.username,
                                     page_count: page_count,
+                                    profanity: JSON.stringify(profanity)
                                 })
             console.log('Content-Type: ' + res.get('Content-Type'))
                             
