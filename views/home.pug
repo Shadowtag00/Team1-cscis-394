@@ -64,13 +64,12 @@ html
 			a(class='active', href='home') Main Page 
 			a(href='profile') My Posts
 			a(href='logout' style="float:right") Logout
-		br
-		div.container
 			p 
 				form(action='/search' method='get')
 					input(type="text" name="searchcriteria" placeholder="User Search...")
 					input(type='submit' value='Search')
-			br
+		br
+		div.container
 			form(action='/home', method='post', name='user_comment', style='clear:left')
 				table
 					tbody 
