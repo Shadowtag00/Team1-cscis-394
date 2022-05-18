@@ -55,43 +55,44 @@ body
 	br
 	br
 	br
-	#myHeader.header
-		h2 Welcome Admin
-
-	form(name="comment-page", method="post", action="/admin")
-		div.input
+	div.container
+		#myHeader.header
+			h2 Welcome Admin
+		div.container
+			form(name="comment-page", method="post", action="/admin")
+				div.input
+					br
+					textarea(placeholder='Add a comment...',name="comment_box", cols="40", rows="5",maxlength="250")
+				div.actions
+					input.btn.btn-primary(type="submit", value="Post Comment")
 			br
-			textarea(placeholder='Add a comment...',name="comment_box", cols="40", rows="5",maxlength="250")
-		div.actions
-			input(type="submit", value="Post Comment")
-	br
-	table(style='width:50%') 
-		thead 
-			tr 
-				th Comment Id
-				th Username
-				th Comment	
-				th Post Date
-				th Flagged?
-				th Flag/Unflag
-				th Edit Comment
-				th Delete
-		tbody 
-			each comment in comments 
-				tr 
-					td #{ comment.comment_id }
-					td #{ comment.username }
-					td #{ comment.text }
-					td #{moment(comment.post_date).format('MM-DD-YYYY hh:mm a')} 
-					td #{ comment.is_flagged }
-					td
-						a(href=`/admin/${comment.comment_id}/form`)
-							button Flag/Unflag
-					td
-						a(href=`/admin/${comment.comment_id}/edit`)
-							button Edit Comment
-					td
-						
-						a(href=`/admin/${comment.comment_id}/delete` onClick="return confirm('Are you sure you want to delete this comment?');")
-							button Delete
+			table.table.table-striped.table-hover.table-bordered(style='width:50%') 
+				thead 
+					tr 
+						th Comment Id
+						th Username
+						th Comment	
+						th Post Date
+						th Flagged?
+						th Flag/Unflag
+						th Edit Comment
+						th Delete
+				tbody 
+					each comment in comments 
+						tr 
+							td #{ comment.comment_id }
+							td #{ comment.username }
+							td #{ comment.text }
+							td #{moment(comment.post_date).format('MM-DD-YYYY hh:mm a')} 
+							td #{ comment.is_flagged }
+							td
+								a(href=`/admin/${comment.comment_id}/form`)
+									button.btn.btn-secondary Flag/Unflag
+							td
+								a(href=`/admin/${comment.comment_id}/edit`)
+									button.btn.btn-warning Edit Comment
+							td
+								
+								a(href=`/admin/${comment.comment_id}/delete` onClick="return confirm('Are you sure you want to delete this comment?');")
+									button.btn.btn-danger Delete
 
