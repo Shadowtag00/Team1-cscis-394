@@ -1,26 +1,54 @@
 const server = require('../server');
 const request = require('supertest');
 const expect = require('chai').expect;
+//var sinon = require("sinon");
+var app = require('../server');
+const { assert } = require('chai');
 
+const userCredentials = {
+    "username" : "homeTest",
+    "password" : "homeTest"
+}
+
+var authenticatedUser = request.agent(app);
+var alert;
+before(function(done){
+    //alert = sinon.spy();
+    authenticatedUser
+        .post('/login')
+        .send(userCredentials)
+        .end(function(err,res){
+            expect(res.statusCode).to.equal(302);
+            expect('Location', '/home');
+            done();
+        });
+});
 describe('The home page', function(err){
-    var app;
+  
+    it('Should render the homepage on login', function(done){
+        authenticatedUser.get('/home')
+            .expect(200)
+            .end(done)
+    });
 
-    before(function(done){
-        app = server.listen(3000, function(err){
-            if(err) {return done(err);}
-            done();
-        });
+    it('Should refresh the homepage when a valid comment is posted.', function(done){
+        authenticatedUser.post('/home')
+            .send({
+                "comment_box" : "This is a test."
+            })
+            .expect(302)
+            .expect('Location', '/')
+            .end(done)
     });
-    /*
-    it('Should display all unflagged comments when loading the homepage', function(done){
-        request(server)
-            .get('/home')
-    });
-    */
-    after(function(done){
-        app.close(function(){
-            done();
-        });
+
+    it('Should refresh the homepage when a profane comment is posted.', function(done){
+        authenticatedUser.post('/home')
+            .send({
+                "comment_box" : "Fuck test."
+            })
+            .expect(302)
+            .expect('Location', '/')
+            .end(done)
     });
 
 });
