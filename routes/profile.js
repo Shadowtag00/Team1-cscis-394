@@ -2,12 +2,14 @@ var express = require("express");
 var router = express.Router();
 
 function useronly(req,res,next){
+    /* istanbul ignore if */
     if (!req.session.username)
     {return res.redirect('/');}
     next();
     }
 
 function checkLogin(req,res,next){ //verifies there's a user signed in
+    /* istanbul ignore if */
     if(!req.session.user_id){
        return res.redirect('/'); 
     }
