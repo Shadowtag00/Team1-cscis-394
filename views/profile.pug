@@ -44,7 +44,7 @@ head
 
 body
     .topnav
-        a(class='active', href='home') Main Page
+        a.btn-primary(class='active', href='home') Main Page
         a(href='profile') My Posts
         a(href='update') Update Profile
         a(href=`/profile/${user}/delete` onClick="return confirm('Are you sure you want to delete this profile?';") Delete Profile
@@ -68,5 +68,5 @@ body
                             td(style='text-align:center') #{ comment.text }
                             td 
                                 a(href=`/profile/${comment.comment_id}/deleteComment` onClick="return confirm('Are you sure you want to delete this comment?');")
-                                    button.btn.btn-danger Delete
+                                    button.btn.btn-danger.btn-sm Delete
                                 

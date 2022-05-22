@@ -46,6 +46,35 @@ describe('The express server', function(err){
             .end(done);
     });
 
+    it('Should respond to logout with a redirect to the root page (login)', function(done){
+        request(server)
+            .post('/login')
+            .send({
+                "username": "test",
+                "password": "test"
+            })
+            .expect(302)
+            .end(function(){
+                request(server)
+                    .get('/logout')
+                    .expect(302)
+                    .expect('Location', '/')
+                    .end(done);
+            })
+    });
+
+
+    it('Should respond to invalid user login input with a re-render of the login page', function(done){
+        request(server)
+            .post('/login')
+            .send({
+                "username": "abc",
+                "password": "def"
+            })
+            .expect(200) //expect a re-render
+            .end(done);
+    });
+
 
     it('Should respond to valid admin login input with a redirect to the admin page', function(done){
         request(server)
