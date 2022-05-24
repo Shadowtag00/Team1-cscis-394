@@ -38,15 +38,15 @@ router.post('/', checkLogin,(req,res) => {
     console.log(req.path)    
 
     if (is_banned(req.body.reply_comment_box) ){
-        pool.query(`INSERT INTO reply (text, username, is_flagged) VALUES ('${req.body.reply_comment_box}','${req.session.username}', 'true')`, (err, result) => {
+        pool.query(`INSERT INTO reply (text, username, is_flagged, post_date, comment_id) VALUES ('${req.body.reply_comment_box}','${req.session.username}', 'true', CURRENT_TIMESTAMP, ${req.params.comment_id})`, (err, result) => {
         console.log(err, result)
-        res.redirect('/reply') 
+        res.redirect(`/${req.params.comment_id}reply`) 
     })
     }
     else{
-        pool.query(`INSERT INTO reply (text, username) VALUES ('${req.body.reply_comment_box}','${req.session.username}')`, (err, result) => {
+        pool.query(`INSERT INTO reply (text, username,post_date,comment_id) VALUES ('${req.body.reply_comment_box}','${req.session.username}', CURRENT_TIMESTAMP, ${req.params.comment_id})`, (err, result) => {
             console.log(err, result)
-            res.redirect('/reply') 
+            res.redirect(`/${req.params.comment_id}reply`) 
         })
     }
     
@@ -66,7 +66,7 @@ router.get('/', checkLogin, (req, res) =>{
 
         //console.log(err, version_results.rows)
 
-        pool.query(`SELECT username, text FROM reply WHERE is_flagged='f'`, (err, reply_results) => {
+        pool.query(`SELECT username, text, post_date FROM reply WHERE is_flagged='f' AND comment_id = ${req.params.comment_id}`, (err, reply_results) => {
 	        //Already choose selected posts that weren't flagged
 		
             console.log(err, reply_results)

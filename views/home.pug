@@ -122,7 +122,7 @@ html
 											td(style='text-align:center') #{ moment(comment.post_date).format('MM-DD-YYYY hh:mm a') }
 											td
 												//button Reply
-												a(href='/reply') 
+												a(href=`/home/${comment.comment_id}/reply`) 
 													button.btn.btn-secondary.btn-sm Reply
 								div.container
 									-var n = 1;

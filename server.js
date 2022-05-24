@@ -106,7 +106,7 @@ app.use('/home', homeRouter);
 app.use('/search', searchRouter);
 app.use('/profile', profileRouter);
 app.use('/update', updateRouter);
-app.use('/reply', replyRouter);
+app.use('/:comment_id/reply', replyRouter);
 
 module.exports = app;
 
