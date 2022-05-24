@@ -11,7 +11,7 @@ const userCredentials = {
 }
 
 var authenticatedUser = request.agent(app);
-var alert;
+//var alert;
 before(function(done){
     //alert = sinon.spy();
     authenticatedUser
@@ -44,7 +44,7 @@ describe('The home page', function(err){
     it('Should refresh the homepage when a profane comment is posted.', function(done){
         authenticatedUser.post('/home')
             .send({
-                "comment_box" : "Fuck test."
+                "comment_box" : "fuck test."
             })
             .expect(302)
             .expect('Location', '/')

@@ -8,10 +8,11 @@ html
 				margin-left: auto;
 				margin-right: auto;
 				margin-bottom: 15px;
+				text-align: center;
 			}
 			body {
 				margin: auto;
-				vertical-align: center;
+				vertical-align: left;
 				background: #e6e6e6;
 				text-align: center;
 			}
@@ -115,15 +116,16 @@ html
 											th Comment
 											th Post Date
 											th Reply
-									each comment in comments
-										tr
-											td(style='text-align:center') #{ comment.username }
-											td(style='text-align:center') #{ comment.text }
-											td(style='text-align:center') #{ moment(comment.post_date).format('MM-DD-YYYY hh:mm a') }
-											td
-												//button Reply
-												a(href='/reply') 
-													button.btn.btn-secondary.btn-sm Reply
+									tbody
+										each comment in comments
+											tr
+												td(style='text-align:center') #{ comment.username }
+												td(style='text-align:center') #{ comment.text }
+												td(style='text-align:center') #{ moment(comment.post_date).format('MM-DD-YYYY hh:mm a') }
+												td
+													//button Reply
+													a(href='/reply') 
+														button.btn.btn-secondary.btn-sm Reply
 								div.container
 									-var n = 1;
 									ul.pagination
