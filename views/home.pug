@@ -92,11 +92,11 @@ html
 				input(type="text" name="searchcriteria" placeholder="User Search...")
 				input.btn.btn-secondary.btn-sm(type='submit' value='Search')
 		br
-		div.container
+		div.container.col-md-6
 			div.row 
 				h3 #{message}
 			div.row
-				div.col-md-6
+				div.container
 					div.widget-area.no-padding.blank
 						div.status-upload
 							form(action='/home', method='post', name='user_comment', style='clear:left')
@@ -107,7 +107,7 @@ html
 									//div.actions
 									button.btn.btn-primary.btn-sm(type='submit') Post Comment
 										//i.fa.fa-share
-							div.container
+							div.container.mx-auto
 								h3 Comments
 								table.table.table-striped.table-hover.table-bordered
 									thead
