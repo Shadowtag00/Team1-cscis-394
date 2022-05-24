@@ -44,7 +44,7 @@ head
 
 body
     .topnav
-        a(class='active', href='home') Main Page
+        a.btn-primary(class='active', href='home') Main Page
         a(href='profile') My Posts
         a(href='update') Update Profile
         a(href=`/profile/${user}/delete` onClick="return confirm('Are you sure you want to delete this profile?';") Delete Profile
@@ -52,10 +52,10 @@ body
         a(href='admin' style="float:right") Admin
     br
     div.container
-        h1(style='clear:left') User: #{user}
+        h1(style='clear:left') USER: #{user}
         br
         div.container
-            table(style='width:30%', height='90px')
+            table.table.table-striped.table-hover.table-bordered(style='width:30%', height='90px')
                 thead
                     tr 
                         th Username
@@ -68,5 +68,5 @@ body
                             td(style='text-align:center') #{ comment.text }
                             td 
                                 a(href=`/profile/${comment.comment_id}/deleteComment` onClick="return confirm('Are you sure you want to delete this comment?');")
-                                    button Delete
+                                    button.btn.btn-danger.btn-sm Delete
                                 
