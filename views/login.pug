@@ -16,24 +16,32 @@ link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/
 
 
 html
-    title Comment Filter Application
-    h2 #{message}
-    if Errors !== undefined 
-        each error in Errors 
-            p(style="color:red") Note: #{error.msg}
-    form(action='/login', method='post')
-        p 
-            | Username: 
-            input(type='text' name='username' required='')
-        p 
-            | Password: 
-            input(type='password' name='password' id="passwordInput" required='')
-            input(type='checkbox' onclick='toggleVis()')
-            | Show Password
-        button.btn.btn-primary(type='submit') Login 
+    head
+        title Comment Filter Application
+        style.
+            body {
+                margin: auto;
+                vertical-align: center;
+                text-align: center;
+                background: #e6e6e6;
+            }
+            
+    body
+        h2 #{message}
+        if Errors !== undefined 
+            each error in Errors 
+                p(style="color:red") Note: #{error.msg}
+        form(action='/login', method='post')
+            p
+                input(type='text' name='username' required='' placeholder='Username')
+            p
+                input(type='password' name='password' id="passwordInput" required='' placeholder='Password')
+                br
+                input(type='checkbox' onclick='toggleVis()')
+                |  Show Password
+            button.btn.btn-primary(type='submit') Login 
 
-    br
-    h2 Not a user?
-    a(href='/register') Register Now! 
-
+        br
+        h2 Not a user?
+        a(href='/register') Register Now! 
 
