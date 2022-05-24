@@ -62,12 +62,12 @@ router.post('/login',
 
                     } else {
                         // password do not match
-                        res.render('login', {message: "Incorrect Password"});
+                        res.render('login', {message: "Incorrect Username or Password"});
                     }
                 });
             }
             // username does not match
-            else {res.render('login', {message: "Incorrect Username"});}
+            else {res.render('login', {message: "Incorrect Username or Password"});}
         }
    });
 });
