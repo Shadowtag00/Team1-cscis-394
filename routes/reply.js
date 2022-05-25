@@ -32,7 +32,7 @@ function is_banned(text) {
 
 
 //CREATE (Add comment)
-router.post('/', checkLogin,(req,res) => {
+router.post('/:comment_id/reply', checkLogin,(req,res) => {
 
     //added this
     console.log(req.path)    
@@ -54,7 +54,7 @@ router.post('/', checkLogin,(req,res) => {
 
 
 //READ (Display comments)
-router.get('/', checkLogin, (req, res) =>{
+router.get('/:comment_id/reply', checkLogin, (req, res) =>{
 
     console.log("begin")
     console.log('Accept: ' + req.get('Accept'))
