@@ -47,9 +47,9 @@ head
 	link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css', integrity='sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk', crossorigin='anonymous')
 body
 	.topnav
-		a(class='active', href='home') Main Page 
-		a(href='profile') My Posts
-		a(href='logout' style="float:right") Logout
+		a(class='active', href='/home') Main Page 
+		a(href='/profile') My Posts
+		a(href='/logout' style="float:right") Logout
 	br
 	h2(style='clear:left') Reply
 	form(action="/home/post_reply", method="post", name="reply_comment", style="clear:left")
