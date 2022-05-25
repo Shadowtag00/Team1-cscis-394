@@ -208,8 +208,8 @@ function is_banned(text) {
         }
         var spaced_word ='';
         for(let j = 0; j<banned_words[i].length; j++) {spaced_word=spaced_word+banned_words[i][j]+' '}
-        console.log(4+spaced_word);
-        if (text.toLowerCase().includes((spaced_word))){
+        console.log(4+'/'+spaced_word.slice(0,-1)+'/');
+        if (text.toLowerCase().includes((spaced_word.slice(0,-1)))){
             console.log(3);
             console.log("Why is this working?")
             return true;
@@ -241,10 +241,10 @@ function replace_banned(text) {
             word = banned_words[i];
             break;
         }
-        var spaced_word;
+        var spaced_word= '';
         for(let j = 0; j<banned_words[i].length; j++) {spaced_word=spaced_word+banned_words[i][j]+' '}
 
-        if (text.toLowerCase().includes((spaced_word))){
+        if (text.toLowerCase().includes((spaced_word.slice(0, -1)))){
             word = spaced_word.slice(0,-1);
             console.log("In loop: " + word);
         }
