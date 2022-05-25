@@ -64,42 +64,42 @@ body
 				div.widget-area.no-padding.blank
 					div.status-upload
 						form(action="/admin", method="post", name="comment-page", style='clear-left')
-						textarea.form-control(name="comment_box", placeholder='Add a comment...')
-						button.btn.btn-primary.btn-sm(type='submit') Post Comment						
+							textarea.form-control(name="comment_box", placeholder='Add a comment...')
+							button.btn.btn-primary.btn-sm(type='submit') Post Comment						
 
-			div.container.mx-auto
-				table.table.table-striped.table-hover.table-bordered 
-					thead 
-						tr 
-							th Comment Id
-							th Username
-							th Comment	
-							th Post Date
-							th Flagged?
-							th Flag/Unflag
-							th Edit Comment
-							th Delete
-					tbody 
-						each comment in comments 
-							tr 
-								td #{ comment.comment_id }
-								td #{ comment.username }
-								td #{ comment.text }
-								td #{moment(comment.post_date).format('MM-DD-YYYY hh:mm a')} 
-								td #{ comment.is_flagged }
-								td
-									a(href=`/admin/${comment.comment_id}/form`)
-										button.btn.btn-secondary Flag/Unflag
-								td
-									a(href=`/admin/${comment.comment_id}/edit`)
-										button.btn.btn-warning Edit Comment
-								td
-									a(href=`/admin/${comment.comment_id}/delete` onClick="return confirm('Are you sure you want to delete this comment?');")
-										button.btn.btn-danger Delete
-				div.container.col-md-6
-					-var n = 1;
-					ul.pagination
-						while n < page_count+1
-							li.page-item
-								a.page-link(href="?page="+n)=n++
+						div.container.mx-auto
+							table.table.table-striped.table-hover.table-bordered 
+								thead 
+									tr 
+										th Comment Id
+										th Username
+										th Comment	
+										th Post Date
+										th Flagged?
+										th Flag/Unflag
+										th Edit Comment
+										th Delete
+								tbody 
+									each comment in comments 
+										tr 
+											td #{ comment.comment_id }
+											td #{ comment.username }
+											td #{ comment.text }
+											td #{moment(comment.post_date).format('MM-DD-YYYY hh:mm a')} 
+											td #{ comment.is_flagged }
+											td
+												a(href=`/admin/${comment.comment_id}/form`)
+													button.btn.btn-secondary Flag/Unflag
+											td
+												a(href=`/admin/${comment.comment_id}/edit`)
+													button.btn.btn-warning Edit Comment
+											td
+												a(href=`/admin/${comment.comment_id}/delete` onClick="return confirm('Are you sure you want to delete this comment?');")
+													button.btn.btn-danger Delete
+							div.container.col-md-6
+								-var n = 1;
+								ul.pagination
+									while n < page_count+1
+										li.page-item
+											a.page-link(href="?page="+n)=n++
 
