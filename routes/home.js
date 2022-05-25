@@ -1,5 +1,6 @@
 var express = require("express");
 const url = require("url");
+const fs = require('fs');
 var router = express.Router();
 
 
@@ -100,11 +101,50 @@ router.get('/', checkLogin, (req, res) =>{
     })   
 })
 
+//var banned_words;
 //function will check if the comment includes banned words on not
 function is_banned(text) {
 
 
-    const banned_words = ["fuck", "shit", "bitch", "ass"];
+
+    //const banned_words = ["fuck", "shit", "bitch", "ass"];
+    /*
+    const banned_words = $.get('profanity.txt',{},function(content){
+        let lines=content.split('\n');
+  
+         console.log(`"Profanity.txt" contains ${lines.length} lines`)
+        console.log(`First line : ${lines[0]}`)
+  
+        });
+        */
+    
+    //console.log(fs.readdirSync('routes/profanity.txt'))
+    /*
+    fs.readFile('routes/profanity.txt', 'utf8', (err, data) => {
+            if (err) throw err;
+            
+            console.log(data.toString().split('\n'));
+            banned_words = data.toString().split('\n');
+            console.log(banned_words);
+
+            const words = text.split(" ");
+
+        for (let i = 0; i < words.length; i++) {
+            if (banned_words.includes(words[i])) {
+                //alert("Posts with profanity are not allowed! Your comment has been flagged for review.")
+                console.log("true")
+                return true;
+            }
+        }
+        console.log("false")
+        return false;
+            
+        })
+        */
+    var banned_words = fs.readFileSync("profanity.txt", "utf8");
+    banned_words = banned_words.split('\n');  
+    
+    console.log("output is:"+ banned_words); 
     const words = text.split(" ");
 
     for (let i = 0; i < words.length; i++) {
@@ -114,6 +154,8 @@ function is_banned(text) {
         }
     }
     return false;
+    
+   console.log("Didn't go off")
 }
 
 module.exports = router;
