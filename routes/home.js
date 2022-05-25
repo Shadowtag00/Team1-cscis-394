@@ -219,8 +219,21 @@ function is_banned(text) {
     const words = text.split(" ");
 
     for (let i = 0; i < words.length; i++) {
-        if (banned_words.includes(words[i])) {
-            //alert("Posts with profanity are not allowed! Your comment has been flagged for review.")
+        if ((banned_words.includes(words[i].toLowerCase()))) {
+            //alert("Posts with profanity are not allowed! Your comment has been flagged for review.");
+            return true;
+        }
+        console.log("fuckface".includes("fuck"));
+
+    }
+    for (let i = 0; i < banned_words.length; i++) {
+        if (text.toLowerCase().includes(banned_words[i])){
+            return true;
+        }
+        var spaced_word;
+        for(let j = 0; j<banned_words[i].length; j++) {spaced_word=spaced_word+banned_words[i][j]+' '}
+        
+        if (text.toLowerCase().includes((spaced_word))){
             return true;
         }
     }
