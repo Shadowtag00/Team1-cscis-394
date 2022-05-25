@@ -73,17 +73,25 @@ router.get('/', checkLogin, (req, res) =>{
         var page_count
         //console.log(offset)
         
-        pool.query(`SELECT comment_id, username, text, post_date FROM comments WHERE is_flagged='f'`, (err, pageCount)=>{
+        pool.query(`SELECT comment_id, username, text, post_date FROM comments`, (err, pageCount)=>{
             page_count = (pageCount.rowCount)/10
             console.log(page_count)
         })
         //console.log(pageCount)
-        pool.query(`SELECT comment_id, username, text, post_date FROM comments WHERE is_flagged='f' ORDER BY post_date DESC LIMIT 10 OFFSET ${offset}`, (err, comments_results) => {
+        pool.query(`SELECT comment_id, username, text, post_date FROM comments ORDER BY post_date DESC LIMIT 10 OFFSET ${offset}`, (err, comments_results) => {
 	        //Already choose selected posts that weren't flagged
 		
             console.log(err, comments_results)
 
 	        //Here create sortBy to sort by dates to show most recent posts first
+
+            //censor
+            
+            for (let i = 0; i < comments_results.rowCount; i++){
+                if(is_banned(comments_results.rows[i].text)){
+                    comments_results.rows[i].text = replace_banned(comments_results.rows[i].text);
+                }
+            }
             
 	        //Renders posts here
             if (!req.session.profanity){
@@ -154,7 +162,9 @@ router.get('/:comment_id/reply', checkLogin, (req, res) =>{
             console.log(err, reply_results)
 
 	        //Here create sortBy to sort by dates to show most recent posts first
-            
+            for (let i = 0; i < reply_results.rowCount; i++){
+                console.log(reply_results.rows[i].text);
+            }
     	    //Renders posts here
             //reply_results.rows
             res.render('reply', {
@@ -175,47 +185,10 @@ router.get('/:comment_id/reply', checkLogin, (req, res) =>{
 
 //function will check if the comment includes banned words on not
 function is_banned(text) {
-
-
-
     //const banned_words = ["fuck", "shit", "bitch", "ass"];
-    /*
-    const banned_words = $.get('profanity.txt',{},function(content){
-        let lines=content.split('\n');
-  
-         console.log(`"Profanity.txt" contains ${lines.length} lines`)
-        console.log(`First line : ${lines[0]}`)
-  
-        });
-        */
     
-    //console.log(fs.readdirSync('routes/profanity.txt'))
-    /*
-    fs.readFile('routes/profanity.txt', 'utf8', (err, data) => {
-            if (err) throw err;
-            
-            console.log(data.toString().split('\n'));
-            banned_words = data.toString().split('\n');
-            console.log(banned_words);
-
-            const words = text.split(" ");
-
-        for (let i = 0; i < words.length; i++) {
-            if (banned_words.includes(words[i])) {
-                //alert("Posts with profanity are not allowed! Your comment has been flagged for review.")
-                console.log("true")
-                return true;
-            }
-        }
-        console.log("false")
-        return false;
-            
-        })
-        */
     var banned_words = fs.readFileSync("profanity.txt", "utf8");
     banned_words = banned_words.split('\n');  
-    
-    console.log("output is:"+ banned_words); 
     const words = text.split(" ");
 
     for (let i = 0; i < words.length; i++) {
@@ -223,8 +196,6 @@ function is_banned(text) {
             //alert("Posts with profanity are not allowed! Your comment has been flagged for review.");
             return true;
         }
-        console.log("fuckface".includes("fuck"));
-
     }
     for (let i = 0; i < banned_words.length; i++) {
         if (text.toLowerCase().includes(banned_words[i])){
@@ -232,14 +203,47 @@ function is_banned(text) {
         }
         var spaced_word;
         for(let j = 0; j<banned_words[i].length; j++) {spaced_word=spaced_word+banned_words[i][j]+' '}
-        
-        if (text.toLowerCase().includes((spaced_word))){
+
+        if (text.toLowerCase().includes((spaced_word.slice(-1)))){
             return true;
         }
     }
+
     return false;
+}
+
+function replace_banned(text) {
+    //const banned_words = ["fuck", "shit", "bitch", "ass"];
     
-   console.log("Didn't go off")
+    var banned_words = fs.readFileSync("profanity.txt", "utf8");
+    banned_words = banned_words.split('\n');  
+    const words = text.split(" ");
+    var position;
+    var word;
+    /*
+    for (let i = 0; i < words.length; i++) {
+        if ((banned_words.includes(words[i].toLowerCase()))) {
+            //alert("Posts with profanity are not allowed! Your comment has been flagged for review.");
+            return true;
+        }
+    }
+    */
+
+    for (let i = 0; i < banned_words.length; i++) {
+        if (text.toLowerCase().includes(banned_words[i])){
+            word = banned_words[i];
+            break;
+        }
+        var spaced_word;
+        for(let j = 0; j<banned_words[i].length; j++) {spaced_word=spaced_word+banned_words[i][j]+' '}
+
+        if (text.toLowerCase().includes((spaced_word.slice(0,-1)))){
+            word = spaced_word.slice(0,-1);
+        }
+    }
+
+    position = text.indexOf(word)
+    return text.toLowerCase().replace(word, '*'.repeat(word.length));
 }
 
 module.exports = router;
