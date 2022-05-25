@@ -101,9 +101,7 @@ router.get('/', checkLogin, (req, res) =>{
     })   
 })
 
-<<<<<<< HEAD
-//var banned_words;
-=======
+
 
 
 //REPLIES FUNCTIONALITY
@@ -175,7 +173,6 @@ router.get('/:comment_id/reply', checkLogin, (req, res) =>{
 
 
 
->>>>>>> c31ad79bda6b93debb7e639e35b70c65b14157bd
 //function will check if the comment includes banned words on not
 function is_banned(text) {
 
