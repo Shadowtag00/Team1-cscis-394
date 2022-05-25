@@ -103,6 +103,7 @@ router.get('/', checkLogin, (req, res) =>{
 
 
 //REPLIES FUNCTIONALITY
+
 //CREATE (Add comment)
 router.post('/post_reply', checkLogin,(req,res) => {
 
@@ -127,17 +128,6 @@ router.post('/post_reply', checkLogin,(req,res) => {
 
 //DISPLAY REPLIES PAGE
 router.get('/:comment_id/reply', checkLogin, (req, res) =>{
-
-    console.log("begin")
-    console.log('Accept: ' + req.get('Accept'))
-    pool.query('SELECT VERSION()', (err, version_results) => {
-        //added this
-        if (err) {
-            return console.error('Error executing query', err.stack)
-        }       
-
-        //console.log(err, version_results.rows)
-
          //Pagination
          const urlParams = new URLSearchParams(req.url)
          console.log(urlParams)
@@ -177,15 +167,6 @@ router.get('/:comment_id/reply', checkLogin, (req, res) =>{
         })
     })
     console.log("end") 
-})
-
-
-
-
-
-
-
-
 
 
 
