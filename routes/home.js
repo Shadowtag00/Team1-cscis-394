@@ -146,7 +146,7 @@ router.get('/:comment_id/reply', checkLogin, (req, res) =>{
              console.log(page_count)
          })
 
-        pool.query(`SELECT username, text FROM reply WHERE is_flagged='f' AND comment_id = ${req.params.comment_id} LIMIT 10 OFFSET ${offset}`, (err, reply_results) => {
+        pool.query(`SELECT username, text, post_date FROM reply WHERE is_flagged='f' AND comment_id = ${req.params.comment_id} LIMIT 10 OFFSET ${offset}`, (err, reply_results) => {
 	        //Already choose selected posts that weren't flagged
 		
             console.log(err, reply_results)
