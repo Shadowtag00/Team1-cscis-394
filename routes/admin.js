@@ -60,15 +60,34 @@ router.get('/', adminonly, (req, res) =>{
 
         console.log(err, version_results.rows)
 
+        //Pagination
+        const urlParams = new URLSearchParams(req.url)
+        console.log(urlParams)
+        if (urlParams.has('/?page')==false){
+            var pagenumber = 1
+        }
+        else{
+            var pagenumber = urlParams.get('/?page')
+        }
+        //console.log(pagenumber)
+        var offset = (pagenumber - 1) * 10
+        var page_count
+        //console.log(offset)
+        pool.query(`SELECT username, text, post_date FROM comments WHERE is_flagged='f'`, (err, pageCount)=>{
+            page_count = (pageCount.rowCount)/10
+            console.log(page_count)
+        })
+
         if (!req.session.profanity){
             req.session.profanity = {prof: "false"};
         }
-        pool.query('SELECT * FROM comments ORDER BY comment_id DESC', (err, comments_results) => {
+        
+        pool.query(`SELECT * FROM comments ORDER BY comment_id DESC LIMIT 10 OFFSET ${offset}`, (err, comments_results) => {
             console.log(err, comments_results)
 
             res.render('admin', {
                                     comments: comments_results.rows,
-                                    //page_count: page_count,
+                                    page_count: page_count,
                                     profanity: JSON.stringify(req.session.profanity)
                                 })
             console.log('Content-Type: ' + res.get('Content-Type'))

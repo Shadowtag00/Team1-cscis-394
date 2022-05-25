@@ -45,14 +45,33 @@ router.get('/', checkLogin, (req, res) =>{
         }       
 
         console.log(err, version_results.rows)
+
+        //Pagination
+        const urlParams = new URLSearchParams(req.url)
+        console.log(urlParams)
+        if (urlParams.has('/?page')==false){
+            var pagenumber = 1
+        }
+        else{
+            var pagenumber = urlParams.get('/?page')
+        }
+        //console.log(pagenumber)
+        var offset = (pagenumber - 1) * 10
+        var page_count
+        //console.log(offset)
+        pool.query(`SELECT username, text, post_date FROM comments WHERE is_flagged='f'`, (err, pageCount)=>{
+            page_count = (pageCount.rowCount)/10
+            console.log(page_count)
+        })
         
         //  and username='${req.session.username}'
-        pool.query(`SELECT username, text, comment_id FROM comments WHERE is_flagged='f' and username='${req.session.username}'`, (err, comments_results) => {
+        pool.query(`SELECT username, text, comment_id FROM comments WHERE is_flagged='f' and username='${req.session.username}' LIMIT 10 OFFSET ${offset}`, (err, comments_results) => {
             console.log(err, comments_results)
             
             res.render('profile', {
                                     comments: comments_results.rows,
-                                    user: req.session.username
+                                    user: req.session.username,
+                                    page_count: page_count
                                 })
             console.log('Content-Type: ' + res.get('Content-Type'))
                             
