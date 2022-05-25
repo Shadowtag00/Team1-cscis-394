@@ -141,11 +141,11 @@ html
 			button.btn.btn-secondary.btn-sm(onclick="darkModeFunc()") Toggle Dark Mode
 			a(href='logout' style='margin-left: auto') Logout
 		br
-		div.container
+		div.container.col-md-6
 			div.row 
 				h3 #{message}
-			div.row
-				div.container.col-md-6
+			//div.row
+				div.container
 					div.widget-area.no-padding.blank
 						div.status-upload
 							form(action='/home', method='post', name='user_comment', style='clear:left')
