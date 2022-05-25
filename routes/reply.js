@@ -54,7 +54,7 @@ router.post('/:comment_id/reply', checkLogin,(req,res) => {
 
 
 //READ (Display comments)
-router.get('/:comment_id/reply', checkLogin, (req, res) =>{
+router.get('/', checkLogin, (req, res) =>{
 
     console.log("begin")
     console.log('Accept: ' + req.get('Accept'))
