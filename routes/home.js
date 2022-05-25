@@ -162,9 +162,9 @@ router.get('/:comment_id/reply', checkLogin, (req, res) =>{
             console.log(err, reply_results)
 
 	        //Here create sortBy to sort by dates to show most recent posts first
-            for (let i = 0; i < comments_results.rowCount; i++){
-                if(is_banned(comments_results.rows[i].text)){
-                    comments_results.rows[i].text = replace_banned(comments_results.rows[i].text);
+            for (let i = 0; i < reply_results.rowCount; i++){
+                if(is_banned(reply_results.rows[i].text)){
+                    reply_results.rows[i].text = replace_banned(reply_results.rows[i].text);
                 }
             }
     	    //Renders posts here
