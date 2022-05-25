@@ -29,6 +29,7 @@ html
 			.topnav {
 				overflow: hidden;
 				background-color: #333;
+				display: flex;
 			}
 			.topnav a {
 				float: left;
@@ -49,12 +50,19 @@ html
 			.topnav input[type=text] {
 				padding-top: 6px;
 				margin-right: 8px;
-				margin-top: 16px;
+				margin-top: 15px;
 				margin-left: 16px;
 				border: none;
 			}
 			.topnav input[type=submit] {
 				border: none;
+				margin-top: -9px;
+			}
+			.topnav button {
+				border: none;
+				margin-left: 57.14px;
+				margin-top: 18.5px;
+				height: 29px;
 			}
 			@media screen and (max-width: 600px) {
 				.topnav a, .topnav input[type=text] {
@@ -69,6 +77,31 @@ html
 				display: inline;
 				padding: 5px 5px;
 			}
+			.dark-mode {
+				background-color: #282727;
+				color: white;
+			}
+			.dark-mode .table {
+				color: white;
+			}
+			.dark-mode a.page-link {
+				background-color: #353434;
+				color: white;
+			}
+			.dark-mode textarea.form-control {
+				background-color: #353434;
+				color: white;
+			}
+			.dark-mode textarea.form-control::-webkit-input-placeholder {
+				color: white;
+			}
+			.dark-mode .topnav input[type=text] {
+				background-color: #3E3D3D;
+				color: white;
+			}
+			.dark-mode .topnav input[type=text]::-webkit-input-placeholder {
+				color: white;
+			}
 
 		script(src='https://code.jquery.com/jquery-3.5.1.slim.min.js', integrity='sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj', crossorigin='anonymous')
 		script(src='https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js', integrity='sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN', crossorigin='anonymous')
@@ -82,15 +115,31 @@ html
 					alert("Profanity detected! Comment will not be displayed.");
 				}
 			}
+			function darkModeFunc() {
+				if (document.cookie.split("=")[1] == "true"){
+					document.cookie = "isDark=false"
+				} else{
+					document.cookie = "isDark=true";
+				}
+				var element = document.body;
+				element.classList.toggle("dark-mode");
+			}
+			function colorCheck() {
+				if (document.cookie.split("=")[1] == "true") {
+					var element = document.body;
+					element.classList.toggle("dark-mode");
+				}
+			}
 
-	body(onload="profanityCheck()")
+	body(onload="profanityCheck(), colorCheck()")
 		.topnav
 			a.btn-primary(class='active', href='home') Main Page 
 			a(href='profile') My Posts
-			a(href='logout' style="float:right") Logout
 			form.form-control-sm(action='/search' method='get')
 				input(type="text" name="searchcriteria" placeholder="User Search...")
 				input.btn.btn-secondary.btn-sm(type='submit' value='Search')
+			button.btn.btn-secondary.btn-sm(onclick="darkModeFunc()") Toggle Dark Mode
+			a(href='logout' style='margin-left: auto') Logout
 		br
 		div.container.col-md-6
 			div.row 
