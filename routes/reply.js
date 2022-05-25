@@ -40,13 +40,13 @@ router.post('/', checkLogin,(req,res) => {
     if (is_banned(req.body.reply_comment_box) ){
         pool.query(`INSERT INTO reply (text, username, is_flagged, post_date, comment_id) VALUES ('${req.body.reply_comment_box}','${req.session.username}', 'true', CURRENT_TIMESTAMP, ${req.params.comment_id})`, (err, result) => {
         console.log(err, result)
-        res.redirect(`/${req.params.comment_id}reply`) 
+        res.redirect(`/${req.params.comment_id}/reply`) 
     })
     }
     else{
         pool.query(`INSERT INTO reply (text, username,post_date,comment_id) VALUES ('${req.body.reply_comment_box}','${req.session.username}', CURRENT_TIMESTAMP, ${req.params.comment_id})`, (err, result) => {
             console.log(err, result)
-            res.redirect(`/${req.params.comment_id}reply`) 
+            res.redirect(`/${req.params.comment_id}/reply`) 
         })
     }
     
@@ -79,12 +79,12 @@ router.get('/', checkLogin, (req, res) =>{
          var offset = (pagenumber - 1) * 10
          var page_count
          //console.log(offset)
-         pool.query(`SELECT username, text, post_date FROM comments WHERE is_flagged='f'`, (err, pageCount)=>{
+         pool.query(`SELECT username, text, post_date FROM comments WHERE is_flagged='f' AND comment_id = ${req.params.comment_id}`, (err, pageCount)=>{
              page_count = (pageCount.rowCount)/10
              console.log(page_count)
          })
 
-        pool.query(`SELECT username, text FROM reply WHERE is_flagged='f' LIMIT 10 OFFSET ${offset}`, (err, reply_results) => {
+        pool.query(`SELECT username, text FROM reply WHERE is_flagged='f' AND comment_id = ${req.params.comment_id} LIMIT 10 OFFSET ${offset}`, (err, reply_results) => {
 	        //Already choose selected posts that weren't flagged
 		
             console.log(err, reply_results)
