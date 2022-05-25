@@ -51,4 +51,9 @@ describe('The home page', function(err){
             .end(done)
     });
 
+    it('Should redirect to reply page after choosing to reply', function(done){
+        authenticatedUser.get('/home/39/reply')
+            .expect(200)
+            .end(done)
+    });
 });

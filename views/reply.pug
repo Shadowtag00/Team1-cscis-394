@@ -47,16 +47,17 @@ head
 	link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css', integrity='sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk', crossorigin='anonymous')
 body
 	.topnav
-		a(class='active', href='home') Main Page 
-		a(href='profile') My Posts
-		a(href='logout' style="float:right") Logout
+		a(class='active', href='/home') Main Page 
+		a(href='/profile') My Posts
+		a(href='/logout' style="float:right") Logout
 	br
-	h2(style='clear:left') Enter a Comment
-	form(action="/reply", method="post", name="reply_comment", style="clear:left")
+	h2(style='clear:left') Reply
+	form(action="/home/post_reply", method="post", name="reply_comment", style="clear:left")
 		table
 			tbody 
 				tr 
 					td #{message}
+					input(type="hidden" name = "comment_id" value=id)
 					td 
 						div.input
 							textarea(name="reply_comment_box", cols="100", rows="4", placeholder='Enter a Comment...')
@@ -69,10 +70,12 @@ body
 			tr 
 				th User
 				th Reply
+				th Post Date
 		each r in reply
 			tr
 				td(style='text-align:center') #{ r.username }
 				td(style='text-align:center') #{ r.text }
+				td(style='text-align:center') #{ moment(r.post_date).format('MM-DD-YYYY hh:mm a') }
 	div.container
 		-var n = 1;
 		ul.pagination
