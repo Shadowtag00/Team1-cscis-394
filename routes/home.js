@@ -196,17 +196,22 @@ function is_banned(text) {
     for (let i = 0; i < words.length; i++) {
         if ((banned_words.includes(words[i].toLowerCase()))) {
             //alert("Posts with profanity are not allowed! Your comment has been flagged for review.");
+            console.log(1);
             return true;
         }
     }
     for (let i = 0; i < banned_words.length; i++) {
         if (text.toLowerCase().includes(banned_words[i])){
+            console.log(2 + banned_words[i]);
+            console.log("Wait is this working?");
             return true;
         }
-        var spaced_word;
+        var spaced_word ='';
         for(let j = 0; j<banned_words[i].length; j++) {spaced_word=spaced_word+banned_words[i][j]+' '}
-
-        if (text.toLowerCase().includes((spaced_word.slice(-1)))){
+        console.log(4+spaced_word);
+        if (text.toLowerCase().includes((spaced_word))){
+            console.log(3);
+            console.log("Why is this working?")
             return true;
         }
     }
@@ -239,12 +244,15 @@ function replace_banned(text) {
         var spaced_word;
         for(let j = 0; j<banned_words[i].length; j++) {spaced_word=spaced_word+banned_words[i][j]+' '}
 
-        if (text.toLowerCase().includes((spaced_word.slice(0,-1)))){
+        if (text.toLowerCase().includes((spaced_word))){
             word = spaced_word.slice(0,-1);
+            console.log("In loop: " + word);
         }
     }
 
     position = text.indexOf(word)
+    console.log("Out of loop: " + word);
+    console.log("After replace: "+text.toLowerCase().replace(word, '*'.repeat(word.length)));
     return text.toLowerCase().replace(word, '*'.repeat(word.length));
 }
 
