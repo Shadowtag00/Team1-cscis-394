@@ -48,52 +48,35 @@ body
 		a(href='logout') Logout
 	br
 	br
-	br
-	h1 Edit Your Profile
-	br
-	br
-	br
-	form(action='/update', method='post', name='firstNameUpdate')
-		table
-			tbody
-				tr
-					td #{firstname}
-					td
+	div.container.col-md-4
+		div.row
+			h1 Edit Your Profile
+		div.row
+			div.form-group
+				form(action='/update', method='post', name='firstNameUpdate')
+					#{firstname}
 						div.input
-							input(type='text' name='firstName' required )
-					td 
+							input.form-control(type='text' name='firstName' placeholder=`${firstname}` required)
 						div.actions
-							input(type='submit', value='Change First Name')
-	form(action='/update', method='post', name='lastNameUpdate')
-		table
-			tbody
-				tr
-					td #{lastname}
-					td
+							input.btn.btn-secondary.btn-sm(type='submit', value='Change First Name')
+			div.form-group
+				form(action='/update', method='post', name='lastNameUpdate')
+					#{lastname}
 						div.input
-							input(type='text' name='lastName' required)
-					td 
+							input.form-control(type='text' name='lastName' placeholder=`${lastname}` required)
 						div.actions
-							input(type='submit', value='Change Last Name')
-	form(action='/update', method='post', name='passwordUpdate')
-		table
-			tbody
-				tr
-					td Password
-					td
+							input.btn.btn-secondary.btn-sm(type='submit', value='Change Last Name')
+			div.form-group
+				form(action='/update', method='post', name='passwordUpdate')
+					h3 Password
 						div.input
-							input(type='text' name='password' required)
-					td 
+							input.form-control(type='text' name='password' required)
 						div.actions
-							button(onclick='passwordChange()', type='submit') Change Password 
-	form(action='/update', method='post', name='usernameUpdate')
-		table
-			tbody
-				tr
-					td #{username}
-					td
+							button.btn.btn-secondary.btn-sm(onclick='passwordChange()', type='submit') Change Password 
+			div.form-group
+				form(action='/update', method='post', name='usernameUpdate')
+					#{username}
 						div.input
-							input(type='text' name='username' required)
-					td 
+							input.form-control(type='text' name='username' required)
 						div.actions
-							input(type='submit', value='Change Username')
+							input.btn.btn-secondary.btn-sm(type='submit', value='Change Username')
