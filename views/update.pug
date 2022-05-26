@@ -50,7 +50,7 @@ body
 	br
 	div.container.col-md-4
 		div.row
-			h1 Edit Your Profile
+			h2 Edit Your Profile
 		div.row
 			div.form-group
 				form(action='/update', method='post', name='firstNameUpdate')
@@ -75,7 +75,7 @@ body
 							button.btn.btn-secondary.btn-sm(onclick='passwordChange()', type='submit') Change Password 
 			div.form-group
 				form(action='/update', method='post', name='usernameUpdate')
-					label(for='username') Update UserName
+					label(for='username') Update Username
 						div.input
 							input.form-control(type='text' name='username' placeholder=`${username}` required)
 						div.actions
