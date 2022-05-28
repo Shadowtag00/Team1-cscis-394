@@ -151,20 +151,20 @@ router.get('/:comment_id/reply', checkLogin, (req, res) =>{
          var offset = (pagenumber - 1) * 10
          var page_count
          //console.log(offset)
-         pool.query(`SELECT username, text, post_date FROM comments WHERE is_flagged='f' AND comment_id = ${req.params.comment_id}`, (err, pageCount)=>{
+         pool.query(`SELECT username, text, post_date FROM comments WHERE comment_id = ${req.params.comment_id}`, (err, pageCount)=>{
              page_count = (pageCount.rowCount)/10
              console.log(page_count)
          })
 
-        pool.query(`SELECT username, text, post_date FROM reply WHERE is_flagged='f' AND comment_id = ${req.params.comment_id} LIMIT 10 OFFSET ${offset}`, (err, reply_results) => {
+        pool.query(`SELECT username, text, post_date FROM reply WHERE comment_id = ${req.params.comment_id} LIMIT 10 OFFSET ${offset}`, (err, reply_results) => {
 	        //Already choose selected posts that weren't flagged
 		
             console.log(err, reply_results)
 
 	        //Here create sortBy to sort by dates to show most recent posts first
-            for (let i = 0; i < comments_results.rowCount; i++){
-                if(is_banned(comments_results.rows[i].text)){
-                    comments_results.rows[i].text = replace_banned(comments_results.rows[i].text);
+            for (let i = 0; i < reply_results.rowCount; i++){
+                if(is_banned(reply_results.rows[i].text)){
+                    reply_results.rows[i].text = replace_banned(reply_results.rows[i].text);
                 }
             }
     	    //Renders posts here
@@ -208,8 +208,8 @@ function is_banned(text) {
         }
         var spaced_word ='';
         for(let j = 0; j<banned_words[i].length; j++) {spaced_word=spaced_word+banned_words[i][j]+' '}
-        console.log(4+spaced_word);
-        if (text.toLowerCase().includes((spaced_word))){
+        console.log(4+'/'+spaced_word.slice(0,-1)+'/');
+        if (text.toLowerCase().includes((spaced_word.slice(0,-1)))){
             console.log(3);
             console.log("Why is this working?")
             return true;
@@ -241,10 +241,10 @@ function replace_banned(text) {
             word = banned_words[i];
             break;
         }
-        var spaced_word;
+        var spaced_word= '';
         for(let j = 0; j<banned_words[i].length; j++) {spaced_word=spaced_word+banned_words[i][j]+' '}
 
-        if (text.toLowerCase().includes((spaced_word))){
+        if (text.toLowerCase().includes((spaced_word.slice(0, -1)))){
             word = spaced_word.slice(0,-1);
             console.log("In loop: " + word);
         }
