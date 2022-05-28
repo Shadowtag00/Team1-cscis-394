@@ -40,6 +40,10 @@ head
 			background-color: #3c7ae6;
 			color: white;
 		}
+		ul, li {
+			display: inline;
+			padding: 5px 5px;
+		}
 
 	script(src='https://code.jquery.com/jquery-3.5.1.slim.min.js', integrity='sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj', crossorigin='anonymous')
 	script(src='https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js', integrity='sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN', crossorigin='anonymous')
@@ -51,7 +55,7 @@ body
 	.topnav
 		a.active.btn-primary(class='active', href='home') Main Page
 		a(href='profile') My Posts
-		a(href='logout' style="float:right") Logout
+		a(href='logout', style="float:right") Logout
 	br
 	br
 	div.container.col-md-4
