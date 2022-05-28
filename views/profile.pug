@@ -1,10 +1,12 @@
 head 
     style.
+        * {box-sizing: border-box;}
         table, th, tr, td {
-            border:1px solid black;
+            border: 1px solid black;
             margin-left: auto;
             margin-right: auto;
             margin-bottom: 15px;
+            text-align: center;
         }
         body {
             margin: auto;
@@ -12,21 +14,26 @@ head
             background: #e6e6e6;
             text-align: center;
         }
-        button {
+        .button {
             background-color: lightgray;
-            border-radius: 6px;
+            border: none;
+            border-radius: 8px;
             color: red;
+            text-align: center;
+            margin: 4px;
         }
         .topnav {
             overflow: hidden;
             background-color: #333;
+            display: flex;
         }
         .topnav a {
             float: left;
             color: white;
-            padding: 15px 15px;
+            padding: 18px 15px;
             text-decoration: none;
             font-size: 17px;
+            display: block;
         }
         .topnav a:hover {
             background-color: #ddd;
@@ -52,7 +59,7 @@ body
         a(href='admin' style="float:right") Admin
     br
     div.container
-        h1(style='clear:left') #{user}
+        h1 #{user}
         br
         div.container
             table.table.table-striped.table-hover.table-bordered(style='width:30%', height='90px')
