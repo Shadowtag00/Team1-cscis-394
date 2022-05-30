@@ -79,16 +79,27 @@ router.post('/', checkLogin, (req, res) =>
         }
         else if (req.body.username) // username 
         {
+            let first = result.rows[0].first_name;
+            let last = result.rows[0].last_name;
             pool.query(`UPDATE users SET username = '${req.body.username}' WHERE username = '${req.session.username}'`, (err, result) => {
-                if (err) { console.log(err); }
-            })
-            req.session.username = req.body.username;
-            req.session.save()
+                if (err) { //username is already taken
+                    res.render('update', {
+                        message: "That username is already taken!",
+                        firstname: first,
+                        lastname: last,
+                        username: req.session.username
+                    });
+                    console.log(err); 
+                }
+                else{
+                    req.session.username = req.body.username;
+                    req.session.save();
+                    console.log("End");
+                    res.redirect('/update');
+                }
+            })    
         }
     });
-
-    console.log("End")
-    res.redirect('/update')
 });
 
 module.exports = router;

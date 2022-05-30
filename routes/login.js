@@ -117,8 +117,10 @@ router.post('/register',
         bcrypt.hash(req.body.password, salt, (err, hash) => {
             if(err) { console.log(err)}
             pool.query(insertQuery,[req.body.username, req.body.firstname,req.body.lastname, hash],(err, result) => {
-                if (err) {
+                if (err) { //an error would indicate duplicate username
                     console.log(err);
+                    res.render('register', {message: "That username is already taken!"});
+
                 } else {
                     res.redirect('/');
                 }

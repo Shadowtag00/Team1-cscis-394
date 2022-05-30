@@ -17,6 +17,7 @@ h2 New User
 if Errors !== undefined 
     each error in Errors 
         p(style="color:red") Note: #{error.msg}
+h2(style="color:red") #{message}
 form(action='/register' method ='post')
     table.table
         tbody 
