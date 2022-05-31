@@ -40,6 +40,23 @@ head
             display: inline;
             padding: 5px 5px;
         }
+        .topnav button {
+            border: none;
+            margin-left: 57.14px;
+            margin-top: 18.5px;
+            height: 29px;
+        }
+        .dark-mode {
+            background-color: #282727;
+            color: white;
+        }
+        .dark-mode textarea.form-control {
+            background-color: #353434;
+            color: white;
+        }
+        .dark-mode textarea.form-control::-webkit-input-placeholder {
+            color: white;
+        }
 
     script.
         var profanity = !{profanity};
@@ -50,6 +67,21 @@ head
                 alert("Your comment contained profanity and was not posted");
             }
         }
+        function darkModeFunc() {
+            if (document.cookie.split("=")[1] == "true") {
+                document.cookie = "isDark=false"
+            } else {
+            document.cookie = "isDark=true";
+            }
+            var element = document.body;
+            element.classList.toggle("dark-mode");
+        }
+        function colorCheck() {
+            if (document.cookie.split("=")[1] == "true") {
+                var element = document.body;
+                element.classList.toggle("dark-mode");
+            }
+        }
 
     script(src='https://code.jquery.com/jquery-3.5.1.slim.min.js', integrity='sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj', crossorigin='anonymous')
     script(src='https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js', integrity='sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN', crossorigin='anonymous')
@@ -57,10 +89,11 @@ head
     link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css', integrity='sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk', crossorigin='anonymous')
 
 
-body
+body(onload="colorCheck()")
     .topnav
         a.btn-primary(class='active', href='/home') Main Page
         a(href='profile') My Posts
+        button.btn.btn-secondary.btn-sm(onclick="darkModeFunc()") Toggle Dark Mode
         a(href='logout', style="float:right") Logout
         a(href='/admin', style="float:right") Admin
     br
