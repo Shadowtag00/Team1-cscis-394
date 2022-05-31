@@ -151,12 +151,12 @@ router.get('/:comment_id/reply', checkLogin, (req, res) =>{
          var offset = (pagenumber - 1) * 10
          var page_count
          //console.log(offset)
-         pool.query(`SELECT username, text, post_date FROM comments WHERE is_flagged='f' AND comment_id = ${req.params.comment_id}`, (err, pageCount)=>{
+         pool.query(`SELECT username, text, post_date FROM comments WHERE comment_id = ${req.params.comment_id}`, (err, pageCount)=>{
              page_count = (pageCount.rowCount)/10
              console.log(page_count)
          })
 
-        pool.query(`SELECT username, text, post_date FROM reply WHERE is_flagged='f' AND comment_id = ${req.params.comment_id} LIMIT 10 OFFSET ${offset}`, (err, reply_results) => {
+        pool.query(`SELECT username, text, post_date FROM reply WHERE comment_id = ${req.params.comment_id} LIMIT 10 OFFSET ${offset}`, (err, reply_results) => {
 	        //Already choose selected posts that weren't flagged
 		
             console.log(err, reply_results)

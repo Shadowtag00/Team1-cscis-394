@@ -1,11 +1,13 @@
 head 
 	title Comment Filter Application
 	style.
+		* {box-sizing: border-box;}
 		table, th, tr, td {
 			border:1px solid black;
 			margin-left: auto;
 			margin-right: auto;
 			margin-bottom: 15px;
+			text-align: center;
 		}
 		body {
 			margin: auto;
@@ -13,20 +15,26 @@ head
 			background: #e6e6e6;
 			text-align: center;
 		}
-		button {
+		.button {
 			background-color: lightgray;
-			border-radius: 6px;
+			border: none;
+			border-radius: 8px;
+			color: black;
+			text-align: center;
+			margin: 4px;
 		}
 		.topnav {
 			overflow: hidden;
 			background-color: #333;
+			display: flex;
 		}
 		.topnav a {
 			float: left;
 			color: white;
-			padding: 15px 15px;
+			padding: 18px 15px;
 			text-decoration: none;
 			font-size: 17px;
+			display: block;
 		}
 		.topnav a:hover {
 			background-color: #ddd;
@@ -47,39 +55,43 @@ head
 	link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css', integrity='sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk', crossorigin='anonymous')
 body
 	.topnav
-		a(class='active', href='/home') Main Page 
+		a.btn-primary(class='active', href='/home') Main Page 
 		a(href='/profile') My Posts
 		a(href='/logout' style="float:right") Logout
 	br
-	h2(style='clear:left') Reply
-	form(action="/home/post_reply", method="post", name="reply_comment", style="clear:left")
-		table
-			tbody 
-				tr 
-					td #{message}
-					input(type="hidden" name = "comment_id" value=id)
-					td 
-						div.input
-							textarea(name="reply_comment_box", cols="100", rows="4", placeholder='Enter a Comment...')
-					td 
-						div.actions
-							input(type="submit", value="Post Reply")
+	div.container.col-md-6
+		div.row
+			h2 Reply
+		div.row
+			div.container
+				div.widget-area.no-padding.blank
+					div.status-upload
+						form(action="/home/post_reply", method="post", name="reply_comment", style="clear:left")
+							#{message}
 
-	table(style='width:30%', height='90px')
-		thead
-			tr 
-				th User
-				th Reply
-				th Post Date
-		each r in reply
-			tr
-				td(style='text-align:center') #{ r.username }
-				td(style='text-align:center') #{ r.text }
-				td(style='text-align:center') #{ moment(r.post_date).format('MM-DD-YYYY hh:mm a') }
-	div.container
-		-var n = 1;
-		ul.pagination
-			while n < page_count+1
-				li.page-item
-					a.page-link(href="?page="+n)=n++
+								input(type="hidden" name="comment_id" value=id)
+
+								textarea.form-control(name="reply_comment_box", placeholder='Enter a Comment...')
+
+								button.btn.btn-primary.btn-sm(type="submit") Post Reply
+						div.container.mx-auto
+							h3 Replies
+							table.table.table-striped.table-hover.table-boardered
+								thead
+									tr 
+										th User
+										th Reply
+										th Post Date
+								tbody
+									each r in reply
+										tr
+											td(style='text-align:center') #{ r.username }
+											td(style='text-align:center') #{ r.text }
+											td(style='text-align:center') #{ moment(r.post_date).format('MM-DD-YYYY hh:mm a') }
+							div.container
+								-var n = 1;
+								ul.pagination
+									while n < page_count+1
+										li.page-item
+											a.page-link(href="?page="+n)=n++
 		

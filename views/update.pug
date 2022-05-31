@@ -5,6 +5,7 @@ head
 			margin-left: auto;
 			margin-right: auto;
 			margin-bottom: 15px;
+			text-align: center;
 		}
 		body {
 			margin: auto;
@@ -43,57 +44,41 @@ head
 
 body
 	.topnav
-		a(href='home') Main Page
+		a.active.btn-primary(class='active', href='home') Main Page
 		a(href='profile') My Posts
-		a(href='logout') Logout
+		a(href='logout', style="float:right") Logout
 	br
 	br
-	br
-	h1 Edit Your Profile
-	br
-	br
-	br
-	form(action='/update', method='post', name='firstNameUpdate')
-		table
-			tbody
-				tr
-					td #{firstname}
-					td
+	h2(style="color:red") #{message}
+	div.container.col-md-4
+		div.row
+			h2 Edit Your Profile
+		div.row
+			div.form-group
+				form(action='/update', method='post', name='firstNameUpdate')
+					label(for='firstName') Update First Name
 						div.input
-							input(type='text' name='firstName' required )
-					td 
+							input.form-control(type='text' name='firstName' placeholder=`${firstname}` required)
 						div.actions
-							input(type='submit', value='Change First Name')
-	form(action='/update', method='post', name='lastNameUpdate')
-		table
-			tbody
-				tr
-					td #{lastname}
-					td
+							input.btn.btn-secondary.btn-sm(type='submit', value='Change First Name')
+			div.form-group
+				form(action='/update', method='post', name='lastNameUpdate')
+					label(for='lastName') Update Last Name
 						div.input
-							input(type='text' name='lastName' required)
-					td 
+							input.form-control(type='text' name='lastName' placeholder=`${lastname}` required)
 						div.actions
-							input(type='submit', value='Change Last Name')
-	form(action='/update', method='post', name='passwordUpdate')
-		table
-			tbody
-				tr
-					td Password
-					td
+							input.btn.btn-secondary.btn-sm(type='submit', value='Change Last Name')
+			div.form-group
+				form(action='/update', method='post', name='passwordUpdate')
+					label(for='password') Update Password
 						div.input
-							input(type='text' name='password' required)
-					td 
+							input.form-control(type='text' name='password' required)
 						div.actions
-							button(onclick='passwordChange()', type='submit') Change Password 
-	form(action='/update', method='post', name='usernameUpdate')
-		table
-			tbody
-				tr
-					td #{username}
-					td
+							button.btn.btn-secondary.btn-sm(onclick='passwordChange()', type='submit') Change Password 
+			div.form-group
+				form(action='/update', method='post', name='usernameUpdate')
+					label(for='username') Update Username
 						div.input
-							input(type='text' name='username' required)
-					td 
+							input.form-control(type='text' name='username' placeholder=`${username}` required)
 						div.actions
-							input(type='submit', value='Change Username')
+							input.btn.btn-secondary.btn-sm(type='submit', value='Change Username')

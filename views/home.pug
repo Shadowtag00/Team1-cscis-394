@@ -12,11 +12,10 @@ html
 			}
 			body {
 				margin: auto;
-				vertical-align: left;
+				vertical-align: center;
 				background: #e6e6e6;
 				text-align: center;
 			}
-			
 			.button {
 				background-color: lightgray;
 				border: none;
@@ -37,7 +36,7 @@ html
 				padding: 18px 15px;
 				text-decoration: none;
 				font-size: 17px;
-				display:block;
+				display: block;
 			}
 			.topnav a:hover {
 				background-color: #ddd;
@@ -139,11 +138,11 @@ html
 				input(type="text" name="searchcriteria" placeholder="User Search...")
 				input.btn.btn-secondary.btn-sm(type='submit' value='Search')
 			button.btn.btn-secondary.btn-sm(onclick="darkModeFunc()") Toggle Dark Mode
-			a(href='logout' style='margin-left: auto') Logout
+			a(href='logout', style="float:right") Logout
 		br
 		div.container.col-md-6
 			div.row 
-				h3 #{message}
+				h2 #{message}
 			div.row
 				div.container
 					div.widget-area.no-padding.blank

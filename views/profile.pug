@@ -1,10 +1,12 @@
 head 
     style.
+        * {box-sizing: border-box;}
         table, th, tr, td {
-            border:1px solid black;
+            border: 1px solid black;
             margin-left: auto;
             margin-right: auto;
             margin-bottom: 15px;
+            text-align: center;
         }
         body {
             margin: auto;
@@ -12,21 +14,26 @@ head
             background: #e6e6e6;
             text-align: center;
         }
-        button {
+        .button {
             background-color: lightgray;
-            border-radius: 6px;
+            border: none;
+            border-radius: 8px;
             color: red;
+            text-align: center;
+            margin: 4px;
         }
         .topnav {
             overflow: hidden;
             background-color: #333;
+            display: flex;
         }
         .topnav a {
             float: left;
             color: white;
-            padding: 15px 15px;
+            padding: 18px 15px;
             text-decoration: none;
             font-size: 17px;
+            display: block;
         }
         .topnav a:hover {
             background-color: #ddd;
@@ -35,6 +42,10 @@ head
         .topnav a.active {
             background-color: #3c7ae6;
             color: white;
+        }
+        ul, li {
+            display: inline;
+            padding: 5px 5px;
         }
     
     script(src='https://code.jquery.com/jquery-3.5.1.slim.min.js', integrity='sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj', crossorigin='anonymous')
@@ -48,11 +59,11 @@ body
         a(href='profile') My Posts
         a(href='update') Update Profile
         a(href=`/profile/${user}/delete` onClick="return confirm('Are you sure you want to delete this profile?');") Delete Profile
-        a(href='logout' style="float:right") Logout
-        a(href='admin' style="float:right") Admin
+        a(href='admin', style="float:right") Admin
+        a(href='logout', style="float:right") Logout
     br
     div.container
-        h1(style='clear:left') #{user}
+        h2 #{user}
         br
         div.container
             table.table.table-striped.table-hover.table-bordered(style='width:30%', height='90px')
