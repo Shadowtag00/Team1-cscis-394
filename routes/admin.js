@@ -49,7 +49,7 @@ router.post('/', adminonly, (req,res) => {
 
 
 //READ (Display comments)
-router.get('/', checkLogin, (req, res) =>{
+router.get('/', adminonly, (req, res) =>{
 
     console.log('Accept: ' + req.get('Accept'))
     pool.query('SELECT VERSION()', (err, version_results) => {
