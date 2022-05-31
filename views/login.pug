@@ -8,6 +8,21 @@ script.
             x.type = "password";
         }
     }
+    function darkModeFunc() {
+            if (document.cookie.split("=")[1] == "true") {
+                document.cookie = "isDark=false"
+            } else {
+            document.cookie = "isDark=true";
+            }
+            var element = document.body;
+            element.classList.toggle("dark-mode");
+        }
+    function colorCheck() {
+        if (document.cookie.split("=")[1] == "true") {
+            var element = document.body;
+            element.classList.toggle("dark-mode");
+        }
+    }
 
 script(src='https://code.jquery.com/jquery-3.5.1.slim.min.js', integrity='sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj', crossorigin='anonymous')
 script(src='https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js', integrity='sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN', crossorigin='anonymous')
@@ -24,9 +39,31 @@ html
                 vertical-align: center;
                 text-align: center;
                 padding-top: 200px;
+                background: #e6e6e6;
+            }
+            html, body {
+                height: 100%;
+            }
+            input {
+                padding-top: 6px;
+                margin-right: 8px;
+                margin-top: 15px;
+                margin-left: 16px;
+                border: none;
+            }
+            .dark-mode {
+                background-color: #282727;
+                color: white;
+            }
+            .dark-mode input {
+                background-color: #353434;
+                color: white;
+            }
+            .dark-mode input::-webkit-input-placeholder {
+                color: white;
             }
             
-    body
+    body(onload="colorCheck()")
         h2 #{message}
         if Errors !== undefined 
             each error in Errors 
@@ -39,9 +76,13 @@ html
                 br
                 input(type='checkbox' onclick='toggleVis()')
                 |  Show Password
-            button.btn.btn-primary(type='submit') Login 
+            button.btn.btn-primary(type='submit') Login
 
         br
         h3 Not a user?
-        a(href='/register') Register Now! 
+        a(href='/register') Register Now!
+        br
+        br
+        br
+        button.btn.btn-secondary.btn-sm(onclick="darkModeFunc()") Toggle Dark Mode
 
