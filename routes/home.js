@@ -102,7 +102,7 @@ router.get('/', checkLogin, (req, res) =>{
                                     message: req.session.username,
                                     page_count: page_count,
                                     profanity: JSON.stringify(req.session.profanity)
-                                })
+                                });
             console.log('Content-Type: ' + res.get('Content-Type'))
                             
         })
