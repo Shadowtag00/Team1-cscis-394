@@ -59,13 +59,13 @@ router.get('/', checkLogin, (req, res) =>{
         var offset = (pagenumber - 1) * 10
         var page_count
         //console.log(offset)
-        pool.query(`SELECT username, text, post_date FROM comments WHERE is_flagged='f'`, (err, pageCount)=>{
+        pool.query(`SELECT username, text, post_date FROM comments`, (err, pageCount)=>{
             page_count = (pageCount.rowCount)/10
             console.log(page_count)
         })
         
         //  and username='${req.session.username}'
-        pool.query(`SELECT username, text, comment_id FROM comments WHERE is_flagged='f' and username='${req.session.username}' LIMIT 10 OFFSET ${offset}`, (err, comments_results) => {
+        pool.query(`SELECT username, text, comment_id FROM comments WHERE username='${req.session.username}' LIMIT 10 OFFSET ${offset}`, (err, comments_results) => {
             console.log(err, comments_results)
             
             res.render('profile', {
