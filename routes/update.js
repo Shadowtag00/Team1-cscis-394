@@ -54,6 +54,7 @@ router.post('/', checkLogin, (req, res) =>
             {
                 if (err) { console.log(err); }
                 else { console.log("Done")}
+                res.redirect('/update');
             })
         }
         else if (req.body.lastName) // last name 
@@ -64,6 +65,7 @@ router.post('/', checkLogin, (req, res) =>
             pool.query(`UPDATE users SET last_name = '${req.body.lastName}' WHERE username = '${req.session.username}'`, (err, result) => 
             {
                 if (err) { console.log(err); }
+                res.redirect('/update');
             })
         }
         else if (req.body.password) // password 
@@ -73,6 +75,7 @@ router.post('/', checkLogin, (req, res) =>
                     if(err) { console.log(err)}
                     pool.query(`UPDATE users SET password = '${hash}' WHERE username = '${req.session.username}'`,(err, result) => {
                         if (err) { console.log(err); }
+                        res.redirect('/update');
                     });
                 });
             });
