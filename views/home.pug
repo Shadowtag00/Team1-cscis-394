@@ -31,7 +31,6 @@ html
 				display: flex;
 			}
 			.topnav a {
-				float: left;
 				color: white;
 				padding: 18px 15px;
 				text-decoration: none;
@@ -132,9 +131,9 @@ html
 
 	body(onload="profanityCheck(), colorCheck()")
 		.topnav
-			a.btn-primary(class='active', href='home') Main Page 
-			a(href='profile') My Posts
-			form.form-control-sm(action='/search' method='get')
+			a.btn-primary(class='active', href='home', style="float:left") Main Page 
+			a(href='profile', style="float:left") My Posts
+			form.form-control-sm(action='/search' method='get', style="float:left")
 				input(type="text" name="searchcriteria" placeholder="User Search...")
 				input.btn.btn-secondary.btn-sm(type='submit' value='Search')
 			button.btn.btn-secondary.btn-sm(onclick="darkModeFunc()") Toggle Dark Mode
