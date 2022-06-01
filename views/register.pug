@@ -51,30 +51,33 @@ script(src='https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.j
 link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css', integrity='sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk', crossorigin='anonymous')
 
 body(onload="colorCheck()")
-    h2 New User 
-    if Errors !== undefined 
-        each error in Errors 
-            p(style="color:red") Note: #{error.msg}
-    h2(style="color:red") #{message}
-    form(action='/register' method ='post')
-        table.table
-            tbody 
-                tr 
-                    td First Name: 
-                    td
-                        input(type='text' name='firstname' required='')
-                tr 
-                    td Last Name: 
-                    td 
-                        input(type='text' name='lastname' required='')
-                tr 
-                    td Username: 
-                    td 
-                        input(type='text' name='username' required='')
-                tr 
-                    td Password: 
-                    td 
-                        input(type='password' name='password' id = 'passwordInput2' required='')
-                        input(type='checkbox' onclick='toggleVis()')
-                        | Show Password
-        button.btn.btn-primary(type='submit') Register
+    br
+    div.container.col-md-4
+        h2 New User 
+        if Errors !== undefined 
+            each error in Errors 
+                p(style="color:red") Note: #{error.msg}
+        h2(style="color:red") #{message}
+        form(action='/register' method ='post')
+            table.table
+                tbody 
+                    tr 
+                        td First Name: 
+                        td
+                            input.form-control(type='text' name='firstname' required='')
+                    tr 
+                        td Last Name: 
+                        td 
+                            input.form-control(type='text' name='lastname' required='')
+                    tr 
+                        td Username: 
+                        td 
+                            input.form-control(type='text' name='username' required='')
+                    tr 
+                        td Password: 
+                        td 
+                            input.form-control(type='password' name='password' id = 'passwordInput2' required='')
+                            div.form-check
+                                input.form-check-input(type='checkbox' onclick='toggleVis()')
+                                | Show Password
+            button.btn.btn-primary(type='submit') Register
