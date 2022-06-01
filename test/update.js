@@ -27,7 +27,7 @@ describe('The profile update page', function(err){
     it('Should render the update form when choosing to update profile', function(done){
         authenticatedUser.get('/update')
             .expect(200)
-            .end(done)
+            done();
     });
 
     it('Should refresh the update page when first name credentials are updated', function(done){
@@ -49,7 +49,7 @@ describe('The profile update page', function(err){
             .expect('Location', '/update')
             .end(done)
     });
-
+    
     it('Should refresh the update page when username credentials are updated', function(done){
         authenticatedUser.post('/update')
             .send({
@@ -67,7 +67,7 @@ describe('The profile update page', function(err){
             })
             .expect(302)
             .expect('Location', '/update')
-            .end(done)
+            done();
     });
 
 });

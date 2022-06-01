@@ -1,27 +1,33 @@
 const server = require('../server');
 const request = require('supertest');
 const expect = require('chai').expect;
+var app = require('../server');
+const { assert } = require('chai');
 
+const userCredentials = {
+    "username" : "homeTest",
+    "password" : "homeTest"
+}
+
+var authenticatedUser = request.agent(app);
+//var alert;
+before(function(done){
+    //alert = sinon.spy();
+    authenticatedUser
+        .post('/login')
+        .send(userCredentials)
+        .end(function(err,res){
+            expect(res.statusCode).to.equal(302);
+            expect('Location', '/home');
+            done();
+        });
+});
 describe('A user searching for another user', function(err){
-    var app;
-
-    before(function(done){
-        app = server.listen(3000, function(err){
-            if(err) {return done(err);}
-            done();
-        });
-    });
-
-    /*
-
-    ADD TESTS HERE
-
-    */
-
-    after(function(done){
-        app.close(function(){
-            done();
-        });
+    
+    it('Should render search results when searching a user', function(done){
+        authenticatedUser.get('/search')
+            .expect(200)
+            .end(done)
     });
 
 });

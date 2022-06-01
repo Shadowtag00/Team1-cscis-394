@@ -54,6 +54,7 @@ router.post('/', checkLogin, (req, res) =>
             {
                 if (err) { console.log(err); }
                 else { console.log("Done")}
+                res.redirect('/update');
             })
         }
         else if (req.body.lastName) // last name 
@@ -64,6 +65,7 @@ router.post('/', checkLogin, (req, res) =>
             pool.query(`UPDATE users SET last_name = '${req.body.lastName}' WHERE username = '${req.session.username}'`, (err, result) => 
             {
                 if (err) { console.log(err); }
+                res.redirect('/update');
             })
         }
         else if (req.body.password) // password 
@@ -73,22 +75,34 @@ router.post('/', checkLogin, (req, res) =>
                     if(err) { console.log(err)}
                     pool.query(`UPDATE users SET password = '${hash}' WHERE username = '${req.session.username}'`,(err, result) => {
                         if (err) { console.log(err); }
+                        res.redirect('/update');
                     });
                 });
             });
         }
         else if (req.body.username) // username 
         {
+            let first = result.rows[0].first_name;
+            let last = result.rows[0].last_name;
             pool.query(`UPDATE users SET username = '${req.body.username}' WHERE username = '${req.session.username}'`, (err, result) => {
-                if (err) { console.log(err); }
-            })
-            req.session.username = req.body.username;
-            req.session.save()
+                if (err) { //username is already taken
+                    res.render('update', {
+                        message: "That username is already taken!",
+                        firstname: first,
+                        lastname: last,
+                        username: req.session.username
+                    });
+                    console.log(err); 
+                }
+                else{
+                    req.session.username = req.body.username;
+                    req.session.save();
+                    console.log("End");
+                    res.redirect('/update');
+                }
+            })    
         }
     });
-
-    console.log("End")
-    res.redirect('/update')
 });
 
 module.exports = router;
