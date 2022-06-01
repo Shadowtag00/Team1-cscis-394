@@ -54,7 +54,7 @@ describe('The admin page', function(err){
             .expect('Location', '/admin')
             .end(done)
     });
-
+    
     it('Should redirect to the admin page after submitting an edit', function(done){
         authenticatedUser.get('/admin/39/edit')
             .expect(200)
@@ -68,7 +68,7 @@ describe('The admin page', function(err){
                 .end(done)
             })
     });
-
+    
     it('Should refresh the page when flagging/unflagging a comment', function(done){
         authenticatedUser.get('/admin/51/form') //using comment id 51 for any non-destructive test
             .expect(302)
