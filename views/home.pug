@@ -132,7 +132,7 @@ html
 				}
 			}
 
-	body(onload="colorCheck(), profanityCheck()")
+	body(onload="colorCheck()")
 		.topnav
 			a.btn-primary(class='active', href='home') Main Page 
 			a(href='profile') My Posts
@@ -155,7 +155,7 @@ html
 									//div.input
 									textarea.form-control(name="comment_box", placeholder='Enter a Comment...')
 									//div.actions
-									button.btn.btn-primary.btn-sm(type='submit') Post Comment
+									button.btn.btn-primary.btn-sm(type='submit', onclick="profanityCheck()") Post Comment
 										//i.fa.fa-share
 							div.container.mx-auto
 								h3 Comments
